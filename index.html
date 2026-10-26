@@ -108,13 +108,11 @@
       <!-- Auth Header with Official Logos -->
       <div class="bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-900 p-6 text-white text-center relative">
         <div class="flex items-center justify-center gap-4 mb-3">
-          <div class="w-14 h-14 rounded-2xl bg-white p-1 shadow-md border-2 border-amber-400 overflow-hidden">
-            <div class="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0 bg-white shadow-xs border border-slate-200 p-0.5 flex items-center justify-center">
-          <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png'; this.onerror=function(){this.src=SCHOOL_LOGO_FALLBACK;};" alt="New Vision School Logo" class="w-full h-full object-contain">
-        </div>
+          <div class="w-14 h-14 rounded-2xl bg-white p-1.5 shadow-md border-2 border-amber-400 overflow-hidden flex items-center justify-center shrink-0">
+            <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png'; this.onerror=function(){this.src=SCHOOL_LOGO_FALLBACK;};" alt="New Vision School Logo" class="w-full h-full object-contain">
           </div>
-          <div class="w-12 h-12 rounded-2xl bg-white p-1 shadow-md border-2 border-amber-400 overflow-hidden">
-            <img src="moeys_logo.svg" onerror="this.onerror=null; this.src='assets/moeys_logo.svg'; this.onerror=function(){this.style.display='none';};" alt="MoEYS" class="w-full h-full object-contain">
+          <div class="w-14 h-14 rounded-2xl bg-white p-1.5 shadow-md border-2 border-amber-400 overflow-hidden flex items-center justify-center shrink-0">
+            <img src="moeys_logo.svg" onerror="this.onerror=null; this.src='assets/moeys_logo.svg';" alt="MoEYS" class="w-full h-full object-contain">
           </div>
         </div>
         <h2 class="text-xl font-black text-amber-300">សាលារៀន ញូវវីសិន</h2>
@@ -2922,10 +2920,12 @@
   </div>
 
   <!-- ================= FOOTER ================= -->
-  <footer class="bg-white border-t border-slate-200 mt-auto py-5 text-center text-xs text-slate-500 no-print">
+  <footer class="bg-white border-t border-slate-200 mt-auto py-3.5 text-center text-xs text-slate-500 no-print">
     <div class="max-w-[1550px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2">
-        <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png'; this.onerror=function(){this.src=SCHOOL_LOGO_FALLBACK;};" alt="New Vision School Logo" class="w-full h-full object-contain school-logo-img">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl overflow-hidden shrink-0 bg-white shadow-xs border border-slate-200 p-0.5 flex items-center justify-center">
+          <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png'; this.onerror=function(){this.src=SCHOOL_LOGO_FALLBACK;};" alt="New Vision School Logo" class="w-full h-full object-contain">
+        </div>
         <p>&copy; 2026 សាលារៀន ញូវវីសិន (New Vision School) - រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
       </div>
       <div class="flex items-center gap-3">
@@ -9580,6 +9580,7 @@ function createJsonResponse(obj) { return ContentService.createTextOutput(JSON.s
 
     // Startup
     window.addEventListener('DOMContentLoaded', () => {
+      window.scrollTo(0, 0);
       initSupabaseClient();
       updateAuthUI();
       calculateAndRenderAll();
