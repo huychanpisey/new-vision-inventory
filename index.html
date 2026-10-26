@@ -109,10 +109,12 @@
       <div class="bg-gradient-to-r from-purple-900 via-indigo-950 to-slate-900 p-6 text-white text-center relative">
         <div class="flex items-center justify-center gap-4 mb-3">
           <div class="w-14 h-14 rounded-2xl bg-white p-1 shadow-md border-2 border-amber-400 overflow-hidden">
-            <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png'; this.onerror=function(){this.src=SCHOOL_LOGO_FALLBACK;};" alt="New Vision School Logo" class="w-full h-full object-contain school-logo-img">
+            <div class="w-7 h-7 rounded-lg overflow-hidden flex-shrink-0 bg-white shadow-xs border border-slate-200 p-0.5 flex items-center justify-center">
+          <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png'; this.onerror=function(){this.src=SCHOOL_LOGO_FALLBACK;};" alt="New Vision School Logo" class="w-full h-full object-contain">
+        </div>
           </div>
           <div class="w-12 h-12 rounded-2xl bg-white p-1 shadow-md border-2 border-amber-400 overflow-hidden">
-            <img src="assets/moeys_logo.svg" alt="MoEYS" class="w-full h-full object-contain">
+            <img src="moeys_logo.svg" onerror="this.onerror=null; this.src='assets/moeys_logo.svg'; this.onerror=function(){this.style.display='none';};" alt="MoEYS" class="w-full h-full object-contain">
           </div>
         </div>
         <h2 class="text-xl font-black text-amber-300">សាលារៀន ញូវវីសិន</h2>
@@ -325,7 +327,7 @@
   </header>
 
   <!-- ================= SUB NAVIGATION / SHEET TABS ================= -->
-  <div class="bg-white border-b border-slate-200 shadow-sm sticky top-24 z-30 no-print">
+  <div class="bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs sticky top-[4.25rem] z-30 no-print">
     <div class="max-w-[1550px] mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex space-x-1 sm:space-x-3 overflow-x-auto py-2.5 custom-scrollbar text-sm font-medium">
         <button onclick="switchTab('dashboard')" id="tab-dashboard" class="tab-btn px-4 py-2 rounded-xl flex items-center gap-2 bg-blue-50 text-blue-700 font-bold border border-blue-200 transition shadow-sm">
@@ -2928,7 +2930,7 @@
       </div>
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-1.5 text-slate-600">
-          <img src="assets/moeys_logo.svg" alt="MoEYS" class="w-4 h-4 object-contain">
+          <img src="moeys_logo.svg" onerror="this.onerror=null; this.src='assets/moeys_logo.svg'; this.onerror=function(){this.style.display='none';};" alt="MoEYS" class="w-4 h-4 object-contain">
           <span>ក្រសួងអប់រំ យុវជន និងកីឡា</span>
         </div>
         <span class="text-slate-300">|</span>
@@ -3226,7 +3228,7 @@
     // =========================================================================
     let supabaseClient = null;
     let supabaseConfig = {
-      url: localStorage.getItem('nv_supabase_url') || '',
+      url: localStorage.getItem('nv_supabase_url') || 'https://mxzwxibnzwuwafepmrxv.supabase.co',
       key: localStorage.getItem('nv_supabase_key') || '',
       connected: false
     };
