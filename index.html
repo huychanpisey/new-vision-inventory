@@ -73,7 +73,7 @@
   <style>
     body {
       font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
-      background-color: #F8FAFC;
+      background: linear-gradient(135deg, #F8FAFC 0%, #EEF2F6 50%, #F1F5F9 100%);
       color: #0F172A;
       -webkit-font-smoothing: antialiased;
     }
@@ -94,13 +94,26 @@
       background: #94A3B8;
     }
 
+    /* Print styles */
     @media print {
-      .no-print {
+      .no-print, header, #appSidebar, #sidebarOverlay, nav, .tab-btn, .side-tab-btn, button, footer {
         display: none !important;
       }
       body {
         background: white !important;
         color: black !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      #view-reports {
+        display: block !important;
+      }
+      #reportPrintArea {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
       }
       .print-only {
         display: block !important;
@@ -108,18 +121,18 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased bg-slate-50 text-slate-800">
+<body class="min-h-screen flex flex-col antialiased bg-slate-100 text-slate-800">
 
   <!-- ================= AUTH / LOGIN SCREEN ================= -->
   <div id="authScreen" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200">
-      <div class="bg-gradient-to-r from-purple-900 via-indigo-900 to-blue-900 p-6 text-white text-center relative">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
+      <div class="bg-gradient-to-r from-purple-950 via-indigo-950 to-blue-950 p-6 text-white text-center relative">
         <div class="w-16 h-16 bg-white rounded-2xl p-1.5 mx-auto mb-3 shadow-lg flex items-center justify-center">
           <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School" class="w-full h-full object-contain">
         </div>
-        <h2 class="text-lg font-bold">សាលារៀន ញូវវីសិន</h2>
+        <h2 class="text-base sm:text-lg font-bold">សាលារៀន ញូវវីសិន</h2>
         <p class="text-xs text-purple-200 font-medium">New Vision School • Inventory & Asset Management V2.0</p>
-        <div class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full text-[11px] text-amber-300 font-semibold mt-2 border border-white/15">
+        <div class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full text-[11px] text-amber-300 font-semibold mt-2.5 border border-white/15">
           <i class="fa-solid fa-shield-halved"></i> ប្រព័ន្ធសុវត្ថិភាពកម្រិតខ្ពស់
         </div>
       </div>
@@ -160,40 +173,155 @@
     </div>
   </div>
 
+  <!-- ================= COLLAPSIBLE SIDEBAR MENU & OVERLAY ================= -->
+  <div id="sidebarOverlay" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden transition-opacity duration-300"></div>
+
+  <aside id="appSidebar" class="fixed top-0 left-0 bottom-0 w-72 bg-gradient-to-b from-slate-950 via-indigo-950 to-purple-950 text-white z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between border-r border-indigo-900/40">
+    <div class="p-4 space-y-4 overflow-y-auto custom-scrollbar flex-1">
+      
+      <!-- Sidebar Header -->
+      <div class="flex items-center justify-between border-b border-indigo-900/60 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white p-1 shadow-md shrink-0 flex items-center justify-center">
+            <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h3 class="text-xs sm:text-sm font-bold text-white leading-tight">សាលារៀន ញូវវីសិន</h3>
+            <p class="text-[10px] text-purple-300 font-semibold">Inventory System V2.0</p>
+          </div>
+        </div>
+        <button onclick="toggleSidebar(false)" class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition" title="បិទមីនុយ">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="space-y-1.5 text-xs font-bold">
+        <p class="text-[10px] font-extrabold uppercase text-purple-300 tracking-wider px-3 mb-1">ម៉ឺនុយមេ (Main Menu):</p>
+        
+        <button onclick="switchTab('dashboard'); toggleSidebar(false);" id="side-tab-dashboard" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-chart-pie text-sm text-indigo-400"></i>
+            <span>ផ្ទាំងគ្រប់គ្រង (Dashboard)</span>
+          </span>
+        </button>
+
+        <button onclick="switchTab('inventory'); toggleSidebar(false);" id="side-tab-inventory" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-boxes-stacked text-sm text-purple-400"></i>
+            <span>បញ្ជីស្តុកសម្ភារៈ (Inventory)</span>
+          </span>
+          <span id="sideBadgeInventory" class="bg-purple-800 text-purple-200 text-[10px] px-2 py-0.5 rounded-full">0</span>
+        </button>
+
+        <button onclick="switchTab('stockIn'); toggleSidebar(false);" id="side-tab-stockIn" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-dolly text-sm text-emerald-400"></i>
+            <span>នាំចូលស្តុក (Stock In)</span>
+          </span>
+        </button>
+
+        <button onclick="switchTab('stockOut'); toggleSidebar(false);" id="side-tab-stockOut" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-arrow-up-from-bracket text-sm text-amber-400"></i>
+            <span>ស្នើសុំ & ចេញស្តុក (Requests)</span>
+          </span>
+          <span id="sideBadgePending" class="hidden bg-amber-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full">0</span>
+        </button>
+
+        <button onclick="switchTab('staff'); toggleSidebar(false);" id="side-tab-staff" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-users-rectangle text-sm text-sky-400"></i>
+            <span>បុគ្គលិក & កាន់កាប់ (Staff)</span>
+          </span>
+        </button>
+
+        <button onclick="switchTab('reports'); toggleSidebar(false);" id="side-tab-reports" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-file-invoice text-sm text-rose-400"></i>
+            <span>ទាញរបាយការណ៍ (Reports)</span>
+          </span>
+          <span class="bg-rose-900/60 text-rose-300 text-[10px] px-2 py-0.5 rounded-full font-bold">Print/Excel</span>
+        </button>
+
+        <button onclick="openImportModal('master'); toggleSidebar(false);" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-purple-900/40 hover:bg-purple-800 text-purple-200 hover:text-white transition border border-purple-700/50 my-1">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-file-import text-sm text-purple-300"></i>
+            <span>Import ទិន្នន័យ (Excel/Doc)</span>
+          </span>
+          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+        </button>
+
+        <button onclick="switchTab('settings'); toggleSidebar(false);" id="side-tab-settings" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+          <span class="flex items-center gap-2.5">
+            <i class="fa-solid fa-sliders text-sm text-slate-400"></i>
+            <span>ការកំណត់ (Settings)</span>
+          </span>
+        </button>
+      </nav>
+
+    </div>
+
+    <!-- Sidebar Footer -->
+    <div class="p-4 border-t border-indigo-900/60 bg-black/20 text-[11px] text-purple-200">
+      <div class="flex items-center justify-between">
+        <span class="font-bold">New Vision School</span>
+        <span class="bg-amber-400 text-slate-950 font-black text-[9px] px-1.5 py-0.5 rounded">V2.0</span>
+      </div>
+      <p class="text-[10px] text-slate-400 mt-0.5">&copy; 2026 រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+    </div>
+  </aside>
+
   <!-- ================= MODERN TOPBAR (HEADER) ================= -->
-  <header class="bg-gradient-to-r from-purple-950 via-indigo-950 to-blue-950 text-white shadow-md sticky top-0 z-40 no-print border-b border-indigo-900/50">
+  <header class="bg-gradient-to-r from-slate-950 via-purple-950 to-indigo-950 text-white shadow-lg sticky top-0 z-40 no-print border-b border-indigo-900/60">
     <div class="max-w-[1550px] mx-auto px-3 sm:px-5 py-2.5 flex flex-wrap items-center justify-between gap-3">
       
-      <!-- Brand & School Info -->
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl overflow-hidden bg-white shadow-md border border-white/20 p-1 flex items-center justify-center shrink-0">
+      <!-- Left: Hamburger Menu Button + School Brand -->
+      <div class="flex items-center gap-2.5">
+        <!-- HAMBURGER MENU BUTTON -->
+        <button onclick="toggleSidebar()" class="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 text-xs font-bold transition shadow-xs border border-white/15 cursor-pointer" title="បើក/បិទ មីនុយ (Toggle Sidebar Menu)">
+          <i class="fa-solid fa-bars text-sm text-amber-300"></i>
+          <span class="hidden sm:inline">មីនុយ</span>
+        </button>
+
+        <div class="w-9 h-9 rounded-xl overflow-hidden bg-white shadow-md border border-white/20 p-0.5 flex items-center justify-center shrink-0">
           <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School Logo" class="w-full h-full object-contain">
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <h1 class="text-sm sm:text-base font-extrabold tracking-wide text-white">សាលារៀន ញូវវីសិន</h1>
-            <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider shadow-xs">V2.0</span>
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-xs sm:text-sm font-black tracking-wide text-white">សាលារៀន ញូវវីសិន</h1>
+            <span class="bg-amber-400 text-slate-950 text-[9px] font-black px-1.5 py-0.5 rounded uppercase shadow-xs">V2.0</span>
           </div>
-          <p class="text-[11px] text-purple-200 hidden sm:block font-medium">ប្រព័ន្ធគ្រប់គ្រងស្តុក & ទ្រព្យសម្បត្តិ (Inventory & Asset Management)</p>
+          <p class="text-[10px] text-purple-200 hidden md:block font-medium">ប្រព័ន្ធគ្រប់គ្រងស្តុក & ទ្រព្យសម្បត្តិ (Inventory & Asset Management)</p>
         </div>
       </div>
 
-      <!-- Center: GLOBAL BRANCH SELECTOR -->
-      <div class="flex items-center gap-2 bg-white/10 hover:bg-white/15 px-3 py-1.5 rounded-2xl border border-white/20 backdrop-blur-md transition shadow-inner">
-        <div class="w-6 h-6 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center text-xs font-bold shrink-0">
-          <i class="fa-solid fa-school-flag"></i>
-        </div>
+      <!-- Center: GLOBAL BRANCH SELECTOR (WITH CRISP COLOR CONTRAST) -->
+      <div class="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-amber-400 to-amber-500 text-slate-950 px-3 py-1.5 rounded-xl border border-amber-300 shadow-md font-bold">
+        <i class="fa-solid fa-school-flag text-xs text-slate-950 shrink-0"></i>
         <div class="flex flex-col">
-          <span class="text-[9px] uppercase tracking-wider font-extrabold text-amber-300 leading-none">សាខាសាលា (Campus):</span>
-          <select id="globalBranchSelect" onchange="onGlobalBranchChange(this.value)" class="bg-transparent text-white font-bold text-xs focus:outline-none cursor-pointer pr-4 appearance-none">
-            <!-- Dynamic options -->
+          <span class="text-[8.5px] uppercase tracking-wider font-black text-amber-950 leading-none">សាខាសាលា (Campus):</span>
+          <select id="globalBranchSelect" onchange="onGlobalBranchChange(this.value)" class="bg-transparent text-slate-950 font-black text-xs focus:outline-none cursor-pointer pr-2">
+            <!-- Dynamic options populated with high contrast bg-white text-slate-900 -->
           </select>
         </div>
-        <i class="fa-solid fa-chevron-down text-[10px] text-white/70 pointer-events-none"></i>
       </div>
 
-      <!-- Right: Cloud Status + User Profile + Logout -->
-      <div class="flex items-center gap-3">
+      <!-- Right: Action Shortcuts + Cloud Status + Profile + Logout -->
+      <div class="flex items-center gap-2 sm:gap-2.5">
+        
+        <!-- Reports Shortcut Button -->
+        <button onclick="switchTab('reports')" class="hidden lg:flex items-center gap-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-xs" title="របាយការណ៍សារពើភ័ណ្ឌ">
+          <i class="fa-solid fa-file-invoice text-rose-400 text-xs"></i>
+          <span>របាយការណ៍</span>
+        </button>
+
+        <!-- Import Shortcut Button -->
+        <button onclick="openImportModal('master')" class="hidden lg:flex items-center gap-1.5 bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 border border-purple-400/30 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-xs" title="Import ពី Excel">
+          <i class="fa-solid fa-file-import text-purple-300 text-xs"></i>
+          <span>Import</span>
+        </button>
+
         <!-- Supabase Cloud Pill -->
         <div id="headerSupabaseStatus" onclick="switchTab('settings')" class="hidden md:flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer hover:bg-emerald-500/30 transition" title="ស្ថានភាពតភ្ជាប់ Cloud Supabase">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -201,13 +329,13 @@
         </div>
 
         <!-- User Profile -->
-        <div class="flex items-center gap-2 bg-white/10 px-3 py-1.5 rounded-2xl border border-white/15">
-          <div id="userAvatarBadge" class="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
-            <i class="fa-solid fa-crown text-[11px]"></i>
+        <div class="flex items-center gap-2 bg-white/10 px-2.5 py-1 rounded-xl border border-white/15">
+          <div id="userAvatarBadge" class="w-6 h-6 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
+            <i class="fa-solid fa-crown text-[10px]"></i>
           </div>
           <div class="hidden sm:block text-left">
             <p id="userDisplayName" class="text-xs font-bold text-white leading-tight">លោក ហ៊ុយ ចាន់ពិសី</p>
-            <p id="userRoleBadge" class="text-[10px] text-amber-300 leading-none">នាយកសាលា (Director)</p>
+            <p id="userRoleBadge" class="text-[9.5px] text-amber-300 leading-none">នាយកសាលា</p>
           </div>
         </div>
 
@@ -220,48 +348,54 @@
     </div>
   </header>
 
-  <!-- ================= MAIN NAVIGATION TABS ================= -->
-  <nav class="bg-white border-b border-slate-200/90 shadow-xs sticky top-[53px] z-30 no-print">
+  <!-- ================= HORIZONTAL NAVIGATION TABS (DESKTOP QUICK ACCESS) ================= -->
+  <nav class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs sticky top-[53px] z-30 no-print">
     <div class="max-w-[1550px] mx-auto px-3 sm:px-5">
       <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-2 text-xs">
         
         <!-- Tab 1: Dashboard -->
         <button id="tab-dashboard" onclick="switchTab('dashboard')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-chart-pie text-sm"></i>
+          <i class="fa-solid fa-chart-pie text-sm text-indigo-600"></i>
           <span>ផ្ទាំងគ្រប់គ្រង</span>
         </button>
 
         <!-- Tab 2: Inventory Master -->
         <button id="tab-inventory" onclick="switchTab('inventory')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-boxes-stacked text-sm"></i>
+          <i class="fa-solid fa-boxes-stacked text-sm text-purple-600"></i>
           <span>បញ្ជីស្តុកសម្ភារៈ</span>
           <span id="badgeInventoryCount" class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
         </button>
 
-        <!-- Tab 3: Stock In -->
+        <!-- Tab 3: Stock In (FIXED ID MATCH) -->
         <button id="tab-stockIn" onclick="switchTab('stockIn')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-dolly text-sm"></i>
+          <i class="fa-solid fa-dolly text-sm text-emerald-600"></i>
           <span>នាំចូលស្តុក</span>
           <span id="badgeInCount" class="bg-emerald-100 text-emerald-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
         </button>
 
-        <!-- Tab 4: Stock Out & Requests -->
+        <!-- Tab 4: Stock Out & Requests (FIXED ID MATCH) -->
         <button id="tab-stockOut" onclick="switchTab('stockOut')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-arrow-up-from-bracket text-sm"></i>
+          <i class="fa-solid fa-arrow-up-from-bracket text-sm text-amber-600"></i>
           <span>ស្នើសុំ & ចេញស្តុក</span>
           <span id="badgePendingRequests" class="hidden bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse shadow-xs">0 រង់ចាំ</span>
         </button>
 
         <!-- Tab 5: Staff & Asset Custody -->
         <button id="tab-staff" onclick="switchTab('staff')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-users-rectangle text-sm"></i>
+          <i class="fa-solid fa-users-rectangle text-sm text-sky-600"></i>
           <span>បុគ្គលិក & កាន់កាប់</span>
           <span id="badgeStaffCount" class="bg-indigo-100 text-indigo-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
         </button>
 
-        <!-- Tab 6: Settings -->
+        <!-- Tab 6: Reports (NEW) -->
+        <button id="tab-reports" onclick="switchTab('reports')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200">
+          <i class="fa-solid fa-file-invoice text-sm text-rose-600"></i>
+          <span>របាយការណ៍</span>
+        </button>
+
+        <!-- Tab 7: Settings -->
         <button id="tab-settings" onclick="switchTab('settings')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-sliders text-sm"></i>
+          <i class="fa-solid fa-sliders text-sm text-slate-600"></i>
           <span>ការកំណត់</span>
         </button>
 
@@ -276,9 +410,9 @@
     <div id="view-dashboard" class="space-y-5 animate-in fade-in duration-200">
       
       <!-- Pending Requests Alert Banner (For Director) -->
-      <div id="pendingRequestsBanner" class="hidden p-4 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div id="pendingRequestsBanner" class="hidden p-4 rounded-3xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-amber-300/40">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-white/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
+          <div class="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
             <i class="fa-solid fa-bell text-amber-100 animate-bounce"></i>
           </div>
           <div>
@@ -292,8 +426,8 @@
       </div>
 
       <!-- Low Stock Alert Banner -->
-      <div id="lowStockBanner" class="hidden p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 shadow-xs flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
+      <div id="lowStockBanner" class="hidden p-4 rounded-3xl bg-rose-50 border border-rose-200 text-rose-800 shadow-sm flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
           <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
         <div class="flex-1 text-xs">
@@ -302,60 +436,60 @@
         </div>
       </div>
 
-      <!-- 4 Modern KPI Cards -->
+      <!-- 4 COLORFUL & POLISHED KPI CARDS -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         
-        <!-- KPI 1 -->
-        <div class="bg-white rounded-2xl p-4.5 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <!-- KPI 1: Total Items -->
+        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-blue-600 border border-slate-200/90 shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">មុខសម្ភារៈសរុប (Items)</p>
-              <h3 id="kpiTotalItems" class="text-2xl font-black text-slate-800 mt-1">0</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">គិតតាមសាខាដែលបានជ្រើសរើស</p>
+              <h3 id="kpiTotalItems" class="text-2xl sm:text-3xl font-black text-slate-800 mt-1">0</h3>
+              <p class="text-[11px] text-blue-600 font-semibold mt-0.5">គិតតាមសាខាដែលបានជ្រើសរើស</p>
             </div>
-            <div class="w-11 h-11 rounded-2xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-xl shadow-md">
               <i class="fa-solid fa-boxes-stacked"></i>
             </div>
           </div>
         </div>
 
-        <!-- KPI 2 -->
-        <div class="bg-white rounded-2xl p-4.5 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <!-- KPI 2: Total Units -->
+        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-emerald-600 border border-slate-200/90 shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">បរិមាណស្តុកក្នុងដៃ (Units)</p>
-              <h3 id="kpiTotalUnits" class="text-2xl font-black text-emerald-700 mt-1">0</h3>
-              <p class="text-[11px] text-emerald-600 font-medium mt-0.5">ចំនួនសម្ភារៈនៅសល់សរុប</p>
+              <h3 id="kpiTotalUnits" class="text-2xl sm:text-3xl font-black text-emerald-700 mt-1">0</h3>
+              <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">ចំនួនសម្ភារៈនៅសល់សរុប</p>
             </div>
-            <div class="w-11 h-11 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xl shadow-md">
               <i class="fa-solid fa-cubes"></i>
             </div>
           </div>
         </div>
 
-        <!-- KPI 3 -->
-        <div class="bg-white rounded-2xl p-4.5 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <!-- KPI 3: Total Valuation -->
+        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-indigo-600 border border-slate-200/90 shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">តម្លៃស្តុកសរុប (Valuation)</p>
-              <h3 id="kpiTotalValuation" class="text-2xl font-black text-indigo-700 mt-1">$0.00</h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">គិតតាមតម្លៃទិញចូលជាមធ្យម</p>
+              <h3 id="kpiTotalValuation" class="text-2xl sm:text-3xl font-black text-indigo-700 mt-1">$0.00</h3>
+              <p class="text-[11px] text-indigo-500 font-semibold mt-0.5">គិតតាមតម្លៃទិញជាមធ្យម</p>
             </div>
-            <div class="w-11 h-11 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-lg shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-xl shadow-md">
               <i class="fa-solid fa-sack-dollar"></i>
             </div>
           </div>
         </div>
 
-        <!-- KPI 4 -->
-        <div class="bg-white rounded-2xl p-4.5 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <!-- KPI 4: Low Stock Alert -->
+        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-amber-500 border border-slate-200/90 shadow-sm hover:shadow-md transition">
           <div class="flex items-center justify-between">
             <div>
               <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">ជិតអស់ / អស់ពីស្តុក</p>
-              <h3 id="kpiLowStock" class="text-2xl font-black text-amber-600 mt-1">0</h3>
-              <p class="text-[11px] text-amber-700 font-medium mt-0.5">ត្រូវស្នើសុំទិញបំពេញបន្ថែម</p>
+              <h3 id="kpiLowStock" class="text-2xl sm:text-3xl font-black text-amber-600 mt-1">0</h3>
+              <p class="text-[11px] text-amber-700 font-semibold mt-0.5">ត្រូវស្នើសុំទិញបំពេញបន្ថែម</p>
             </div>
-            <div class="w-11 h-11 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center text-lg shadow-inner">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center text-xl shadow-md">
               <i class="fa-solid fa-bell"></i>
             </div>
           </div>
@@ -443,7 +577,7 @@
     <div id="view-inventory" class="hidden space-y-4 animate-in fade-in duration-200">
       
       <!-- Top Actions Bar -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-xs">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
         <div>
           <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-boxes-stacked text-purple-700"></i>
@@ -467,7 +601,7 @@
       </div>
 
       <!-- Filters & Search Toolbar -->
-      <div class="bg-white p-3 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs">
+      <div class="bg-white p-3 sm:p-4 rounded-3xl border border-slate-200/80 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs">
         
         <!-- Search -->
         <div class="lg:col-span-2 relative">
@@ -484,7 +618,7 @@
 
         <!-- Location / Room Filter -->
         <div>
-          <select id="filterLocation" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30 text-purple-900">
+          <select id="filterLocation" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30 text-purple-900 font-bold">
             <option value="">-- គ្រប់ទីតាំង / បន្ទប់ --</option>
           </select>
         </div>
@@ -505,7 +639,7 @@
       <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
         <div class="overflow-x-auto custom-scrollbar">
           <table class="w-full text-xs text-left border-collapse">
-            <thead class="bg-gradient-to-r from-purple-950 to-indigo-950 text-white uppercase text-[10.5px] font-bold tracking-wider">
+            <thead class="bg-gradient-to-r from-purple-950 via-indigo-950 to-blue-950 text-white uppercase text-[10.5px] font-bold tracking-wider">
               <tr>
                 <th class="py-3 px-3 text-center w-12">ល.រ</th>
                 <th class="py-3 px-3 w-28">កូដសម្ភារៈ</th>
@@ -538,10 +672,10 @@
 
     </div>
 
-    <!-- ================= VIEW 3: STOCK IN ================= -->
-    <div id="view-stock-in" class="hidden space-y-4 animate-in fade-in duration-200">
+    <!-- ================= VIEW 3: STOCK IN (ID: view-stockIn) ================= -->
+    <div id="view-stockIn" class="hidden space-y-4 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-xs">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
         <div>
           <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-dolly text-emerald-600"></i>
@@ -584,10 +718,10 @@
 
     </div>
 
-    <!-- ================= VIEW 4: STOCK OUT & REQUESTS ================= -->
-    <div id="view-stock-out" class="hidden space-y-4 animate-in fade-in duration-200">
+    <!-- ================= VIEW 4: STOCK OUT & REQUESTS (ID: view-stockOut) ================= -->
+    <div id="view-stockOut" class="hidden space-y-4 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-xs">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
         <div>
           <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-arrow-up-from-bracket text-purple-700"></i>
@@ -644,7 +778,7 @@
     <!-- ================= VIEW 5: STAFF DIRECTORY ================= -->
     <div id="view-staff" class="hidden space-y-4 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-xs">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
         <div>
           <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-users-rectangle text-indigo-700"></i>
@@ -664,7 +798,109 @@
 
     </div>
 
-    <!-- ================= VIEW 6: SETTINGS ================= -->
+    <!-- ================= VIEW 6: REPORTS & EXCEL (NEW!) ================= -->
+    <div id="view-reports" class="hidden space-y-5 animate-in fade-in duration-200">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 sm:p-5 rounded-3xl border border-slate-200/90 shadow-sm">
+        <div>
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-file-invoice text-rose-600"></i>
+            <span>របាយការណ៍សារពើភ័ណ្ឌ និងស្ថិតិផ្លូវការ (Official Reports & Analytics)</span>
+          </h2>
+          <p class="text-xs text-slate-400 mt-0.5">បង្កើត ទាញយកជា Excel ឬបោះពុម្ពជាឯកសារផ្លូវការមានក្បាលលិខិតសាលា</p>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button onclick="printOfficialReport()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
+            <i class="fa-solid fa-print text-amber-400"></i> បោះពុម្ពរបាយការណ៍ផ្លូវការ (Print)
+          </button>
+          <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
+            <i class="fa-solid fa-file-excel"></i> ទាញយក Excel (.xlsx)
+          </button>
+        </div>
+      </div>
+
+      <!-- Report Filters Bar -->
+      <div class="bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ជ្រើសរើសប្រភេទរបាយការណ៍:</label>
+          <select id="reportTypeSelect" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-bold text-indigo-900 focus:ring-2 focus:ring-rose-500/30">
+            <option value="master">📋 របាយការណ៍សារពើភ័ណ្ឌទូទៅ (Master Inventory)</option>
+            <option value="lowStock">⚠️ របាយការណ៍សម្ភារៈជិតអស់ (Low Stock Alert)</option>
+            <option value="stockIn">📥 របាយការណ៍នាំចូលស្តុក (Stock In Purchases)</option>
+            <option value="stockOut">📤 របាយការណ៍ចេញស្តុក & អ្នកកាន់កាប់ (Stock Out & Usage)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">សាខាសាលា (Campus):</label>
+          <select id="reportBranchSelect" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-semibold">
+            <!-- Dynamic Branches -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">កាលបរិច្ឆេទធ្វើរបាយការណ៍:</label>
+          <input type="date" id="reportDateInput" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-semibold">
+        </div>
+      </div>
+
+      <!-- Live Report Preview (Print Ready) -->
+      <div id="reportPrintArea" class="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 space-y-4">
+        
+        <!-- Official School Header for Print -->
+        <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-14 h-14 bg-white p-1 rounded-2xl border border-slate-200 flex items-center justify-center shrink-0">
+              <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School" class="w-full h-full object-contain">
+            </div>
+            <div>
+              <h3 class="text-base font-extrabold text-slate-900">សាលារៀន ញូវវីសិន (NEW VISION SCHOOL)</h3>
+              <p class="text-xs text-slate-600 font-medium">ក្រសួងអប់រំ យុវជន និងកីឡា • នាយកដ្ឋានគ្រប់គ្រងទ្រព្យសម្បត្តិ</p>
+              <p id="reportHeaderCampus" class="text-xs font-bold text-amber-900 mt-0.5">សាខា៖ សាខាទាំងអស់</p>
+            </div>
+          </div>
+          <div class="text-right text-xs">
+            <p class="font-bold text-slate-800">ព្រះរាជាណាចក្រកម្ពុជា</p>
+            <p class="text-slate-600">ជាតិ សាសនា ព្រះមហាក្សត្រ</p>
+            <p id="reportPrintDate" class="text-slate-500 mt-1 font-mono text-[11px]">កាលបរិច្ឆេទ: 27/10/2026</p>
+          </div>
+        </div>
+
+        <div class="text-center py-2">
+          <h3 id="reportTitleText" class="text-base font-black text-slate-900 uppercase tracking-wide">របាយការណ៍សារពើភ័ណ្ឌទូទៅ</h3>
+          <p id="reportSubtitleText" class="text-xs text-slate-500 mt-0.5">បញ្ជីសម្ភារៈ បរិមាណស្តុក តម្លៃ និងទីតាំងតម្កល់</p>
+        </div>
+
+        <!-- Table Preview -->
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-xs text-left border-collapse border border-slate-300">
+            <thead id="reportThead" class="bg-slate-100 text-slate-800 font-bold uppercase text-[10.5px]"></thead>
+            <tbody id="reportTbody" class="divide-y divide-slate-200 font-medium"></tbody>
+          </table>
+        </div>
+
+        <!-- Signatures Block -->
+        <div class="grid grid-cols-2 pt-8 pb-4 text-center text-xs">
+          <div>
+            <p class="font-bold text-slate-700">អ្នករៀបចំរបាយការណ៍</p>
+            <p class="text-slate-400 text-[11px]">(ហត្ថលេខា និងឈ្មោះ)</p>
+            <div class="h-16"></div>
+            <p id="reportPreparedBy" class="font-bold text-slate-900">លោក សុខ ចាន់រិទ្ធ</p>
+          </div>
+          <div>
+            <p class="font-bold text-slate-700">បានឃើញ និងអនុម័តដោយនាយកសាលា</p>
+            <p class="text-slate-400 text-[11px]">(ហត្ថលេខា និងត្រា)</p>
+            <div class="h-16"></div>
+            <p class="font-bold text-slate-900">លោក ហ៊ុយ ចាន់ពិសី</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= VIEW 7: SETTINGS ================= -->
     <div id="view-settings" class="hidden space-y-6 animate-in fade-in duration-200">
       
       <!-- CARD 1: SCHOOL BRANCHES MANAGEMENT -->
@@ -1245,7 +1481,7 @@
         <div class="w-8 h-8 rounded-xl overflow-hidden shrink-0 bg-white shadow-xs border border-slate-200 p-0.5 flex items-center justify-center">
           <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School Logo" class="w-full h-full object-contain">
         </div>
-        <p>&copy; 2026 សាលារៀន ញូវវីសិន (New Vision School) - ប្រព័ន្ធគ្រប់គ្រងស្តុក & ទ្រព្យសម្បត្តិ V2.0</p>
+        <p>&copy; 2026 សាលារៀន ញូវវីសិន (New Vision School) - រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
       </div>
       <div class="flex items-center gap-3">
         <div class="flex items-center gap-1.5 text-slate-600">
@@ -1591,25 +1827,42 @@
       const globalSel = document.getElementById('globalBranchSelect');
       const itemBranchSel = document.getElementById('itemBranchId');
       const inBranchSel = document.getElementById('inBranchId');
+      const reportBranchSel = document.getElementById('reportBranchSelect');
+
+      const optClass = 'class="bg-white text-slate-900 font-bold py-2"';
 
       if (globalSel) {
-        let options = '<option value="ALL">🏢 គ្រប់សាខាទាំងអស់ (All Branches)</option>';
+        let options = `<option value="ALL" ${optClass}>🏢 គ្រប់សាខាទាំងអស់ (All Branches)</option>`;
         branchesData.forEach(b => {
-          options += `<option value="${b.id}">🏫 ${b.name}</option>`;
+          options += `<option value="${b.id}" ${optClass}>🏫 ${b.name}</option>`;
         });
         globalSel.innerHTML = options;
-        globalSel.value = currentBranchId;
+        globalSel.value = currentBranchId || 'ALL';
       }
 
-      const branchOptions = branchesData.map(b => `<option value="${b.id}">🏫 ${b.name}</option>`).join('');
+      const branchOptions = branchesData.map(b => `<option value="${b.id}" ${optClass}>🏫 ${b.name}</option>`).join('');
       if (itemBranchSel) itemBranchSel.innerHTML = branchOptions;
       if (inBranchSel) inBranchSel.innerHTML = branchOptions;
+
+      if (reportBranchSel) {
+        let repOptions = `<option value="ALL" ${optClass}>🏢 គ្រប់សាខាទាំងអស់ (All Branches)</option>`;
+        branchesData.forEach(b => {
+          repOptions += `<option value="${b.id}" ${optClass}>🏫 ${b.name}</option>`;
+        });
+        reportBranchSel.innerHTML = repOptions;
+        reportBranchSel.value = currentBranchId || 'ALL';
+      }
     }
 
     function onGlobalBranchChange(val) {
       currentBranchId = val;
       localStorage.setItem('nv_active_branch_v2', currentBranchId);
+      const repSel = document.getElementById('reportBranchSelect');
+      if (repSel) repSel.value = val;
       calculateAndRenderAll();
+      if (activeTabId === 'reports') {
+        generateReportPreview();
+      }
     }
 
     function filterByCurrentBranch(array, branchProp = 'branchId') {
@@ -3341,25 +3594,60 @@
     }
 
     // =========================================================================
-    // 15. TAB NAVIGATION & MODAL HELPERS
+    // 15. SIDEBAR, TAB NAVIGATION, REPORTS & MODAL HELPERS
     // =========================================================================
+    function toggleSidebar(open = null) {
+      const sidebar = document.getElementById('appSidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (!sidebar) return;
+      const isCurrentlyOpen = !sidebar.classList.contains('-translate-x-full');
+      const target = (open !== null) ? open : !isCurrentlyOpen;
+      if (target) {
+        sidebar.classList.remove('-translate-x-full');
+        if (overlay) overlay.classList.remove('hidden');
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        if (overlay) overlay.classList.add('hidden');
+      }
+    }
+
     function switchTab(tabId) {
       activeTabId = tabId;
-      const tabs = ['dashboard', 'inventory', 'stockIn', 'stockOut', 'staff', 'settings'];
+      const tabs = ['dashboard', 'inventory', 'stockIn', 'stockOut', 'staff', 'reports', 'settings'];
 
       tabs.forEach(t => {
         const view = document.getElementById('view-' + t);
         const btn = document.getElementById('tab-' + t);
-        if (!view || !btn) return;
+        const sideBtn = document.getElementById('side-tab-' + t);
 
-        if (t === tabId) {
-          view.classList.remove('hidden');
-          btn.className = 'tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-md bg-gradient-to-r from-purple-800 to-indigo-900 text-white scale-102';
-        } else {
-          view.classList.add('hidden');
-          btn.className = 'tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200';
+        if (view) {
+          if (t === tabId) {
+            view.classList.remove('hidden');
+          } else {
+            view.classList.add('hidden');
+          }
+        }
+
+        if (btn) {
+          if (t === tabId) {
+            btn.className = 'tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-md bg-gradient-to-r from-purple-800 to-indigo-900 text-white scale-102';
+          } else {
+            btn.className = 'tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/60';
+          }
+        }
+
+        if (sideBtn) {
+          if (t === tabId) {
+            sideBtn.className = 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-purple-800/90 text-white font-bold transition shadow-sm border border-purple-500/50';
+          } else {
+            sideBtn.className = 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition';
+          }
         }
       });
+
+      if (tabId === 'reports') {
+        generateReportPreview();
+      }
 
       if (tabId === 'settings') {
         const tgToggle = document.getElementById('settingsTgEnabled');
@@ -3376,6 +3664,229 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function generateReportPreview() {
+      const typeSel = document.getElementById('reportTypeSelect');
+      const branchSel = document.getElementById('reportBranchSelect');
+      const dateInput = document.getElementById('reportDateInput');
+      const thead = document.getElementById('reportThead');
+      const tbody = document.getElementById('reportTbody');
+      const titleText = document.getElementById('reportTitleText');
+      const subtitleText = document.getElementById('reportSubtitleText');
+      const campusText = document.getElementById('reportHeaderCampus');
+      const dateText = document.getElementById('reportPrintDate');
+      const prepText = document.getElementById('reportPreparedBy');
+
+      if (!thead || !tbody) return;
+
+      const repType = typeSel ? typeSel.value : 'master';
+      const repBranch = branchSel ? branchSel.value : (currentBranchId || 'ALL');
+      const todayStr = dateInput && dateInput.value ? dateInput.value : new Date().toISOString().split('T')[0];
+
+      if (dateInput && !dateInput.value) {
+        dateInput.value = todayStr;
+      }
+      if (dateText) {
+        dateText.textContent = 'កាលបរិច្ឆេទ: ' + todayStr;
+      }
+
+      const bName = repBranch === 'ALL' ? 'គ្រប់សាខាទាំងអស់' : (branchesData.find(b => b.id === repBranch)?.name || repBranch);
+      if (campusText) {
+        campusText.textContent = 'សាខា៖ ' + bName;
+      }
+
+      if (prepText) {
+        prepText.textContent = currentAuthUser ? currentAuthUser.name : 'នាយកគ្រប់គ្រង';
+      }
+
+      if (repType === 'master' || repType === 'lowStock') {
+        let items = getProcessedMaster();
+        if (repBranch !== 'ALL') {
+          items = items.filter(it => it.branchId === repBranch);
+        }
+        if (repType === 'lowStock') {
+          items = items.filter(it => it.balance <= Number(it.minStock || 0));
+          if (titleText) titleText.textContent = 'របាយការណ៍សម្ភារៈជិតអស់ និងអស់ពីស្តុក (LOW STOCK ALERT)';
+          if (subtitleText) subtitleText.textContent = 'បញ្ជីសម្ភារៈដែលត្រូវទិញបន្ថែមបន្ទាន់ (សាខា៖ ' + bName + ')';
+        } else {
+          if (titleText) titleText.textContent = 'របាយការណ៍សារពើភ័ណ្ឌ និងស្តុកសម្ភារៈសរុប (MASTER INVENTORY)';
+          if (subtitleText) subtitleText.textContent = 'បញ្ជីគ្រប់គ្រងសម្ភារៈ តម្លៃ និងទីតាំងតម្កល់ជាក់ស្តែង (សាខា៖ ' + bName + ')';
+        }
+
+        thead.innerHTML = `
+          <tr class="border-b border-slate-300 bg-slate-100 text-slate-800 font-bold uppercase text-[10.5px]">
+            <th class="p-2 border-r border-slate-300 text-center w-10">ល.រ</th>
+            <th class="p-2 border-r border-slate-300">កូដ</th>
+            <th class="p-2 border-r border-slate-300">ឈ្មោះសម្ភារៈ</th>
+            <th class="p-2 border-r border-slate-300">ប្រភេទ</th>
+            <th class="p-2 border-r border-slate-300">ទីតាំង (ជាន់/បន្ទប់)</th>
+            <th class="p-2 border-r border-slate-300 text-center">ខ្នាត</th>
+            <th class="p-2 border-r border-slate-300 text-right">ស្តុកនៅសល់</th>
+            <th class="p-2 border-r border-slate-300 text-right">តម្លៃឯកតា</th>
+            <th class="p-2 border-r border-slate-300 text-right">តម្លៃសរុប</th>
+            <th class="p-2 text-center">ស្ថានភាព</th>
+          </tr>
+        `;
+
+        if (items.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" class="p-6 text-center text-slate-400 font-semibold">ពុំមានទិន្នន័យសម្ភារៈក្នុងលក្ខខណ្ឌនេះទេ</td></tr>';
+          return;
+        }
+
+        let totalVal = 0;
+        let totalQty = 0;
+        tbody.innerHTML = items.map((it, idx) => {
+          totalVal += Number(it.totalValue || 0);
+          totalQty += Number(it.balance || 0);
+          const loc = [it.building, it.floor, it.room].filter(Boolean).join(' - ') || 'មិនទាន់បញ្ជាក់';
+          const isWarn = it.balance <= Number(it.minStock || 0);
+          const statusBadge = it.balance <= 0 
+            ? '<span class="text-rose-600 font-bold">អស់ពីស្តុក</span>' 
+            : (isWarn ? '<span class="text-amber-600 font-bold">ជិតអស់</span>' : '<span class="text-emerald-700">គ្រប់គ្រាន់</span>');
+
+          return `
+            <tr class="border-b border-slate-200 hover:bg-slate-50 ${isWarn ? 'bg-amber-50/40' : ''}">
+              <td class="p-2 border-r border-slate-200 text-center font-bold text-slate-500">${idx + 1}</td>
+              <td class="p-2 border-r border-slate-200 font-mono font-bold text-indigo-900">${it.id}</td>
+              <td class="p-2 border-r border-slate-200 font-bold text-slate-800">${it.name}</td>
+              <td class="p-2 border-r border-slate-200 text-slate-600">${it.category || '-'}</td>
+              <td class="p-2 border-r border-slate-200 text-slate-600">${loc}</td>
+              <td class="p-2 border-r border-slate-200 text-center text-slate-600">${it.unit || 'ឯកតា'}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-black ${isWarn ? 'text-rose-600' : 'text-slate-800'}">${it.balance}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-mono text-slate-600">$${Number(it.unitPrice || 0).toFixed(2)}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-mono font-bold text-slate-900">$${Number(it.totalValue || 0).toFixed(2)}</td>
+              <td class="p-2 text-center text-[11px]">${statusBadge}</td>
+            </tr>
+          `;
+        }).join('') + `
+          <tr class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-400">
+            <td colspan="6" class="p-2 text-right border-r border-slate-300">សរុបរួម:</td>
+            <td class="p-2 text-right border-r border-slate-300 font-black">${totalQty}</td>
+            <td class="p-2 border-r border-slate-300"></td>
+            <td class="p-2 text-right font-mono font-black text-rose-700">$${totalVal.toFixed(2)}</td>
+            <td></td>
+          </tr>
+        `;
+      } else if (repType === 'stockIn') {
+        if (titleText) titleText.textContent = 'របាយការណ៍នាំចូលស្តុក (STOCK IN PURCHASES)';
+        if (subtitleText) subtitleText.textContent = 'កំណត់ត្រានាំចូលទិញបន្ថែម និងប្រភពផ្គត់ផ្គង់ (សាខា៖ ' + bName + ')';
+
+        let list = [...stockInData];
+        if (repBranch !== 'ALL') {
+          list = list.filter(x => x.branchId === repBranch);
+        }
+
+        thead.innerHTML = `
+          <tr class="border-b border-slate-300 bg-slate-100 text-slate-800 font-bold uppercase text-[10.5px]">
+            <th class="p-2 border-r border-slate-300 text-center w-10">ល.រ</th>
+            <th class="p-2 border-r border-slate-300">លេខ PO</th>
+            <th class="p-2 border-r border-slate-300">កាលបរិច្ឆេទ</th>
+            <th class="p-2 border-r border-slate-300">កូដ</th>
+            <th class="p-2 border-r border-slate-300">ឈ្មោះសម្ភារៈ</th>
+            <th class="p-2 border-r border-slate-300 text-right">បរិមាណ</th>
+            <th class="p-2 border-r border-slate-300 text-right">តម្លៃឯកតា</th>
+            <th class="p-2 border-r border-slate-300 text-right">តម្លៃសរុប</th>
+            <th class="p-2 border-r border-slate-300">អ្នកផ្គត់ផ្គង់</th>
+            <th class="p-2 text-center">អ្នកកត់ត្រា</th>
+          </tr>
+        `;
+
+        if (list.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" class="p-6 text-center text-slate-400 font-semibold">ពុំមានប្រវត្តិនាំចូលស្តុកក្នុងលក្ខខណ្ឌនេះទេ</td></tr>';
+          return;
+        }
+
+        let grandTotal = 0;
+        let qtyTotal = 0;
+        tbody.innerHTML = list.map((x, idx) => {
+          const lineTotal = Number(x.qty || 0) * Number(x.unitPrice || 0);
+          grandTotal += lineTotal;
+          qtyTotal += Number(x.qty || 0);
+          return `
+            <tr class="border-b border-slate-200 hover:bg-slate-50">
+              <td class="p-2 border-r border-slate-200 text-center font-bold text-slate-500">${idx + 1}</td>
+              <td class="p-2 border-r border-slate-200 font-mono font-bold text-indigo-900">${x.id || '-'}</td>
+              <td class="p-2 border-r border-slate-200 font-mono text-slate-600">${x.date || '-'}</td>
+              <td class="p-2 border-r border-slate-200 font-mono font-semibold">${x.itemId || '-'}</td>
+              <td class="p-2 border-r border-slate-200 font-bold text-slate-800">${x.itemName || '-'}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-black text-emerald-700">+${x.qty}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-mono text-slate-600">$${Number(x.unitPrice || 0).toFixed(2)}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-mono font-bold text-slate-900">$${lineTotal.toFixed(2)}</td>
+              <td class="p-2 border-r border-slate-200 text-slate-700">${x.supplier || '-'}</td>
+              <td class="p-2 text-center text-slate-600">${x.receiver || '-'}</td>
+            </tr>
+          `;
+        }).join('') + `
+          <tr class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-400">
+            <td colspan="5" class="p-2 text-right border-r border-slate-300">សរុបរួម:</td>
+            <td class="p-2 text-right border-r border-slate-300 font-black text-emerald-800">+${qtyTotal}</td>
+            <td class="p-2 border-r border-slate-300"></td>
+            <td class="p-2 text-right font-mono font-black text-rose-700">$${grandTotal.toFixed(2)}</td>
+            <td colspan="2"></td>
+          </tr>
+        `;
+      } else if (repType === 'stockOut') {
+        if (titleText) titleText.textContent = 'របាយការណ៍ស្នើសុំ និងចេញស្តុក (STOCK OUT & USAGE)';
+        if (subtitleText) subtitleText.textContent = 'កំណត់ត្រាអ្នកស្នើសុំ បន្ទប់/ជាន់ និងស្ថានភាពអនុម័ត (សាខា៖ ' + bName + ')';
+
+        let list = [...stockOutData];
+        if (repBranch !== 'ALL') {
+          list = list.filter(x => x.branchId === repBranch);
+        }
+
+        thead.innerHTML = `
+          <tr class="border-b border-slate-300 bg-slate-100 text-slate-800 font-bold uppercase text-[10.5px]">
+            <th class="p-2 border-r border-slate-300 text-center w-10">ល.រ</th>
+            <th class="p-2 border-r border-slate-300">លេខសំណើ</th>
+            <th class="p-2 border-r border-slate-300">កាលបរិច្ឆេទ</th>
+            <th class="p-2 border-r border-slate-300">កូដ</th>
+            <th class="p-2 border-r border-slate-300">ឈ្មោះសម្ភារៈ</th>
+            <th class="p-2 border-r border-slate-300 text-right">បរិមាណ</th>
+            <th class="p-2 border-r border-slate-300">អ្នកស្នើសុំ</th>
+            <th class="p-2 border-r border-slate-300">ទីតាំងប្រើប្រាស់</th>
+            <th class="p-2 border-r border-slate-300">គោលបំណង</th>
+            <th class="p-2 text-center">ស្ថានភាព</th>
+          </tr>
+        `;
+
+        if (list.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" class="p-6 text-center text-slate-400 font-semibold">ពុំមានប្រវត្តិស្នើសុំចេញស្តុកក្នុងលក្ខខណ្ឌនេះទេ</td></tr>';
+          return;
+        }
+
+        let qtyTotal = 0;
+        tbody.innerHTML = list.map((x, idx) => {
+          const isApproved = x.status === 'បានអនុម័ត' || !x.status;
+          if (isApproved) qtyTotal += Number(x.qty || 0);
+          const loc = [x.building, x.floor, x.room].filter(Boolean).join(' - ') || (x.department || '-');
+          const stColor = isApproved ? 'text-emerald-700 bg-emerald-50' : (x.status === 'បដិសេធ' ? 'text-rose-700 bg-rose-50' : 'text-amber-700 bg-amber-50');
+          return `
+            <tr class="border-b border-slate-200 hover:bg-slate-50">
+              <td class="p-2 border-r border-slate-200 text-center font-bold text-slate-500">${idx + 1}</td>
+              <td class="p-2 border-r border-slate-200 font-mono font-bold text-indigo-900">${x.id || '-'}</td>
+              <td class="p-2 border-r border-slate-200 font-mono text-slate-600">${x.date || '-'}</td>
+              <td class="p-2 border-r border-slate-200 font-mono font-semibold">${x.itemId || '-'}</td>
+              <td class="p-2 border-r border-slate-200 font-bold text-slate-800">${x.itemName || '-'}</td>
+              <td class="p-2 border-r border-slate-200 text-right font-black text-rose-600">-${x.qty}</td>
+              <td class="p-2 border-r border-slate-200 font-semibold text-slate-800">${x.requestedBy || x.requester || '-'}</td>
+              <td class="p-2 border-r border-slate-200 text-slate-600">${loc}</td>
+              <td class="p-2 border-r border-slate-200 text-slate-600">${x.purpose || '-'}</td>
+              <td class="p-2 text-center"><span class="px-2 py-0.5 rounded text-[11px] font-bold ${stColor}">${x.status || 'បានអនុម័ត'}</span></td>
+            </tr>
+          `;
+        }).join('') + `
+          <tr class="bg-slate-100 font-bold text-slate-900 border-t-2 border-slate-400">
+            <td colspan="5" class="p-2 text-right border-r border-slate-300">សរុបបរិមាណចេញស្តុក (អនុម័ត):</td>
+            <td class="p-2 text-right border-r border-slate-300 font-black text-rose-700">-${qtyTotal}</td>
+            <td colspan="4"></td>
+          </tr>
+        `;
+      }
+    }
+
+    function printOfficialReport() {
+      window.print();
     }
 
     function openModal(id) {
