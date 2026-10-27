@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>សាលារៀន ញូវវីសិន - ប្រព័ន្ធគ្រប់គ្រងស្តុក & ទ្រព្យសម្បត្តិ V2.0 (New Vision Inventory V2.0)</title>
+  <title>សាលារៀន ញូវវីសិន - ប្រព័ន្ធគ្រប់គ្រងស្តុក & ទ្រព្យសម្បត្តិ V2.0 (New Vision Inventory Enterprise)</title>
   
-  <!-- Google Fonts: Kantumruy Pro & Plus Jakarta Sans -->
+  <!-- Google Fonts: Kantumruy Pro & Plus Jakarta Sans / Inter -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Kantumruy+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
-  <!-- Font Awesome CDN -->
+  <!-- Font Awesome 6 Pro / Free CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
   <!-- Chart.js CDN -->
@@ -42,28 +42,44 @@
         extend: {
           fontFamily: {
             khmer: ['"Kantumruy Pro"', 'sans-serif'],
-            sans: ['"Plus Jakarta Sans"', '"Kantumruy Pro"', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', '"Inter"', '"Kantumruy Pro"', 'sans-serif'],
+            mono: ['"SF Mono"', 'Menlo', 'Monaco', 'Consolas', '"Liberation Mono"', 'monospace'],
           },
           colors: {
+            brand: {
+              50: '#EEF2FF',
+              100: '#E0E7FF',
+              200: '#C7D2FE',
+              300: '#A5B4FC',
+              400: '#818CF8',
+              500: '#6366F1',
+              600: '#4F46E5',
+              700: '#4338CA',
+              800: '#3730A3',
+              900: '#312E81',
+              950: '#1E1B4B'
+            },
             nvNavy: {
-              DEFAULT: '#1E3A8A',
-              50: '#EFF6FF',
-              100: '#DBEAFE',
-              600: '#2563EB',
-              700: '#1D4ED8',
-              800: '#1E40AF',
-              900: '#1E3A8A',
-              950: '#172554'
+              DEFAULT: '#0F172A',
+              800: '#1E293B',
+              900: '#0F172A',
+              950: '#020617'
             },
             nvGold: {
-              DEFAULT: '#D97706',
-              light: '#F59E0B',
+              DEFAULT: '#F59E0B',
+              light: '#FBBF24',
               50: '#FFFBEB',
               100: '#FEF3C7',
               500: '#F59E0B',
               600: '#D97706',
               700: '#B45309'
             }
+          },
+          boxShadow: {
+            'xs': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+            'card': '0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05)',
+            'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.06)',
+            'dropdown': '0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04)',
           }
         }
       }
@@ -71,32 +87,89 @@
   </script>
 
   <style>
+    :root {
+      --font-khmer: 'Kantumruy Pro', sans-serif;
+      --font-sans: 'Plus Jakarta Sans', 'Inter', 'Kantumruy Pro', sans-serif;
+    }
+
     body {
-      font-family: 'Kantumruy Pro', 'Plus Jakarta Sans', sans-serif;
-      background: linear-gradient(135deg, #F8FAFC 0%, #EEF2F6 50%, #F1F5F9 100%);
+      font-family: var(--font-sans);
+      background-color: #F8FAFC;
       color: #0F172A;
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-    
+
+    /* Tabular numbers for clean numeric alignment */
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* Sleek slim custom scrollbar */
     .custom-scrollbar::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     .custom-scrollbar::-webkit-scrollbar-track {
       background: #F1F5F9;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb {
       background: #CBD5E1;
-      border-radius: 8px;
+      border-radius: 6px;
     }
     .custom-scrollbar::-webkit-scrollbar-thumb:hover {
       background: #94A3B8;
     }
 
-    /* Print styles */
+    /* Table density modes: Comfortable vs Compact */
+    .comfortable-mode th {
+      padding-top: 0.75rem !important;
+      padding-bottom: 0.75rem !important;
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+      font-size: 11px !important;
+    }
+    .comfortable-mode td {
+      padding-top: 0.65rem !important;
+      padding-bottom: 0.65rem !important;
+      padding-left: 0.75rem !important;
+      padding-right: 0.75rem !important;
+      font-size: 12px !important;
+    }
+
+    .compact-mode th {
+      padding-top: 0.45rem !important;
+      padding-bottom: 0.45rem !important;
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      font-size: 10px !important;
+    }
+    .compact-mode td {
+      padding-top: 0.35rem !important;
+      padding-bottom: 0.35rem !important;
+      padding-left: 0.5rem !important;
+      padding-right: 0.5rem !important;
+      font-size: 11px !important;
+    }
+
+    /* Keyboard shortcut badge */
+    .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-family: monospace;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 4px;
+      padding: 1px 5px;
+      line-height: 1.2;
+    }
+
+    /* Official Print Styles */
     @media print {
-      .no-print, header, #appSidebar, #sidebarOverlay, nav, .tab-btn, .side-tab-btn, button, footer {
+      .no-print, header, #appSidebar, #sidebarOverlay, nav, .tab-btn, .side-tab-btn, button, footer, #appTabBar {
         display: none !important;
       }
       body {
@@ -121,22 +194,25 @@
     }
   </style>
 </head>
-<body class="min-h-screen flex flex-col antialiased bg-slate-100 text-slate-800">
+<body class="min-h-screen flex flex-col antialiased bg-slate-50/75 text-slate-900 selection:bg-indigo-500 selection:text-white">
 
   <!-- ================= AUTH / LOGIN SCREEN ================= -->
-  <div id="authScreen" class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-4">
+  <div id="authScreen" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4">
     <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-200 animate-in fade-in zoom-in-95 duration-200">
-      <div class="bg-gradient-to-r from-purple-950 via-indigo-950 to-blue-950 p-6 text-white text-center relative">
-        <div class="w-16 h-16 bg-white rounded-2xl p-1.5 mx-auto mb-3 shadow-lg flex items-center justify-center">
+      
+      <!-- Brand Header -->
+      <div class="bg-slate-900 p-6 text-white text-center relative border-b border-slate-800">
+        <div class="w-16 h-16 bg-white rounded-2xl p-1.5 mx-auto mb-3 shadow-md flex items-center justify-center border border-slate-700">
           <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School" class="w-full h-full object-contain">
         </div>
-        <h2 class="text-base sm:text-lg font-bold">សាលារៀន ញូវវីសិន</h2>
-        <p class="text-xs text-purple-200 font-medium">New Vision School • Inventory & Asset Management V2.0</p>
-        <div class="inline-flex items-center gap-1.5 bg-white/10 px-3 py-1 rounded-full text-[11px] text-amber-300 font-semibold mt-2.5 border border-white/15">
-          <i class="fa-solid fa-shield-halved"></i> ប្រព័ន្ធសុវត្ថិភាពកម្រិតខ្ពស់
+        <h2 class="text-base sm:text-lg font-black tracking-wide">សាលារៀន ញូវវីសិន</h2>
+        <p class="text-xs text-slate-400 font-medium mt-0.5">NEW VISION SCHOOL • INVENTORY & ASSET MANAGEMENT</p>
+        <div class="inline-flex items-center gap-1.5 bg-indigo-500/10 px-3 py-1 rounded-full text-[11px] text-indigo-400 font-semibold mt-2.5 border border-indigo-500/20">
+          <i class="fa-solid fa-shield-halved"></i> ប្រព័ន្ធគ្រប់គ្រងសុវត្ថិភាពជំនាន់ V2.0 Enterprise
         </div>
       </div>
 
+      <!-- Login Form -->
       <form id="formLogin" onsubmit="handleLoginSubmit(event)" class="p-6 space-y-4">
         <div id="loginErrorAlert" class="hidden p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-center gap-2">
           <i class="fa-solid fa-triangle-exclamation text-rose-500 text-sm"></i>
@@ -145,527 +221,567 @@
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">
-            <i class="fa-solid fa-user text-purple-700 mr-1"></i> ឈ្មោះគណនី (Username):
+            <i class="fa-solid fa-user text-indigo-600 mr-1"></i> ឈ្មោះគណនី (Username):
           </label>
-          <input type="text" id="loginUsername" placeholder="ឧ. director ឬ staff" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30" required autocomplete="username">
+          <input type="text" id="loginUsername" placeholder="ឧ. director ឬ staff" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30" required autocomplete="username">
         </div>
 
         <div>
           <label class="block text-xs font-bold text-slate-700 mb-1">
-            <i class="fa-solid fa-key text-purple-700 mr-1"></i> ពាក្យសម្ងាត់ (Password):
+            <i class="fa-solid fa-key text-indigo-600 mr-1"></i> ពាក្យសម្ងាត់ (Password):
           </label>
           <div class="relative">
-            <input type="password" id="loginPassword" placeholder="បញ្ចូលលេខសម្ងាត់..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30 pr-10" required autocomplete="current-password">
-            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'loginEyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs">
-              <i id="loginEyeIcon" class="fa-solid fa-eye"></i>
+            <input type="password" id="loginPassword" placeholder="បញ្ចូលលេខសម្ងាត់..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 pr-10" required autocomplete="current-password">
+            <button type="button" onclick="togglePasswordVisibility('loginPassword', 'eyeIcon')" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xs cursor-pointer">
+              <i id="eyeIcon" class="fa-solid fa-eye"></i>
             </button>
           </div>
         </div>
 
-        <button type="submit" class="w-full bg-gradient-to-r from-purple-700 via-indigo-700 to-blue-800 hover:from-purple-800 hover:to-blue-900 text-white font-bold py-2.5 rounded-xl text-xs sm:text-sm shadow-md transition transform active:scale-98 flex items-center justify-center gap-2">
-          <i class="fa-solid fa-arrow-right-to-bracket"></i> ចូលប្រើប្រាស់ប្រព័ន្ធ (Log In)
+        <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2.5 rounded-xl text-xs shadow-md transition flex items-center justify-center gap-2 hover:scale-[1.01] cursor-pointer">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          <span>ចូលប្រើប្រព័ន្ធ (Secure Login)</span>
         </button>
 
-        <div class="pt-2 text-center text-[11px] text-slate-400 border-t border-slate-100">
-          <p>ប្រើប្រាស់បានតែគណនីដែលបានបង្កើតដោយលោកនាយកសាលាប៉ុណ្ណោះ</p>
+        <div class="pt-2 text-center text-[11px] text-slate-400">
+          <p>ប្រព័ន្ធនេះកំណត់ការប្រើប្រាស់សម្រាប់តែបុគ្គលិកសាលារៀន ញូវវីសិន ប៉ុណ្ណោះ</p>
         </div>
       </form>
     </div>
   </div>
 
   <!-- ================= COLLAPSIBLE SIDEBAR MENU & OVERLAY ================= -->
-  <div id="sidebarOverlay" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-50 hidden transition-opacity duration-300"></div>
+  <div id="sidebarOverlay" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-40 hidden lg:hidden transition-opacity duration-300"></div>
 
-  <aside id="appSidebar" class="fixed top-0 left-0 bottom-0 w-72 bg-gradient-to-b from-slate-950 via-indigo-950 to-purple-950 text-white z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between border-r border-indigo-900/40">
+  <aside id="appSidebar" class="fixed top-0 left-0 bottom-0 w-64 bg-slate-900 text-slate-200 z-50 shadow-2xl transform -translate-x-full transition-transform duration-300 flex flex-col justify-between border-r border-slate-800">
     <div class="p-4 space-y-4 overflow-y-auto custom-scrollbar flex-1">
       
       <!-- Sidebar Header -->
-      <div class="flex items-center justify-between border-b border-indigo-900/60 pb-3">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
         <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-white p-1 shadow-md shrink-0 flex items-center justify-center">
+          <div class="w-8 h-8 rounded-lg bg-white p-1 shadow-xs shrink-0 flex items-center justify-center border border-slate-700">
             <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School" class="w-full h-full object-contain">
           </div>
           <div>
-            <h3 class="text-xs sm:text-sm font-bold text-white leading-tight">សាលារៀន ញូវវីសិន</h3>
-            <p class="text-[10px] text-purple-300 font-semibold">Inventory System V2.0</p>
+            <h3 class="text-xs font-black text-white leading-tight">សាលារៀន ញូវវីសិន</h3>
+            <span class="text-[9.5px] font-bold text-indigo-400 tracking-wider">ENTERPRISE V2.0</span>
           </div>
         </div>
-        <button onclick="toggleSidebar(false)" class="w-7 h-7 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-xs transition" title="បិទមីនុយ">
+        <button onclick="toggleSidebar(false)" class="w-7 h-7 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center text-xs transition cursor-pointer" title="បិទមីនុយ">
           <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
+      <!-- Quick Spotlight / Barcode Search in Sidebar -->
+      <button onclick="openSpotlightSearch(); if(window.innerWidth < 1024) toggleSidebar(false);" class="w-full flex items-center justify-between px-3 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 text-slate-300 hover:text-white transition text-xs border border-slate-700/60 shadow-xs cursor-pointer">
+        <span class="flex items-center gap-2">
+          <i class="fa-solid fa-barcode text-amber-400 text-xs"></i>
+          <span class="font-semibold">ស្កេន / រកសម្ភារៈ</span>
+        </span>
+        <span class="kbd text-[9px] text-slate-400">Ctrl+K</span>
+      </button>
+
       <!-- Navigation Links -->
-      <nav class="space-y-1.5 text-xs font-bold">
-        <p class="text-[10px] font-extrabold uppercase text-purple-300 tracking-wider px-3 mb-1">ម៉ឺនុយមេ (Main Menu):</p>
+      <nav class="space-y-1 text-xs font-semibold">
+        <p class="text-[10px] font-black uppercase text-slate-400 tracking-wider px-2.5 py-1">ម៉ឺនុយមេ (Main Menu):</p>
         
-        <button onclick="switchTab('dashboard'); toggleSidebar(false);" id="side-tab-dashboard" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('dashboard'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-dashboard" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-chart-pie text-sm text-indigo-400"></i>
+            <i class="fa-solid fa-chart-pie text-xs text-indigo-400 w-4"></i>
             <span>ផ្ទាំងគ្រប់គ្រង (Dashboard)</span>
           </span>
         </button>
 
-        <button onclick="switchTab('inventory'); toggleSidebar(false);" id="side-tab-inventory" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('inventory'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-inventory" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-boxes-stacked text-sm text-purple-400"></i>
+            <i class="fa-solid fa-boxes-stacked text-xs text-indigo-400 w-4"></i>
             <span>បញ្ជីស្តុកសម្ភារៈ (Inventory)</span>
           </span>
-          <span id="sideBadgeInventory" class="bg-purple-800 text-purple-200 text-[10px] px-2 py-0.5 rounded-full">0</span>
+          <span id="sideBadgeInventory" class="bg-indigo-900/60 text-indigo-300 text-[10px] font-mono px-2 py-0.5 rounded-full font-bold">0</span>
         </button>
 
-        <button onclick="switchTab('stockIn'); toggleSidebar(false);" id="side-tab-stockIn" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('stockIn'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-stockIn" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-dolly text-sm text-emerald-400"></i>
+            <i class="fa-solid fa-dolly text-xs text-emerald-400 w-4"></i>
             <span>នាំចូលស្តុក (Stock In)</span>
           </span>
         </button>
 
-        <button onclick="switchTab('stockOut'); toggleSidebar(false);" id="side-tab-stockOut" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('stockOut'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-stockOut" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-arrow-up-from-bracket text-sm text-amber-400"></i>
+            <i class="fa-solid fa-arrow-up-from-bracket text-xs text-amber-400 w-4"></i>
             <span>ស្នើសុំ & ចេញស្តុក (Requests)</span>
           </span>
           <span id="sideBadgePending" class="hidden bg-amber-500 text-slate-950 font-black text-[10px] px-2 py-0.5 rounded-full">0</span>
         </button>
 
-        <button onclick="switchTab('staff'); toggleSidebar(false);" id="side-tab-staff" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('staff'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-staff" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-users-rectangle text-sm text-sky-400"></i>
+            <i class="fa-solid fa-users-rectangle text-xs text-sky-400 w-4"></i>
             <span>បុគ្គលិក & កាន់កាប់ (Staff)</span>
           </span>
         </button>
 
-        <button onclick="switchTab('reports'); toggleSidebar(false);" id="side-tab-reports" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('reports'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-reports" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-file-invoice text-sm text-rose-400"></i>
+            <i class="fa-solid fa-file-invoice text-xs text-rose-400 w-4"></i>
             <span>ទាញរបាយការណ៍ (Reports)</span>
           </span>
-          <span class="bg-rose-900/60 text-rose-300 text-[10px] px-2 py-0.5 rounded-full font-bold">Print/Excel</span>
+          <span class="bg-rose-900/60 text-rose-300 text-[9.5px] px-1.5 py-0.5 rounded font-bold">Print/Excel</span>
         </button>
 
-        <button onclick="openImportModal('master'); toggleSidebar(false);" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-purple-900/40 hover:bg-purple-800 text-purple-200 hover:text-white transition border border-purple-700/50 my-1">
+        <div class="pt-2 border-t border-slate-800 my-2"></div>
+
+        <p class="text-[10px] font-black uppercase text-slate-400 tracking-wider px-2.5 py-1">ផ្លូវកាត់រហ័ស (Shortcuts):</p>
+
+        <button onclick="openImportModal('master'); if(window.innerWidth < 1024) toggleSidebar(false);" class="w-full flex items-center justify-between px-3 py-2 rounded-lg bg-indigo-950/60 hover:bg-indigo-900 text-indigo-300 hover:text-white transition border border-indigo-800/40 cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-file-import text-sm text-purple-300"></i>
-            <span>Import ទិន្នន័យ (Excel/Doc)</span>
+            <i class="fa-solid fa-file-import text-xs text-indigo-400 w-4"></i>
+            <span>Import ទិន្នន័យ (Excel)</span>
           </span>
-          <i class="fa-solid fa-chevron-right text-[10px]"></i>
+          <i class="fa-solid fa-chevron-right text-[9px] text-indigo-400"></i>
         </button>
 
-        <button onclick="switchTab('settings'); toggleSidebar(false);" id="side-tab-settings" class="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition">
+        <button onclick="switchTab('settings'); if(window.innerWidth < 1024) toggleSidebar(false);" id="side-tab-settings" class="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer">
           <span class="flex items-center gap-2.5">
-            <i class="fa-solid fa-sliders text-sm text-slate-400"></i>
+            <i class="fa-solid fa-sliders text-xs text-slate-400 w-4"></i>
             <span>ការកំណត់ (Settings)</span>
           </span>
         </button>
       </nav>
-
     </div>
 
-    <!-- Sidebar Footer -->
-    <div class="p-4 border-t border-indigo-900/60 bg-black/20 text-[11px] text-purple-200">
-      <div class="flex items-center justify-between">
-        <span class="font-bold">New Vision School</span>
-        <span class="bg-amber-400 text-slate-950 font-black text-[9px] px-1.5 py-0.5 rounded">V2.0</span>
+    <!-- Sidebar Bottom -->
+    <div class="p-3 bg-slate-950/80 border-t border-slate-800 space-y-2 text-xs">
+      <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+        <span>ប្រព័ន្ធសុវត្ថិភាព:</span>
+        <span class="text-emerald-400 font-bold flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span> សកម្ម</span>
       </div>
-      <p class="text-[10px] text-slate-400 mt-0.5">&copy; 2026 រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+      <button onclick="handleLogout()" class="w-full py-1.5 rounded-lg bg-slate-800 hover:bg-rose-950 hover:text-rose-300 text-slate-400 font-semibold text-xs transition flex items-center justify-center gap-2 cursor-pointer">
+        <i class="fa-solid fa-right-from-bracket"></i> ចាកចេញ (Logout)
+      </button>
     </div>
   </aside>
 
-  <!-- ================= MODERN TOPBAR (HEADER) ================= -->
-  <header class="bg-gradient-to-r from-slate-950 via-purple-950 to-indigo-950 text-white shadow-lg sticky top-0 z-40 no-print border-b border-indigo-900/60">
-    <div class="max-w-[1550px] mx-auto px-3 sm:px-5 py-2.5 flex flex-wrap items-center justify-between gap-3">
+  <!-- ================= MODERN ENTERPRISE TOPBAR (HEADER: 56px) ================= -->
+  <!-- ================= BOX #2: APP CONTAINER (PUSH / SHRINK ON SIDEBAR OPEN) ================= -->
+  <div id="appContainer" class="flex-1 flex flex-col min-h-screen transition-all duration-300 ml-0">
+
+    <header class="bg-slate-900 text-slate-100 shadow-xs sticky top-0 z-40 no-print border-b border-slate-800">
+    <div class="max-w-[1600px] mx-auto px-3 sm:px-5 h-14 flex items-center justify-between gap-3">
       
       <!-- Left: Hamburger Menu Button + School Brand -->
-      <div class="flex items-center gap-2.5">
+      <div class="flex items-center gap-2.5 shrink-0">
         <!-- HAMBURGER MENU BUTTON -->
-        <button onclick="toggleSidebar()" class="px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5 text-xs font-bold transition shadow-xs border border-white/15 cursor-pointer" title="បើក/បិទ មីនុយ (Toggle Sidebar Menu)">
-          <i class="fa-solid fa-bars text-sm text-amber-300"></i>
-          <span class="hidden sm:inline">មីនុយ</span>
+        <button onclick="toggleSidebar()" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 flex items-center gap-1.5 text-xs font-bold transition border border-slate-700 cursor-pointer shadow-xs" title="បើក/បិទ មីនុយ (Toggle Sidebar Menu)">
+          <i class="fa-solid fa-bars text-amber-400 text-xs"></i>
+          <span class="hidden sm:inline text-xs font-bold">មីនុយ</span>
         </button>
 
-        <div class="w-9 h-9 rounded-xl overflow-hidden bg-white shadow-md border border-white/20 p-0.5 flex items-center justify-center shrink-0">
+        <div class="w-8 h-8 rounded-lg overflow-hidden bg-white shadow-xs border border-slate-700 p-0.5 flex items-center justify-center shrink-0">
           <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School Logo" class="w-full h-full object-contain">
         </div>
         <div>
           <div class="flex items-center gap-1.5">
-            <h1 class="text-xs sm:text-sm font-black tracking-wide text-white">សាលារៀន ញូវវីសិន</h1>
-            <span class="bg-amber-400 text-slate-950 text-[9px] font-black px-1.5 py-0.5 rounded uppercase shadow-xs">V2.0</span>
+            <h1 class="text-xs sm:text-sm font-black tracking-wide text-white leading-none">សាលារៀន ញូវវីសិន</h1>
+            <span class="bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 text-[9px] font-black px-1.5 py-0.5 rounded uppercase">V2.0 PRO</span>
           </div>
-          <p class="text-[10px] text-purple-200 hidden md:block font-medium">ប្រព័ន្ធគ្រប់គ្រងស្តុក & ទ្រព្យសម្បត្តិ (Inventory & Asset Management)</p>
+          <p class="text-[9.5px] text-slate-400 hidden md:block font-medium mt-0.5">Inventory & Asset Management System</p>
+        </div>
+
+        <!-- Active View Breadcrumb Indicator -->
+        <div id="activeViewBreadcrumb" class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-800/90 border border-slate-700/80 text-xs font-bold text-amber-300 ml-2">
+          <i class="fa-solid fa-chart-pie text-xs text-amber-400"></i>
+          <span>ផ្ទាំងគ្រប់គ្រង (Dashboard)</span>
         </div>
       </div>
 
-      <!-- Center: GLOBAL BRANCH SELECTOR (WITH CRISP COLOR CONTRAST) -->
-      <div class="flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-amber-400 to-amber-500 text-slate-950 px-3 py-1.5 rounded-xl border border-amber-300 shadow-md font-bold">
+      <!-- Center: GLOBAL CAMPUS CONTEXT PILL (HIGH CONTRAST) -->
+      <div class="flex items-center gap-1.5 bg-amber-400 text-slate-950 px-3 py-1 rounded-xl shadow-xs font-bold border border-amber-300 shrink-0">
         <i class="fa-solid fa-school-flag text-xs text-slate-950 shrink-0"></i>
         <div class="flex flex-col">
-          <span class="text-[8.5px] uppercase tracking-wider font-black text-amber-950 leading-none">សាខាសាលា (Campus):</span>
-          <select id="globalBranchSelect" onchange="onGlobalBranchChange(this.value)" class="bg-transparent text-slate-950 font-black text-xs focus:outline-none cursor-pointer pr-2">
+          <span class="text-[7.5px] uppercase tracking-wider font-black text-amber-950 leading-none">សាខាសាលា (Campus):</span>
+          <select id="globalBranchSelect" onchange="onGlobalBranchChange(this.value)" class="bg-transparent text-slate-950 font-black text-xs focus:outline-none cursor-pointer pr-1">
             <!-- Dynamic options populated with high contrast bg-white text-slate-900 -->
           </select>
         </div>
       </div>
 
-      <!-- Right: Action Shortcuts + Cloud Status + Profile + Logout -->
-      <div class="flex items-center gap-2 sm:gap-2.5">
+      <!-- Right: Action Shortcuts + Spotlight + Cloud Status + Profile + Logout -->
+      <div class="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
         
+        <!-- Spotlight Search / Quick Scan Button -->
+        <button onclick="openSpotlightSearch()" class="hidden md:flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-2.5 py-1.5 rounded-xl text-xs font-semibold border border-slate-700 transition shadow-xs cursor-pointer" title="ស្វែងរកសម្ភារៈ ឬស្កេន Barcode (Ctrl+K)">
+          <i class="fa-solid fa-barcode text-amber-400 text-xs"></i>
+          <span>ស្កេន / រក</span>
+          <span class="kbd text-[9px] text-slate-400">Ctrl+K</span>
+        </button>
+
         <!-- Reports Shortcut Button -->
-        <button onclick="switchTab('reports')" class="hidden lg:flex items-center gap-1.5 bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-xs" title="របាយការណ៍សារពើភ័ណ្ឌ">
+        <button onclick="switchTab('reports')" class="hidden lg:flex items-center gap-1.5 bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 px-2.5 py-1.5 rounded-xl text-xs font-bold transition shadow-xs cursor-pointer" title="របាយការណ៍សារពើភ័ណ្ឌផ្លូវការ">
           <i class="fa-solid fa-file-invoice text-rose-400 text-xs"></i>
           <span>របាយការណ៍</span>
         </button>
 
         <!-- Import Shortcut Button -->
-        <button onclick="openImportModal('master')" class="hidden lg:flex items-center gap-1.5 bg-purple-500/20 hover:bg-purple-500/30 text-purple-200 border border-purple-400/30 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-xs" title="Import ពី Excel">
-          <i class="fa-solid fa-file-import text-purple-300 text-xs"></i>
+        <button onclick="openImportModal('master')" class="hidden lg:flex items-center gap-1.5 bg-indigo-500/15 hover:bg-indigo-500/25 text-indigo-300 border border-indigo-500/30 px-2.5 py-1.5 rounded-xl text-xs font-bold transition shadow-xs cursor-pointer" title="Import ទិន្នន័យពី Excel">
+          <i class="fa-solid fa-file-import text-indigo-400 text-xs"></i>
           <span>Import</span>
         </button>
 
         <!-- Supabase Cloud Pill -->
-        <div id="headerSupabaseStatus" onclick="switchTab('settings')" class="hidden md:flex items-center gap-1.5 bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer hover:bg-emerald-500/30 transition" title="ស្ថានភាពតភ្ជាប់ Cloud Supabase">
-          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Cloud Real-time</span>
+        <div id="headerSupabaseStatus" onclick="switchTab('settings')" class="hidden sm:flex items-center gap-1.5 bg-emerald-500/15 text-emerald-300 border border-emerald-400/30 px-2.5 py-1 rounded-full text-[11px] font-semibold cursor-pointer hover:bg-emerald-500/25 transition" title="ស្ថានភាពតភ្ជាប់ Cloud Database">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>Cloud Sync</span>
         </div>
 
-        <!-- User Profile -->
-        <div class="flex items-center gap-2 bg-white/10 px-2.5 py-1 rounded-xl border border-white/15">
+        <!-- User Profile Pill -->
+        <div class="flex items-center gap-2 bg-slate-800/90 px-2.5 py-1 rounded-xl border border-slate-700">
           <div id="userAvatarBadge" class="w-6 h-6 rounded-lg bg-amber-400 text-slate-950 flex items-center justify-center font-bold text-xs shrink-0 shadow-xs">
             <i class="fa-solid fa-crown text-[10px]"></i>
           </div>
           <div class="hidden sm:block text-left">
             <p id="userDisplayName" class="text-xs font-bold text-white leading-tight">លោក ហ៊ុយ ចាន់ពិសី</p>
-            <p id="userRoleBadge" class="text-[9.5px] text-amber-300 leading-none">នាយកសាលា</p>
+            <p id="userRoleBadge" class="text-[9.5px] text-amber-300 font-medium leading-none">នាយកសាលា (Director)</p>
           </div>
         </div>
 
         <!-- Logout Button -->
-        <button onclick="handleLogout()" class="w-8 h-8 rounded-xl bg-white/10 hover:bg-rose-600 text-white flex items-center justify-center transition shadow-xs text-xs" title="ចាកចេញពីប្រព័ន្ធ (Log Out)">
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <button onclick="handleLogout()" class="w-8 h-8 rounded-xl bg-slate-800 hover:bg-rose-900/60 text-slate-400 hover:text-rose-300 border border-slate-700 flex items-center justify-center text-xs transition cursor-pointer shadow-xs" title="ចាកចេញ (Logout)">
+          <i class="fa-solid fa-power-off"></i>
         </button>
       </div>
 
     </div>
   </header>
 
-  <!-- ================= HORIZONTAL NAVIGATION TABS (DESKTOP QUICK ACCESS) ================= -->
-  <nav class="bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-xs sticky top-[53px] z-30 no-print">
-    <div class="max-w-[1550px] mx-auto px-3 sm:px-5">
-      <div class="flex items-center gap-1.5 overflow-x-auto custom-scrollbar py-2 text-xs">
-        
-        <!-- Tab 1: Dashboard -->
-        <button id="tab-dashboard" onclick="switchTab('dashboard')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-chart-pie text-sm text-indigo-600"></i>
-          <span>ផ្ទាំងគ្រប់គ្រង</span>
-        </button>
-
-        <!-- Tab 2: Inventory Master -->
-        <button id="tab-inventory" onclick="switchTab('inventory')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-boxes-stacked text-sm text-purple-600"></i>
-          <span>បញ្ជីស្តុកសម្ភារៈ</span>
-          <span id="badgeInventoryCount" class="bg-slate-200 text-slate-700 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
-        </button>
-
-        <!-- Tab 3: Stock In (FIXED ID MATCH) -->
-        <button id="tab-stockIn" onclick="switchTab('stockIn')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-dolly text-sm text-emerald-600"></i>
-          <span>នាំចូលស្តុក</span>
-          <span id="badgeInCount" class="bg-emerald-100 text-emerald-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
-        </button>
-
-        <!-- Tab 4: Stock Out & Requests (FIXED ID MATCH) -->
-        <button id="tab-stockOut" onclick="switchTab('stockOut')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-arrow-up-from-bracket text-sm text-amber-600"></i>
-          <span>ស្នើសុំ & ចេញស្តុក</span>
-          <span id="badgePendingRequests" class="hidden bg-amber-500 text-white text-[10px] px-2 py-0.5 rounded-full font-black animate-pulse shadow-xs">0 រង់ចាំ</span>
-        </button>
-
-        <!-- Tab 5: Staff & Asset Custody -->
-        <button id="tab-staff" onclick="switchTab('staff')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-users-rectangle text-sm text-sky-600"></i>
-          <span>បុគ្គលិក & កាន់កាប់</span>
-          <span id="badgeStaffCount" class="bg-indigo-100 text-indigo-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">0</span>
-        </button>
-
-        <!-- Tab 6: Reports (NEW) -->
-        <button id="tab-reports" onclick="switchTab('reports')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200">
-          <i class="fa-solid fa-file-invoice text-sm text-rose-600"></i>
-          <span>របាយការណ៍</span>
-        </button>
-
-        <!-- Tab 7: Settings -->
-        <button id="tab-settings" onclick="switchTab('settings')" class="tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs">
-          <i class="fa-solid fa-sliders text-sm text-slate-600"></i>
-          <span>ការកំណត់</span>
-        </button>
-
-      </div>
-    </div>
-  </nav>
+  
 
   <!-- ================= MAIN CONTENT WRAPPER ================= -->
-  <main class="max-w-[1550px] mx-auto px-3 sm:px-5 py-5 flex-1 w-full space-y-6">
+  <main class="max-w-[1600px] mx-auto px-3 sm:px-5 py-4 flex-1 w-full space-y-4">
 
     <!-- ================= VIEW 1: DASHBOARD ================= -->
-    <div id="view-dashboard" class="space-y-5 animate-in fade-in duration-200">
+    <div id="view-dashboard" class="space-y-4 animate-in fade-in duration-200">
       
       <!-- Pending Requests Alert Banner (For Director) -->
-      <div id="pendingRequestsBanner" class="hidden p-4 rounded-3xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-amber-300/40">
+      <div id="pendingRequestsBanner" class="hidden p-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 border border-amber-300/40">
         <div class="flex items-center gap-3">
-          <div class="w-11 h-11 rounded-2xl bg-white/20 flex items-center justify-center text-xl shrink-0 shadow-inner">
+          <div class="w-9 h-9 rounded-xl bg-white/20 flex items-center justify-center text-lg shrink-0">
             <i class="fa-solid fa-bell text-amber-100 animate-bounce"></i>
           </div>
           <div>
-            <h4 class="font-bold text-sm sm:text-base">មានពាក្យស្នើសុំដកសម្ភារៈកំពុងរង់ចាំការអនុម័ត!</h4>
-            <p id="pendingRequestsText" class="text-xs text-amber-100">មានពាក្យស្នើសុំដកសម្ភារៈចំនួន 0 កំពុងរង់ចាំការពិនិត្យ និងអនុម័តពីលោកនាយកសាលា។</p>
+            <h4 class="font-bold text-xs sm:text-sm">មានពាក្យស្នើសុំដកសម្ភារៈកំពុងរង់ចាំការអនុម័ត!</h4>
+            <p id="pendingRequestsText" class="text-[11px] text-amber-100">មានពាក្យស្នើសុំដកសម្ភារៈចំនួន 0 កំពុងរង់ចាំការពិនិត្យ និងអនុម័តពីលោកនាយកសាលា។</p>
           </div>
         </div>
-        <button onclick="switchTab('stockOut'); filterStockOutByStatus('pending');" class="bg-white text-orange-900 hover:bg-orange-50 font-bold px-4 py-2 rounded-xl text-xs transition shadow-sm flex items-center gap-1.5 shrink-0 hover:scale-105">
+        <button onclick="switchTab('stockOut'); filterStockOutByStatus('pending');" class="bg-white text-orange-900 hover:bg-orange-50 font-bold px-3.5 py-1.5 rounded-xl text-xs transition shadow-xs flex items-center gap-1.5 shrink-0 cursor-pointer">
           <i class="fa-solid fa-circle-check text-emerald-600"></i> ពិនិត្យ & អនុម័តឥឡូវនេះ
         </button>
       </div>
 
       <!-- Low Stock Alert Banner -->
-      <div id="lowStockBanner" class="hidden p-4 rounded-3xl bg-rose-50 border border-rose-200 text-rose-800 shadow-sm flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-rose-100 text-rose-600 flex items-center justify-center text-lg shrink-0">
+      <div id="lowStockBanner" class="hidden p-3 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 shadow-xs flex items-center gap-3">
+        <div class="w-8 h-8 rounded-xl bg-rose-100 text-rose-600 flex items-center justify-center text-sm shrink-0">
           <i class="fa-solid fa-triangle-exclamation"></i>
         </div>
         <div class="flex-1 text-xs">
-          <span class="font-bold text-sm">ការប្រកាសអាសន្នស្តុក (Low Stock Alert):</span>
-          <p id="lowStockText" class="mt-0.5 text-rose-700">មានសម្ភារៈមួយចំនួនបានធ្លាក់ចុះដល់កម្រិតប្រុងប្រយ័ត្ន។</p>
+          <span class="font-bold text-xs">ការប្រកាសអាសន្នស្តុក (Low Stock Alert):</span>
+          <p id="lowStockText" class="mt-0.5 text-rose-700 text-[11px]">មានសម្ភារៈមួយចំនួនបានធ្លាក់ចុះដល់កម្រិតប្រុងប្រយ័ត្ន។</p>
         </div>
       </div>
 
-      <!-- 4 COLORFUL & POLISHED KPI CARDS -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- 4 ENTERPRISE KPI CARDS (PROPORTIONAL & COMPACT) -->
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         
         <!-- KPI 1: Total Items -->
-        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-blue-600 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <div class="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:border-slate-300 transition">
           <div class="flex items-center justify-between">
-            <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">មុខសម្ភារៈសរុប (Items)</p>
-              <h3 id="kpiTotalItems" class="text-2xl sm:text-3xl font-black text-slate-800 mt-1">0</h3>
-              <p class="text-[11px] text-blue-600 font-semibold mt-0.5">គិតតាមសាខាដែលបានជ្រើសរើស</p>
-            </div>
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white flex items-center justify-center text-xl shadow-md">
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">មុខសម្ភារៈសរុប</span>
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-xs">
               <i class="fa-solid fa-boxes-stacked"></i>
             </div>
+          </div>
+          <div class="mt-2">
+            <h3 id="kpiTotalItems" class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums">0</h3>
+            <p class="text-[11px] font-medium text-slate-400 mt-0.5">មុខសម្ភារៈសកម្មក្នុងប្រព័ន្ធ</p>
           </div>
         </div>
 
         <!-- KPI 2: Total Units -->
-        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-emerald-600 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <div class="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:border-slate-300 transition">
           <div class="flex items-center justify-between">
-            <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">បរិមាណស្តុកក្នុងដៃ (Units)</p>
-              <h3 id="kpiTotalUnits" class="text-2xl sm:text-3xl font-black text-emerald-700 mt-1">0</h3>
-              <p class="text-[11px] text-emerald-600 font-semibold mt-0.5">ចំនួនសម្ភារៈនៅសល់សរុប</p>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">ចំនួនស្តុកសរុប</span>
+            <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-layer-group"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center text-xl shadow-md">
-              <i class="fa-solid fa-cubes"></i>
-            </div>
+          </div>
+          <div class="mt-2">
+            <h3 id="kpiTotalUnits" class="text-2xl sm:text-3xl font-black text-slate-900 tabular-nums">0</h3>
+            <p class="text-[11px] font-semibold text-emerald-600 mt-0.5 flex items-center gap-1">
+              <i class="fa-solid fa-arrow-trend-up"></i> គ្រប់គ្រាន់ក្នុងស្តុក
+            </p>
           </div>
         </div>
 
-        <!-- KPI 3: Total Valuation -->
-        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-indigo-600 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <!-- KPI 3: Low Stock Warning -->
+        <div class="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:border-slate-300 transition">
           <div class="flex items-center justify-between">
-            <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">តម្លៃស្តុកសរុប (Valuation)</p>
-              <h3 id="kpiTotalValuation" class="text-2xl sm:text-3xl font-black text-indigo-700 mt-1">$0.00</h3>
-              <p class="text-[11px] text-indigo-500 font-semibold mt-0.5">គិតតាមតម្លៃទិញជាមធ្យម</p>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">ជិតអស់ពីស្តុក</span>
+            <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-triangle-exclamation"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-xl shadow-md">
-              <i class="fa-solid fa-sack-dollar"></i>
-            </div>
+          </div>
+          <div class="mt-2">
+            <h3 id="kpiLowStock" class="text-2xl sm:text-3xl font-black text-amber-600 tabular-nums">0</h3>
+            <p class="text-[11px] font-semibold text-amber-600 mt-0.5 flex items-center gap-1">
+              <i class="fa-solid fa-circle-exclamation"></i> ត្រូវទិញបំពេញបន្ថែម
+            </p>
           </div>
         </div>
 
-        <!-- KPI 4: Low Stock Alert -->
-        <div class="bg-white rounded-3xl p-5 border-t-4 border-t-amber-500 border border-slate-200/90 shadow-sm hover:shadow-md transition">
+        <!-- KPI 4: Total Valuation -->
+        <div class="bg-white rounded-2xl p-3.5 sm:p-4 border border-slate-200/80 shadow-xs hover:border-slate-300 transition">
           <div class="flex items-center justify-between">
-            <div>
-              <p class="text-[11px] font-bold uppercase tracking-wider text-slate-500">ជិតអស់ / អស់ពីស្តុក</p>
-              <h3 id="kpiLowStock" class="text-2xl sm:text-3xl font-black text-amber-600 mt-1">0</h3>
-              <p class="text-[11px] text-amber-700 font-semibold mt-0.5">ត្រូវស្នើសុំទិញបំពេញបន្ថែម</p>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-slate-500">តម្លៃសារពើភ័ណ្ឌសរុប</span>
+            <div class="w-8 h-8 rounded-xl bg-indigo-50 text-indigo-700 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-dollar-sign"></i>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-600 text-white flex items-center justify-center text-xl shadow-md">
-              <i class="fa-solid fa-bell"></i>
-            </div>
+          </div>
+          <div class="mt-2">
+            <h3 id="kpiTotalValuation" class="text-2xl sm:text-3xl font-black text-slate-900 font-mono tabular-nums">$0.00</h3>
+            <p class="text-[11px] font-medium text-slate-400 mt-0.5">គិតជាប្រាក់ដុល្លារ ($)</p>
           </div>
         </div>
 
       </div>
 
+      <!-- Quick Action Toolbar -->
+      <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-1 text-xs font-bold">
+        <button onclick="openModalNewItem()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <i class="fa-solid fa-plus"></i> បន្ថែមសម្ភារៈថ្មី
+        </button>
+        <button onclick="openModalStockIn()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <i class="fa-solid fa-dolly"></i> នាំចូលស្តុក (Stock In)
+        </button>
+        <button onclick="openModalStockOut()" class="bg-amber-600 hover:bg-amber-700 text-white px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i> ស្នើសុំដកសម្ភារៈ
+        </button>
+        <button onclick="openSpotlightSearch()" class="bg-slate-800 hover:bg-slate-700 text-white px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <i class="fa-solid fa-barcode text-amber-400"></i> ស្កេន Barcode
+        </button>
+        <button onclick="switchTab('reports')" class="bg-rose-600 hover:bg-rose-700 text-white px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <i class="fa-solid fa-file-invoice"></i> ទាញរបាយការណ៍
+        </button>
+        <button onclick="openImportModal('master')" class="bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 px-3.5 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+          <i class="fa-solid fa-file-import text-indigo-600"></i> Import Excel
+        </button>
+      </div>
+
       <!-- Charts Row -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <div class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm">
-          <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
-            <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-              <i class="fa-solid fa-chart-pie text-indigo-600"></i> សមាមាត្រសម្ភារៈតាមប្រភេទ (Category Distribution)
-            </h4>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        
+        <!-- Chart 1: Inventory by Category -->
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                <i class="fa-solid fa-chart-pie text-indigo-600"></i> សមាមាត្រសម្ភារៈតាមប្រភេទ (By Category)
+              </h3>
+              <p class="text-[11px] text-slate-400">ស្ថិតិបរិមាណសម្ភារៈតម្កល់តាមប្រភេទនីមួយៗ</p>
+            </div>
           </div>
-          <div class="h-64 flex items-center justify-center">
+          <div class="h-60 mt-3 flex items-center justify-center">
             <canvas id="chartCategory"></canvas>
           </div>
         </div>
 
-        <div class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm">
-          <div class="flex items-center justify-between mb-3 border-b border-slate-100 pb-2.5">
-            <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-              <i class="fa-solid fa-chart-column text-emerald-600"></i> ចលនានាំចូល vs ស្នើសុំចេញស្តុក (In vs Out)
-            </h4>
+        <!-- Chart 2: Monthly Movement -->
+        <div class="bg-white rounded-2xl p-4 border border-slate-200/80 shadow-xs">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+            <div>
+              <h3 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-emerald-600"></i> ចលនានាំចូល & ចេញស្តុកប្រចាំខែ (Movement)
+              </h3>
+              <p class="text-[11px] text-slate-400">ប្រៀបធៀបបរិមាណទិញចូល និងដកចេញប្រើប្រាស់</p>
+            </div>
           </div>
-          <div class="h-64 flex items-center justify-center">
+          <div class="h-60 mt-3 flex items-center justify-center">
             <canvas id="chartMovement"></canvas>
           </div>
         </div>
+
       </div>
 
-      <!-- Recent Activities Row -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <!-- Recent Transactions (Stock In & Stock Out) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        
         <!-- Recent Stock In -->
-        <div class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-              <i class="fa-solid fa-dolly text-emerald-600"></i> កំណត់ត្រានាំចូលថ្មីៗ (Recent Stock In)
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+          <div class="p-3.5 border-b border-slate-100 flex items-center justify-between">
+            <h4 class="font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-dolly text-emerald-600"></i> ប្រវត្តិនាំចូលស្តុកថ្មីៗ (Recent Stock In)
             </h4>
-            <button onclick="switchTab('stockIn')" class="text-xs text-blue-600 hover:underline font-bold">មើលទាំងអស់ &rarr;</button>
+            <button onclick="switchTab('stockIn')" class="text-xs text-indigo-600 hover:underline font-bold cursor-pointer">មើលទាំងអស់</button>
           </div>
-          <div class="overflow-x-auto custom-scrollbar">
+          <div class="overflow-x-auto">
             <table class="w-full text-xs text-left">
-              <thead class="bg-slate-50 text-slate-600 font-bold uppercase text-[10px]">
+              <thead class="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
                 <tr>
-                  <th class="py-2 px-3">កាលបរិច្ឆេទ</th>
-                  <th class="py-2 px-3">សម្ភារៈ</th>
-                  <th class="py-2 px-3 text-center">ចំនួន</th>
-                  <th class="py-2 px-3 text-right">តម្លៃសរុប</th>
+                  <th class="p-2.5">កាលបរិច្ឆេទ</th>
+                  <th class="p-2.5">ឈ្មោះសម្ភារៈ</th>
+                  <th class="p-2.5 text-right">ចំនួន</th>
+                  <th class="p-2.5 text-right">តម្លៃសរុប</th>
                 </tr>
               </thead>
-              <tbody id="recentInTbody" class="divide-y divide-slate-100"></tbody>
+              <tbody id="recentInTbody" class="divide-y divide-slate-100 font-medium"></tbody>
             </table>
           </div>
         </div>
 
         <!-- Recent Stock Out -->
-        <div class="bg-white p-5 rounded-3xl border border-slate-200/90 shadow-sm space-y-3">
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2">
-            <h4 class="font-bold text-slate-800 text-xs sm:text-sm flex items-center gap-2">
-              <i class="fa-solid fa-arrow-up-from-bracket text-purple-600"></i> កំណត់ត្រាស្នើសុំថ្មីៗ (Recent Requests)
+        <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+          <div class="p-3.5 border-b border-slate-100 flex items-center justify-between">
+            <h4 class="font-bold text-xs sm:text-sm text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-arrow-up-from-bracket text-amber-600"></i> ប្រវត្តិស្នើសុំ & ដកស្តុកថ្មីៗ (Recent Requests)
             </h4>
-            <button onclick="switchTab('stockOut')" class="text-xs text-blue-600 hover:underline font-bold">មើលទាំងអស់ &rarr;</button>
+            <button onclick="switchTab('stockOut')" class="text-xs text-indigo-600 hover:underline font-bold cursor-pointer">មើលទាំងអស់</button>
           </div>
-          <div class="overflow-x-auto custom-scrollbar">
+          <div class="overflow-x-auto">
             <table class="w-full text-xs text-left">
-              <thead class="bg-slate-50 text-slate-600 font-bold uppercase text-[10px]">
+              <thead class="bg-slate-50 text-slate-500 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200">
                 <tr>
-                  <th class="py-2 px-3">សម្ភារៈ</th>
-                  <th class="py-2 px-3 text-center">ចំនួន</th>
-                  <th class="py-2 px-3">អ្នកស្នើសុំ</th>
-                  <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+                  <th class="p-2.5">កាលបរិច្ឆេទ</th>
+                  <th class="p-2.5">ឈ្មោះសម្ភារៈ</th>
+                  <th class="p-2.5">អ្នកស្នើសុំ</th>
+                  <th class="p-2.5 text-center">ស្ថានភាព</th>
                 </tr>
               </thead>
-              <tbody id="recentOutTbody" class="divide-y divide-slate-100"></tbody>
+              <tbody id="recentOutTbody" class="divide-y divide-slate-100 font-medium"></tbody>
             </table>
           </div>
         </div>
+
       </div>
 
     </div>
 
     <!-- ================= VIEW 2: INVENTORY MASTER ================= -->
-    <div id="view-inventory" class="hidden space-y-4 animate-in fade-in duration-200">
+    <div id="view-inventory" class="hidden space-y-3.5 animate-in fade-in duration-200">
       
-      <!-- Top Actions Bar -->
-      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
-            <i class="fa-solid fa-boxes-stacked text-purple-700"></i>
-            <span>បញ្ជីស្តុកសម្ភារៈទាំងអស់ (Master Inventory)</span>
+          <h2 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-boxes-stacked text-indigo-600"></i>
+            <span>បញ្ជីស្តុកសម្ភារៈ និងទ្រព្យសម្បត្តិ (Master Inventory)</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">គ្រប់គ្រងសម្ភារៈ បរិមាណស្តុក តម្លៃ និងទីតាំងជាក់លាក់តាមបន្ទប់</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">គ្រប់គ្រងសម្ភារៈ បរិមាណស្តុកជាក់ស្តែង តម្លៃ និងទីតាំងតម្កល់តាមបន្ទប់</p>
         </div>
 
-        <!-- Action Buttons -->
         <div class="flex items-center gap-2 flex-wrap">
-          <button onclick="openModalNewItem()" class="bg-gradient-to-r from-purple-700 to-indigo-800 hover:from-purple-800 hover:to-indigo-900 text-white font-bold px-4 py-2 rounded-xl text-xs shadow-md transition flex items-center gap-1.5 hover:scale-102">
-            <i class="fa-solid fa-plus"></i> បន្ថែមសម្ភារៈថ្មី (Add Item)
+          <button onclick="openModalNewItem()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-plus"></i> បន្ថែមសម្ភារៈថ្មី
           </button>
-          <button onclick="openImportModal('master')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-2 rounded-xl text-xs transition border border-slate-200 flex items-center gap-1.5" title="Import ពី Excel">
-            <i class="fa-solid fa-file-import text-purple-700"></i> Import Excel
+          <button onclick="openImportModal('master')" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-slate-200 flex items-center gap-1.5 cursor-pointer" title="Import ពី Excel">
+            <i class="fa-solid fa-file-import text-indigo-600"></i> Import Excel
           </button>
-          <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5">
+          <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
             <i class="fa-solid fa-file-excel"></i> ទាញយក Excel
           </button>
         </div>
       </div>
 
-      <!-- Filters & Search Toolbar -->
-      <div class="bg-white p-3 sm:p-4 rounded-3xl border border-slate-200/80 shadow-xs grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5 text-xs">
-        
-        <!-- Search -->
-        <div class="lg:col-span-2 relative">
-          <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
-          <input type="text" id="searchInventory" oninput="renderInventoryTable()" placeholder="ស្វែងរកតាម ID, ឈ្មោះ, ប្រភេទ, បន្ទប់, អាគារ..." class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30">
+      <!-- Filters, Search & Table Density Toolbar -->
+      <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs space-y-2.5 text-xs">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+          
+          <!-- Search -->
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+            <input type="text" id="searchInventory" oninput="renderInventoryTable()" placeholder="ស្វែងរកតាម ID, ឈ្មោះ, ប្រភេទ, បន្ទប់..." class="w-full bg-slate-50 border border-slate-300 rounded-xl pl-8 pr-3 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30">
+          </div>
+
+          <!-- Category Filter -->
+          <div>
+            <select id="filterCategory" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30">
+              <option value="">-- គ្រប់ប្រភេទសម្ភារៈ --</option>
+            </select>
+          </div>
+
+          <!-- Location / Room Filter -->
+          <div>
+            <select id="filterLocation" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30 text-indigo-950 font-bold">
+              <option value="">-- គ្រប់ទីតាំង / បន្ទប់ --</option>
+            </select>
+          </div>
+
+          <!-- Stock Status Filter -->
+          <div>
+            <select id="filterStatus" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-indigo-500/30">
+              <option value="">-- គ្រប់ស្ថានភាពស្តុក --</option>
+              <option value="in_stock">✅ គ្រប់គ្រាន់ (In Stock)</option>
+              <option value="low_stock">⚠️ ជិតអស់ (Low Stock)</option>
+              <option value="out_of_stock">❌ អស់ពីស្តុក (Out of Stock)</option>
+            </select>
+          </div>
+
         </div>
 
-        <!-- Category Filter -->
-        <div>
-          <select id="filterCategory" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30">
-            <option value="">-- គ្រប់ប្រភេទទាំងអស់ --</option>
-          </select>
-        </div>
+        <!-- Density & Live Results Counter Bar -->
+        <div class="flex items-center justify-between pt-1 border-t border-slate-100 text-[11px] text-slate-500">
+          <div class="flex items-center gap-2">
+            <span>បង្ហាញ <span id="inventoryShowingCount" class="font-bold text-slate-900 font-mono">0</span> នៃ <span id="inventoryTotalCount" class="font-bold text-slate-900 font-mono">0</span> មុខសម្ភារៈ</span>
+            <span class="text-slate-300">•</span>
+            <button onclick="openSpotlightSearch()" class="text-indigo-600 hover:underline font-bold flex items-center gap-1 cursor-pointer">
+              <i class="fa-solid fa-barcode text-amber-500"></i> ស្កេន Barcode
+            </button>
+          </div>
 
-        <!-- Location / Room Filter -->
-        <div>
-          <select id="filterLocation" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30 text-purple-900 font-bold">
-            <option value="">-- គ្រប់ទីតាំង / បន្ទប់ --</option>
-          </select>
+          <!-- Table Density Control -->
+          <div class="flex items-center gap-1.5">
+            <span class="text-slate-400 font-medium">ទំហំបន្ទាត់:</span>
+            <div class="inline-flex rounded-lg border border-slate-200 p-0.5 bg-slate-50">
+              <button id="btnDensityNormal" onclick="setTableDensity('comfortable')" class="px-2 py-0.5 rounded-md text-[10.5px] font-bold bg-white text-indigo-700 shadow-xs cursor-pointer" title="គម្លាតធម្មតា">
+                ធម្មតា
+              </button>
+              <button id="btnDensityCompact" onclick="setTableDensity('compact')" class="px-2 py-0.5 rounded-md text-[10.5px] font-semibold text-slate-500 hover:text-slate-800 cursor-pointer" title="គម្លាតបង្រួម (មើលឃើញទិន្នន័យច្រើន)">
+                បង្រួម
+              </button>
+            </div>
+          </div>
         </div>
-
-        <!-- Stock Status Filter -->
-        <div>
-          <select id="filterStatus" onchange="renderInventoryTable()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-purple-500/30">
-            <option value="">-- គ្រប់ស្ថានភាពស្តុក --</option>
-            <option value="in_stock">✅ គ្រប់គ្រាន់ (In Stock)</option>
-            <option value="low_stock">⚠️ ជិតអស់ (Low Stock)</option>
-            <option value="out_of_stock">❌ អស់ពីស្តុក (Out of Stock)</option>
-          </select>
-        </div>
-
       </div>
 
       <!-- Responsive Inventory Table -->
-      <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto custom-scrollbar">
-          <table class="w-full text-xs text-left border-collapse">
-            <thead class="bg-gradient-to-r from-purple-950 via-indigo-950 to-blue-950 text-white uppercase text-[10.5px] font-bold tracking-wider">
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+          <table id="inventoryTable" class="w-full text-xs text-left border-collapse comfortable-mode">
+            <thead class="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs text-slate-600 text-[10.5px] uppercase font-bold tracking-wider border-b border-slate-200 shadow-xs">
               <tr>
-                <th class="py-3 px-3 text-center w-12">ល.រ</th>
-                <th class="py-3 px-3 w-28">កូដសម្ភារៈ</th>
-                <th class="py-3 px-4">ឈ្មោះសម្ភារៈ</th>
-                <th class="py-3 px-3">ប្រភេទ</th>
-                <th class="py-3 px-3">សាខា & ទីតាំង (បន្ទប់/ជាន់)</th>
-                <th class="py-3 px-2 text-center">ខ្នាត</th>
-                <th class="py-3 px-3 text-center">ស្តុកនៅសល់</th>
-                <th class="py-3 px-3 text-right">តម្លៃឯកតា</th>
-                <th class="py-3 px-3 text-center w-36 no-print">សកម្មភាព</th>
+                <th class="py-2.5 px-3 text-center w-10">ល.រ</th>
+                <th class="py-2.5 px-3 w-28">កូដសម្ភារៈ</th>
+                <th class="py-2.5 px-4">ឈ្មោះសម្ភារៈ</th>
+                <th class="py-2.5 px-3">ប្រភេទ</th>
+                <th class="py-2.5 px-3">ទីតាំង (សាខា • ជាន់/បន្ទប់)</th>
+                <th class="py-2.5 px-2 text-center">ខ្នាត</th>
+                <th class="py-2.5 px-3 text-center">ស្តុកនៅសល់</th>
+                <th class="py-2.5 px-3 text-right">តម្លៃឯកតា</th>
+                <th class="py-2.5 px-3 text-right">តម្លៃសរុប</th>
+                <th class="py-2.5 px-3 text-center no-print">សកម្មភាព</th>
               </tr>
             </thead>
-            <tbody id="inventoryTbody" class="divide-y divide-slate-100 font-medium">
-              <!-- Rendered via JS -->
-            </tbody>
+            <tbody id="inventoryTbody" class="divide-y divide-slate-100 font-medium"></tbody>
           </table>
         </div>
 
-        <!-- Table Footer Summary -->
-        <div class="bg-slate-50 p-3 sm:p-4 border-t border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-slate-700">
-          <div class="flex items-center gap-4">
-            <span>ចំនួនមុខសម្ភារៈ: <strong id="footInvTotalItems" class="text-purple-700">0</strong> មុខ</span>
-            <span>បរិមាណស្តុកសរុប: <strong id="footInvTotalUnits" class="text-emerald-700">0</strong> ឯកតា</span>
-          </div>
+        <!-- Table Summary Footer -->
+        <div class="bg-slate-50 border-t border-slate-200 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs font-bold text-slate-700">
           <div>
-            <span>តម្លៃស្តុកសរុប: <strong id="footInvTotalValue" class="text-indigo-700 text-sm">$0.00</strong></span>
+            <span>ចំនួនមុខសម្ភារៈ: <strong id="footInvTotalItems" class="text-indigo-900 font-mono">0</strong> មុខ</span>
+          </div>
+          <div class="flex items-center gap-4">
+            <span>បរិមាណស្តុកសរុប: <strong id="footInvTotalUnits" class="text-emerald-700 font-mono">0</strong></span>
+            <span>តម្លៃសារពើភ័ណ្ឌសរុប: <strong id="footInvTotalValue" class="text-rose-700 font-mono text-sm">$0.00</strong></span>
           </div>
         </div>
       </div>
@@ -673,158 +789,225 @@
     </div>
 
     <!-- ================= VIEW 3: STOCK IN (ID: view-stockIn) ================= -->
-    <div id="view-stockIn" class="hidden space-y-4 animate-in fade-in duration-200">
+    <div id="view-stockIn" class="hidden space-y-3.5 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h2 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-dolly text-emerald-600"></i>
-            <span>កំណត់ត្រានាំចូលស្តុក (Stock In & Purchase Records)</span>
+            <span>កំណត់ត្រានាំចូលស្តុក (Stock In Purchases)</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">កត់ត្រាការទិញចូល ឬបន្ថែមសម្ភារៈថ្មីចូលក្នុងឃ្លាំង</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">ប្រវត្តិនាំចូលទិញសម្ភារៈបន្ថែម និងប្រភពផ្គត់ផ្គង់</p>
         </div>
-        <button onclick="openModalStockIn()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
-          <i class="fa-solid fa-cart-plus"></i> កត់ត្រានាំចូលស្តុក (New Stock In)
+
+        <div class="flex items-center gap-2">
+          <button onclick="openModalStockIn()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-plus"></i> កត់ត្រានាំចូលថ្មី
+          </button>
+          <button onclick="exportToExcel()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-slate-200 flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-file-excel text-emerald-600"></i> Excel
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+        <input type="text" id="searchStockIn" oninput="renderStockInTable()" placeholder="ស្វែងរកតាម PO, កូដ, ឈ្មោះ, អ្នកផ្គត់ផ្គង់..." class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+        <input type="date" id="filterInDate" onchange="renderStockInTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500/30">
+        <button onclick="document.getElementById('searchStockIn').value=''; document.getElementById('filterInDate').value=''; renderStockInTable();" class="text-xs text-slate-500 hover:text-slate-800 font-bold text-right cursor-pointer">
+          <i class="fa-solid fa-rotate-left"></i> សម្អាតតម្រង
         </button>
       </div>
 
-      <!-- Table Stock In -->
-      <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto custom-scrollbar">
-          <table class="w-full text-xs text-left">
-            <thead class="bg-gradient-to-r from-emerald-950 to-teal-950 text-white uppercase text-[10.5px] font-bold">
+      <!-- Table -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+          <table id="stockInTable" class="w-full text-xs text-left border-collapse comfortable-mode">
+            <thead class="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs text-slate-600 text-[10.5px] uppercase font-bold tracking-wider border-b border-slate-200 shadow-xs">
               <tr>
-                <th class="py-3 px-3 text-center">ល.រ</th>
-                <th class="py-3 px-3">លេខ PO / វិក្កយបត្រ</th>
-                <th class="py-3 px-3">កាលបរិច្ឆេទ</th>
-                <th class="py-3 px-4">ឈ្មោះសម្ភារៈ</th>
-                <th class="py-3 px-3">សាខាទទួល</th>
-                <th class="py-3 px-3 text-center">ចំនួន</th>
-                <th class="py-3 px-3 text-right">តម្លៃឯកតា</th>
-                <th class="py-3 px-3 text-right">តម្លៃសរុប</th>
-                <th class="py-3 px-3">អ្នកផ្គត់ផ្គង់</th>
-                <th class="py-3 px-3">អ្នកទទួល</th>
-                <th class="py-3 px-3 text-center no-print">សកម្មភាព</th>
+                <th class="py-2.5 px-3 text-center w-10">ល.រ</th>
+                <th class="py-2.5 px-3">លេខ PO</th>
+                <th class="py-2.5 px-3">កាលបរិច្ឆេទ</th>
+                <th class="py-2.5 px-3">កូដសម្ភារៈ</th>
+                <th class="py-2.5 px-4">ឈ្មោះសម្ភារៈ</th>
+                <th class="py-2.5 px-3 text-right">បរិមាណ</th>
+                <th class="py-2.5 px-3 text-right">តម្លៃឯកតា</th>
+                <th class="py-2.5 px-3 text-right">តម្លៃសរុប</th>
+                <th class="py-2.5 px-3">អ្នកផ្គត់ផ្គង់</th>
+                <th class="py-2.5 px-3">អ្នកកត់ត្រា</th>
+                <th class="py-2.5 px-3 text-center no-print">សកម្មភាព</th>
               </tr>
             </thead>
             <tbody id="stockInTbody" class="divide-y divide-slate-100 font-medium"></tbody>
           </table>
         </div>
-        <div class="bg-slate-50 p-3 sm:p-4 border-t border-slate-200 flex justify-between text-xs font-bold">
-          <span>បរិមាណនាំចូលសរុប: <strong id="footSumInQty" class="text-emerald-700">0</strong></span>
-          <span>ចំណាយសរុប: <strong id="footSumInCost" class="text-emerald-700">$0.00</strong></span>
+
+        <div class="bg-slate-50 border-t border-slate-200 px-4 py-2.5 flex items-center justify-between text-xs font-bold text-slate-700">
+          <span>សរុបបរិមាណនាំចូល: <strong id="footSumInQty" class="text-emerald-700 font-mono">0</strong></span>
+          <span>តម្លៃសរុបនាំចូល: <strong id="footSumInCost" class="text-indigo-900 font-mono text-sm">$0.00</strong></span>
         </div>
       </div>
 
     </div>
 
     <!-- ================= VIEW 4: STOCK OUT & REQUESTS (ID: view-stockOut) ================= -->
-    <div id="view-stockOut" class="hidden space-y-4 animate-in fade-in duration-200">
+    <div id="view-stockOut" class="hidden space-y-3.5 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
-            <i class="fa-solid fa-arrow-up-from-bracket text-purple-700"></i>
-            <span>ពាក្យស្នើសុំ និងបញ្ចេញសម្ភារៈពីស្តុក (Stock Requests & Dispatch)</span>
+          <h2 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-arrow-up-from-bracket text-amber-600"></i>
+            <span>ពាក្យស្នើសុំ និងចេញស្តុក (Stock Requests & Approval)</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">បុគ្គលិកស្នើសុំសម្ភារៈ & នាយកសាលាពិនិត្យ Approve</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">គ្រប់គ្រងការស្នើសុំ ការអនុម័តពីនាយកសាលា និងការកាត់ស្តុក</p>
         </div>
-        <button onclick="openModalStockOut()" class="bg-gradient-to-r from-purple-700 to-indigo-800 hover:from-purple-800 hover:to-indigo-900 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
-          <i class="fa-solid fa-hand-holding-hand"></i> ដាក់ពាក្យស្នើសុំដកសម្ភារៈ (Request Material)
+
+        <div class="flex items-center gap-2">
+          <button onclick="openModalStockOut()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-plus"></i> បង្កើតសំណើសុំដក
+          </button>
+          <button onclick="exportToExcel()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition border border-slate-200 flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-file-excel text-amber-600"></i> Excel
+          </button>
+        </div>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
+        <input type="text" id="searchStockOut" oninput="renderStockOutTable()" placeholder="ស្វែងរកតាម លេខសំណើ, កូដ, ឈ្មោះ, អ្នកស្នើសុំ..." class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500/30">
+        
+        <select id="filterOutStatus" onchange="renderStockOutTable()" class="bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-amber-500/30">
+          <option value="">-- គ្រប់ស្ថានភាពទាំងអស់ --</option>
+          <option value="pending">⏳ រង់ចាំអនុម័ត (Pending)</option>
+          <option value="approved">✅ បានអនុម័ត (Approved)</option>
+          <option value="rejected">❌ បដិសេធ (Rejected)</option>
+        </select>
+
+        <button onclick="document.getElementById('searchStockOut').value=''; document.getElementById('filterOutStatus').value=''; renderStockOutTable();" class="text-xs text-slate-500 hover:text-slate-800 font-bold text-right cursor-pointer">
+          <i class="fa-solid fa-rotate-left"></i> សម្អាតតម្រង
         </button>
       </div>
 
-      <!-- Filter Tabs: All / Pending / Approved / Rejected -->
-      <div class="flex items-center gap-2 bg-white p-2 rounded-2xl border border-slate-200 shadow-xs text-xs font-bold overflow-x-auto">
-        <button onclick="filterStockOutByStatus('all')" id="filterTabOutAll" class="px-3.5 py-1.5 rounded-xl bg-purple-700 text-white transition shadow-xs">ទាំងអស់ (All)</button>
-        <button onclick="filterStockOutByStatus('pending')" id="filterTabOutPending" class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-amber-800 hover:bg-amber-100 transition flex items-center gap-1">
-          <i class="fa-solid fa-clock"></i> រង់ចាំអនុម័ត (Pending)
-        </button>
-        <button onclick="filterStockOutByStatus('approved')" id="filterTabOutApproved" class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-emerald-800 hover:bg-emerald-100 transition flex items-center gap-1">
-          <i class="fa-solid fa-check"></i> បានអនុម័ត (Approved)
-        </button>
-        <button onclick="filterStockOutByStatus('rejected')" id="filterTabOutRejected" class="px-3.5 py-1.5 rounded-xl bg-slate-100 text-rose-800 hover:bg-rose-100 transition flex items-center gap-1">
-          <i class="fa-solid fa-xmark"></i> បដិសេធ (Rejected)
-        </button>
-      </div>
-
-      <!-- Table Stock Out -->
-      <div class="bg-white rounded-3xl border border-slate-200/90 shadow-sm overflow-hidden">
-        <div class="overflow-x-auto custom-scrollbar">
-          <table class="w-full text-xs text-left">
-            <thead class="bg-gradient-to-r from-purple-950 to-indigo-950 text-white uppercase text-[10.5px] font-bold">
+      <!-- Table -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto custom-scrollbar max-h-[600px]">
+          <table id="stockOutTable" class="w-full text-xs text-left border-collapse comfortable-mode">
+            <thead class="sticky top-0 z-10 bg-slate-50/95 backdrop-blur-xs text-slate-600 text-[10.5px] uppercase font-bold tracking-wider border-b border-slate-200 shadow-xs">
               <tr>
-                <th class="py-3 px-3 text-center">ល.រ</th>
-                <th class="py-3 px-3">លេខកូដសំណើ</th>
-                <th class="py-3 px-3">កាលបរិច្ឆេទ</th>
-                <th class="py-3 px-4">ឈ្មោះសម្ភារៈ</th>
-                <th class="py-3 px-3 text-center">ចំនួនដក</th>
-                <th class="py-3 px-3">អ្នកស្នើសុំ (ផ្នែក)</th>
-                <th class="py-3 px-4">គោលបំណង & បន្ទប់ប្រើប្រាស់</th>
-                <th class="py-3 px-3 text-center">ស្ថានភាព</th>
-                <th class="py-3 px-3 text-center w-36 no-print">សកម្មភាព</th>
+                <th class="py-2.5 px-3 text-center w-10">ល.រ</th>
+                <th class="py-2.5 px-3">លេខសំណើ</th>
+                <th class="py-2.5 px-3">កាលបរិច្ឆេទ</th>
+                <th class="py-2.5 px-3">កូដសម្ភារៈ</th>
+                <th class="py-2.5 px-4">ឈ្មោះសម្ភារៈ</th>
+                <th class="py-2.5 px-3 text-right">បរិមាណ</th>
+                <th class="py-2.5 px-3">អ្នកស្នើសុំ</th>
+                <th class="py-2.5 px-3">ទីតាំងប្រើប្រាស់</th>
+                <th class="py-2.5 px-3 text-center">ស្ថានភាព</th>
+                <th class="py-2.5 px-3">អ្នកអនុម័ត</th>
+                <th class="py-2.5 px-3 text-center no-print">សកម្មភាព</th>
               </tr>
             </thead>
             <tbody id="stockOutTbody" class="divide-y divide-slate-100 font-medium"></tbody>
           </table>
         </div>
-        <div class="bg-slate-50 p-3 sm:p-4 border-t border-slate-200 flex justify-between text-xs font-bold">
-          <span>ចំនួនសម្ភារៈបានដកសរុប: <strong id="footSumOutQty" class="text-purple-700">0</strong> ឯកតា</span>
+
+        <div class="bg-slate-50 border-t border-slate-200 px-4 py-2.5 flex items-center justify-between text-xs font-bold text-slate-700">
+          <span>សរុបបរិមាណបានដកចេញ (អនុម័ត): <strong id="footSumOutQty" class="text-rose-700 font-mono">0</strong></span>
         </div>
       </div>
 
     </div>
 
     <!-- ================= VIEW 5: STAFF DIRECTORY ================= -->
-    <div id="view-staff" class="hidden space-y-4 animate-in fade-in duration-200">
+    <div id="view-staff" class="hidden space-y-3.5 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm">
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
-            <i class="fa-solid fa-users-rectangle text-indigo-700"></i>
-            <span>បញ្ជីបុគ្គលិក & សម្ភារៈកំពុងកាន់កាប់ (Staff & Asset Custody)</span>
+          <h2 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-users-rectangle text-sky-600"></i>
+            <span>បញ្ជីបុគ្គលិក និងទ្រព្យសម្បត្តិដែលកាន់កាប់ (Staff & Custody)</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">តាមដានសម្ភារៈដែលបានប្រគល់ជូនបុគ្គលិក និងលោកគ្រូអ្នកគ្រូនីមួយៗប្រើប្រាស់</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">តាមដានសម្ភារៈសាលាដែលបុគ្គលិក និងលោកគ្រូអ្នកគ្រូបានខ្ចី ឬកាន់កាប់</p>
         </div>
-        <button onclick="openModalStaff()" class="bg-indigo-700 hover:bg-indigo-800 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
-          <i class="fa-solid fa-user-plus"></i> បន្ថែមបុគ្គលិកថ្មី (Add Staff)
+
+        <button onclick="openModalStaff()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+          <i class="fa-solid fa-user-plus"></i> បន្ថែមបុគ្គលិកថ្មី
         </button>
       </div>
 
-      <!-- Staff Grid -->
-      <div id="staffGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <!-- Rendered via JS -->
+      <!-- Staff Grid Cards Container -->
+      <!-- Search & Filter Controls -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs text-xs">
+        <div class="relative">
+          <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400"></i>
+          <input type="text" id="searchStaffInput" oninput="filterStaffTable()" placeholder="ស្វែងរកតាមឈ្មោះ អត្តលេខ ឬទូរស័ព្ទ..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs focus:outline-none focus:border-sky-500">
+        </div>
+        <div>
+          <select id="filterStaffDept" onchange="filterStaffTable()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-medium focus:outline-none">
+            <option value="">-- គ្រប់ដេប៉ាតឺម៉ង់ / ផ្នែក --</option>
+          </select>
+        </div>
+        <div class="flex items-center justify-between sm:justify-end gap-2 text-slate-500 text-xs">
+          <span class="text-[11px] text-slate-400"><i class="fa-solid fa-info-circle text-sky-500 mr-1"></i>ចុចលើជួរបុគ្គលិកដើម្បីមើលប្រវត្តិលម្អិត</span>
+        </div>
+      </div>
+
+      <!-- Staff Dense Data Table -->
+      <div class="bg-white rounded-2xl border border-slate-200/80 shadow-xs overflow-hidden">
+        <div class="overflow-x-auto custom-scrollbar">
+          <table id="staffTable" class="w-full text-xs text-left border-collapse">
+            <thead class="bg-slate-50 text-slate-700 uppercase font-bold text-[10px] border-b border-slate-200">
+              <tr>
+                <th class="py-2.5 px-3 text-center w-12">ល.រ</th>
+                <th class="py-2.5 px-3 w-28">អត្តលេខ</th>
+                <th class="py-2.5 px-3">ឈ្មោះ & តួនាទីបុគ្គលិក</th>
+                <th class="py-2.5 px-3">ផ្នែក / ដេប៉ាតឺម៉ង់</th>
+                <th class="py-2.5 px-3">លេខទូរស័ព្ទ</th>
+                <th class="py-2.5 px-3 text-center">កំពុងកាន់កាប់</th>
+                <th class="py-2.5 px-3 text-center">ស្នើសុំសរុប</th>
+                <th class="py-2.5 px-3 text-center">បានទទួល (Approve)</th>
+                <th class="py-2.5 px-3 text-center">បដិសេធ (Reject)</th>
+                <th class="py-2.5 px-3 text-center w-28">សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="staffTbody" class="divide-y divide-slate-100 font-medium"></tbody>
+          </table>
+        </div>
       </div>
 
     </div>
 
     <!-- ================= VIEW 6: REPORTS & EXCEL (NEW!) ================= -->
-    <div id="view-reports" class="hidden space-y-5 animate-in fade-in duration-200">
+    <div id="view-reports" class="hidden space-y-4 animate-in fade-in duration-200">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 sm:p-5 rounded-3xl border border-slate-200/90 shadow-sm">
+      <!-- Top Action Bar -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/80 shadow-xs">
         <div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h2 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-file-invoice text-rose-600"></i>
             <span>របាយការណ៍សារពើភ័ណ្ឌ និងស្ថិតិផ្លូវការ (Official Reports & Analytics)</span>
           </h2>
-          <p class="text-xs text-slate-400 mt-0.5">បង្កើត ទាញយកជា Excel ឬបោះពុម្ពជាឯកសារផ្លូវការមានក្បាលលិខិតសាលា</p>
+          <p class="text-[11px] text-slate-400 mt-0.5">បង្កើត ទាញយកជា Excel ឬបោះពុម្ពជាឯកសារផ្លូវការមានក្បាលលិខិតសាលាត្រឹមត្រូវ</p>
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="printOfficialReport()" class="bg-slate-800 hover:bg-slate-900 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
-            <i class="fa-solid fa-print text-amber-400"></i> បោះពុម្ពរបាយការណ៍ផ្លូវការ (Print)
+          <button onclick="printOfficialReport()" class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
+            <i class="fa-solid fa-print text-amber-400"></i> បោះពុម្ពរបាយការណ៍ (Print)
           </button>
-          <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 hover:scale-102">
+          <button onclick="exportToExcel()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-3.5 py-1.5 rounded-xl text-xs shadow-xs transition flex items-center gap-1.5 cursor-pointer">
             <i class="fa-solid fa-file-excel"></i> ទាញយក Excel (.xlsx)
           </button>
         </div>
       </div>
 
       <!-- Report Filters Bar -->
-      <div class="bg-white p-4 rounded-3xl border border-slate-200/90 shadow-sm grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+      <div class="bg-white p-3 rounded-2xl border border-slate-200/80 shadow-xs grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs">
         <div>
           <label class="block font-bold text-slate-700 mb-1">ជ្រើសរើសប្រភេទរបាយការណ៍:</label>
-          <select id="reportTypeSelect" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-bold text-indigo-900 focus:ring-2 focus:ring-rose-500/30">
+          <select id="reportTypeSelect" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-bold text-indigo-900 focus:ring-2 focus:ring-indigo-500/30">
             <option value="master">📋 របាយការណ៍សារពើភ័ណ្ឌទូទៅ (Master Inventory)</option>
             <option value="lowStock">⚠️ របាយការណ៍សម្ភារៈជិតអស់ (Low Stock Alert)</option>
             <option value="stockIn">📥 របាយការណ៍នាំចូលស្តុក (Stock In Purchases)</option>
@@ -834,29 +1017,29 @@
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">សាខាសាលា (Campus):</label>
-          <select id="reportBranchSelect" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-semibold">
+          <select id="reportBranchSelect" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-semibold">
             <!-- Dynamic Branches -->
           </select>
         </div>
 
         <div>
           <label class="block font-bold text-slate-700 mb-1">កាលបរិច្ឆេទធ្វើរបាយការណ៍:</label>
-          <input type="date" id="reportDateInput" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-semibold">
+          <input type="date" id="reportDateInput" onchange="generateReportPreview()" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-semibold">
         </div>
       </div>
 
       <!-- Live Report Preview (Print Ready) -->
-      <div id="reportPrintArea" class="bg-white rounded-3xl border border-slate-200/90 shadow-sm p-6 space-y-4">
+      <div id="reportPrintArea" class="bg-white rounded-2xl border border-slate-200/80 shadow-xs p-5 sm:p-8 space-y-4">
         
         <!-- Official School Header for Print -->
-        <div class="flex items-center justify-between border-b-2 border-slate-900 pb-4">
+        <div class="flex items-center justify-between border-b-2 border-slate-900 pb-3">
           <div class="flex items-center gap-3">
-            <div class="w-14 h-14 bg-white p-1 rounded-2xl border border-slate-200 flex items-center justify-center shrink-0">
+            <div class="w-12 h-12 bg-white p-1 rounded-xl border border-slate-200 flex items-center justify-center shrink-0">
               <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School" class="w-full h-full object-contain">
             </div>
             <div>
-              <h3 class="text-base font-extrabold text-slate-900">សាលារៀន ញូវវីសិន (NEW VISION SCHOOL)</h3>
-              <p class="text-xs text-slate-600 font-medium">ក្រសួងអប់រំ យុវជន និងកីឡា • នាយកដ្ឋានគ្រប់គ្រងទ្រព្យសម្បត្តិ</p>
+              <h3 class="text-sm sm:text-base font-extrabold text-slate-900">សាលារៀន ញូវវីសិន (NEW VISION SCHOOL)</h3>
+              <p class="text-[11px] text-slate-600 font-medium">ក្រសួងអប់រំ យុវជន និងកីឡា • នាយកដ្ឋានគ្រប់គ្រងទ្រព្យសម្បត្តិ</p>
               <p id="reportHeaderCampus" class="text-xs font-bold text-amber-900 mt-0.5">សាខា៖ សាខាទាំងអស់</p>
             </div>
           </div>
@@ -868,7 +1051,7 @@
         </div>
 
         <div class="text-center py-2">
-          <h3 id="reportTitleText" class="text-base font-black text-slate-900 uppercase tracking-wide">របាយការណ៍សារពើភ័ណ្ឌទូទៅ</h3>
+          <h3 id="reportTitleText" class="text-sm sm:text-base font-black text-slate-900 uppercase tracking-wide">របាយការណ៍សារពើភ័ណ្ឌទូទៅ</h3>
           <p id="reportSubtitleText" class="text-xs text-slate-500 mt-0.5">បញ្ជីសម្ភារៈ បរិមាណស្តុក តម្លៃ និងទីតាំងតម្កល់</p>
         </div>
 
@@ -889,7 +1072,7 @@
             <p id="reportPreparedBy" class="font-bold text-slate-900">លោក សុខ ចាន់រិទ្ធ</p>
           </div>
           <div>
-            <p class="font-bold text-slate-700">បានឃើញ និងអនុម័តដោយនាយកសាលា</p>
+            <p class="font-bold text-slate-700">បានឃើញ និងអនុម័តដោយ នាយកសាលា</p>
             <p class="text-slate-400 text-[11px]">(ហត្ថលេខា និងត្រា)</p>
             <div class="h-16"></div>
             <p class="font-bold text-slate-900">លោក ហ៊ុយ ចាន់ពិសី</p>
@@ -937,7 +1120,42 @@
         </div>
       </div>
 
-      <!-- CARD 2: USER ACCOUNTS (DIRECTOR ONLY) -->
+      <!-- CARD 2: CATEGORIES MANAGEMENT (ADD / EDIT / DELETE) -->
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/90 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-teal-50 text-teal-700 flex items-center justify-center text-lg shadow-inner">
+              <i class="fa-solid fa-tags"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm sm:text-base font-bold text-slate-800">គ្រប់គ្រងប្រភេទសម្ភារៈ (Material Categories)</h3>
+                <span id="catTotalBadge" class="bg-teal-100 text-teal-800 text-[10px] font-black px-2 py-0.5 rounded-full font-mono">0 ប្រភេទ</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">បន្ថែម កែប្រែ ឬលុបប្រភេទសម្ភារៈក្នុងប្រព័ន្ធសារពើភ័ណ្ឌ</p>
+            </div>
+          </div>
+          <button type="button" onclick="openModalCategory()" class="bg-gradient-to-r from-teal-600 to-emerald-700 hover:from-teal-700 hover:to-emerald-800 text-white font-bold px-4 py-2 rounded-xl text-xs shadow transition flex items-center gap-1.5 self-start sm:self-auto hover:scale-105 cursor-pointer">
+            <i class="fa-solid fa-plus"></i> បន្ថែមប្រភេទថ្មី (Add Category)
+          </button>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-600 uppercase font-bold text-[10px] border-b border-slate-200">
+              <tr>
+                <th class="py-2.5 px-3 w-12 text-center">ល.រ</th>
+                <th class="py-2.5 px-3">ឈ្មោះប្រភេទសម្ភារៈ</th>
+                <th class="py-2.5 px-3 text-center">ចំនួនសម្ភារៈក្នុងប្រព័ន្ធ</th>
+                <th class="py-2.5 px-3 text-center w-28">សកម្មភាព</th>
+              </tr>
+            </thead>
+            <tbody id="categoriesTbody" class="divide-y divide-slate-100 font-medium"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CARD 3: USER ACCOUNTS (DIRECTOR ONLY) -->
       <div id="cardUserAccounts" class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/90 shadow-sm space-y-4">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
           <div class="flex items-center gap-3">
@@ -964,6 +1182,7 @@
                 <th class="py-2.5 px-3">ឈ្មោះពេញ</th>
                 <th class="py-2.5 px-3">ឈ្មោះគណនី (Username)</th>
                 <th class="py-2.5 px-3">តួនាទី (Role)</th>
+                <th class="py-2.5 px-3">សិទ្ធិអនុញ្ញាត (Permissions)</th>
                 <th class="py-2.5 px-3">ពាក្យសម្ងាត់ (Password)</th>
                 <th class="py-2.5 px-3 text-center">សកម្មភាព</th>
               </tr>
@@ -1005,15 +1224,18 @@
           </div>
         </div>
 
-        <!-- Telegram Bot Config -->
+        <!-- Telegram Bot Config (3-Tier Multi-Role Hub) -->
         <div class="bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm space-y-3">
           <div class="flex items-center gap-2.5 border-b border-slate-100 pb-2.5">
-            <div class="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-sm">
+            <div class="w-8 h-8 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-sm shadow-inner">
               <i class="fa-brands fa-telegram"></i>
             </div>
             <div>
-              <h4 class="text-xs sm:text-sm font-bold text-slate-800">Telegram Bot Notifications</h4>
-              <p class="text-[11px] text-slate-400">ផ្ញើដំណឹងសំណើសម្ភារៈ & ការ Approve</p>
+              <div class="flex items-center gap-2">
+                <h4 class="text-xs sm:text-sm font-bold text-slate-800">Telegram Bot Notifications (3-Tier System)</h4>
+                <span class="bg-sky-100 text-sky-800 text-[9.5px] font-black px-2 py-0.5 rounded-full">Interactive Bot</span>
+              </div>
+              <p class="text-[11px] text-slate-400">តភ្ជាប់ Bot សម្រាប់បុគ្គលិកស្នើសុំ, អ្នកកាន់ស្តុកបញ្ជាក់, និងនាយកអនុម័ត</p>
             </div>
           </div>
           <div class="space-y-2 text-xs">
@@ -1022,18 +1244,33 @@
               <input type="checkbox" id="settingsTgEnabled" class="w-4 h-4 rounded text-purple-600">
             </div>
             <div>
-              <label class="block font-bold text-slate-700 mb-0.5">Bot Token:</label>
-              <input type="text" id="settingsTgToken" placeholder="123456789:ABCdef..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-mono text-[11px]">
+              <label class="block font-bold text-slate-700 mb-0.5">Bot Token (ពី @BotFather):</label>
+              <input type="text" id="settingsTgToken" placeholder="7123456789:AAH..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-mono text-[11px]">
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div>
+                <label class="block font-bold text-slate-700 mb-0.5">Chat ID អ្នកកាន់ស្តុក (Stock Keeper):</label>
+                <input type="text" id="settingsTgStockChatId" placeholder="123456789" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-mono text-[11px]">
+              </div>
+              <div>
+                <label class="block font-bold text-slate-700 mb-0.5">Chat ID នាយកសាលា (Director):</label>
+                <input type="text" id="settingsTgDirectorChatId" placeholder="987654321" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-mono text-[11px]">
+              </div>
             </div>
             <div>
-              <label class="block font-bold text-slate-700 mb-0.5">Chat ID (Director / Group):</label>
-              <input type="text" id="settingsTgChatId" placeholder="-100xxxxxxx ឬ xxxxxxx" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-mono text-[11px]">
+              <label class="block font-bold text-slate-700 mb-0.5">Chat ID ក្រុមបុគ្គលិក / Channel (Staff Group):</label>
+              <input type="text" id="settingsTgStaffChatId" placeholder="-100xxxxxxx ឬ xxxxxxx" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-1.5 font-mono text-[11px]">
             </div>
-            <div class="pt-1 flex items-center justify-end gap-2">
-              <button onclick="testTelegramAlert()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition">
-                <i class="fa-solid fa-paper-plane text-sky-600"></i> សាកល្បង
-              </button>
-              <button onclick="saveTelegramConfig()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-3 py-1.5 rounded-xl text-xs transition">
+            <div class="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100">
+              <div class="flex items-center gap-1.5">
+                <button type="button" onclick="testTelegramAlert('stock')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-xl text-[10.5px] transition flex items-center gap-1 cursor-pointer">
+                  <i class="fa-solid fa-boxes-stacked text-[10px]"></i> តេស្តអ្នកកាន់ស្តុក
+                </button>
+                <button type="button" onclick="testTelegramAlert('director')" class="bg-purple-50 hover:bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-xl text-[10.5px] transition flex items-center gap-1 cursor-pointer">
+                  <i class="fa-solid fa-crown text-[10px]"></i> តេស្តនាយក
+                </button>
+              </div>
+              <button type="button" onclick="saveTelegramConfig()" class="bg-sky-600 hover:bg-sky-700 text-white font-bold px-4 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs cursor-pointer">
                 <i class="fa-solid fa-floppy-disk"></i> រក្សាទុក
               </button>
             </div>
@@ -1042,9 +1279,129 @@
 
       </div>
 
+      <!-- CARD 5: AUDIT LOGS & ACTIVITY HISTORY (PRO AUDIT TRAIL) -->
+      <div class="bg-white rounded-3xl p-5 sm:p-6 border border-slate-200/90 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-3">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-2xl bg-slate-900 text-amber-400 flex items-center justify-center text-lg shadow-inner">
+              <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm sm:text-base font-bold text-slate-800">ប្រវត្តិនៃការកែប្រែ និងលុបទិន្នន័យ (System Audit Trail)</h3>
+                <span id="auditCountBadge" class="bg-slate-100 text-slate-700 text-[10px] font-black px-2 py-0.5 rounded-full font-mono">0 កំណត់ត្រា</span>
+              </div>
+              <p class="text-xs text-slate-400 mt-0.5">កត់ត្រារាល់សកម្មភាពបង្កើត កែប្រែ ឬលុបទិន្នន័យសម្ភារៈ គណនី និងស្តុក</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="exportAuditLogsCSV()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 cursor-pointer">
+              <i class="fa-solid fa-file-csv text-emerald-600"></i> ទាញយក CSV
+            </button>
+            <button type="button" onclick="clearAuditLogsConfirm()" class="bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold px-3 py-1.5 rounded-xl text-xs transition flex items-center gap-1.5 cursor-pointer" title="សម្អាតកំណត់ត្រា">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter & Search Controls -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div class="relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400"></i>
+            <input type="text" id="auditSearchInput" oninput="renderAuditLogsTable()" placeholder="ស្វែងរកតាមឈ្មោះអ្នកប្រើប្រាស់ សម្ភារៈ ឬព័ត៌មានលម្អិត..." class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-8 pr-3 py-1.5 text-xs focus:outline-none focus:border-indigo-500">
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="auditActionFilter" onchange="renderAuditLogsTable()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-semibold focus:outline-none">
+              <option value="">-- គ្រប់សកម្មភាពទាំងអស់ (All Actions) --</option>
+              <option value="CREATE">➕ បង្កើតថ្មី (CREATE)</option>
+              <option value="UPDATE">✏️ កែប្រែ (UPDATE)</option>
+              <option value="DELETE">🗑️ លុបទិន្នន័យ (DELETE)</option>
+              <option value="APPROVE">✅ អនុម័តដកសម្ភារៈ (APPROVE)</option>
+              <option value="REJECT">❌ បដិសេធសំណើ (REJECT)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto custom-scrollbar">
+          <table class="w-full text-xs text-left">
+            <thead class="bg-slate-50 text-slate-600 uppercase font-bold text-[10px] border-b border-slate-200">
+              <tr>
+                <th class="py-2.5 px-3 w-36">កាលបរិច្ឆេទ & ម៉ោង</th>
+                <th class="py-2.5 px-3 w-40">អ្នកអនុវត្ត (User)</th>
+                <th class="py-2.5 px-3 text-center w-28">សកម្មភាព</th>
+                <th class="py-2.5 px-3 w-36">ប្រភេទគោលដៅ</th>
+                <th class="py-2.5 px-3">ឈ្មោះ & ព័ត៌មានលម្អិត (Details)</th>
+              </tr>
+            </thead>
+            <tbody id="auditLogsTbody" class="divide-y divide-slate-100 font-medium"></tbody>
+          </table>
+        </div>
+      </div>
+
     </div>
 
   </main>
+
+  
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-3.5 px-4 text-center text-xs text-slate-400 no-print mt-auto">
+    <div class="max-w-[1600px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      <div class="flex items-center gap-2 text-[11px]">
+        <span class="font-bold text-slate-700">សាលារៀន ញូវវីសិន (NEW VISION SCHOOL)</span>
+        <span>•</span>
+        <span>Inventory & Asset Management System V2.0 PRO</span>
+      </div>
+      <div class="text-[11px] text-slate-400">
+        រក្សាសិទ្ធិគ្រប់យ៉ាង © 2026 New Vision School. Powered by Supabase & Telegram Bot.
+      </div>
+    </div>
+  </footer>
+  </div> <!-- /appContainer -->
+
+  <!-- ================= ALL SYSTEM MODALS ================= -->
+
+  <!-- ================= SPOTLIGHT / BARCODE QUICK SEARCH MODAL (Ctrl + K) ================= -->
+  <div id="modalSpotlightSearch" onclick="if(event.target === this) closeSpotlightSearch()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-50 hidden flex items-start justify-center pt-12 sm:pt-20 p-3 sm:p-4 animate-in fade-in duration-150">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200">
+      
+      <!-- Search Input Bar -->
+      <div class="p-4 border-b border-slate-100 flex items-center gap-3 bg-slate-50">
+        <i class="fa-solid fa-barcode text-indigo-600 text-lg"></i>
+        <input type="text" id="spotlightInput" oninput="handleSpotlightSearch(this.value)" placeholder="ស្កេន Barcode ឬវាយស្វែងរកតាម កូដសម្ភារៈ, ឈ្មោះ, បន្ទប់... (Ctrl+K)" class="w-full bg-transparent text-sm sm:text-base font-bold text-slate-800 placeholder-slate-400 focus:outline-none" autocomplete="off">
+        <div class="flex items-center gap-1">
+          <span class="kbd text-[10px] text-slate-500 bg-slate-200 border border-slate-300">ESC</span>
+          <button onclick="closeSpotlightSearch()" class="w-7 h-7 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-200/60 flex items-center justify-center text-xs transition cursor-pointer">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Hint -->
+      <div class="px-4 py-2 bg-indigo-50/60 border-b border-indigo-100/60 flex items-center justify-between text-[11px] text-indigo-800">
+        <span class="flex items-center gap-1.5">
+          <i class="fa-solid fa-lightbulb text-amber-500"></i>
+          <span>ស្កេន Barcode ជាមួយម៉ាស៊ីនស្កេន USB ឬវាយឈ្មោះដើម្បីរកសម្ភារៈភ្លាមៗ</span>
+        </span>
+        <span id="spotlightMatchCount" class="font-bold text-indigo-900">0 លទ្ធផល</span>
+      </div>
+
+      <!-- Results Container -->
+      <div id="spotlightResults" class="max-h-[380px] overflow-y-auto custom-scrollbar p-3 divide-y divide-slate-100">
+        <div class="p-8 text-center text-slate-400">
+          <i class="fa-solid fa-magnifying-glass text-2xl mb-2 text-slate-300"></i>
+          <p class="text-xs font-semibold">សូមវាយបញ្ចូលពាក្យស្វែងរក ឬស្កេន Barcode សម្ភារៈ...</p>
+        </div>
+      </div>
+
+      <!-- Footer Help -->
+      <div class="px-4 py-2.5 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500">
+        <span>ចុច <kbd class="kbd bg-white text-slate-700">Enter</kbd> ដើម្បីមើលលម្អិត</span>
+        <span>New Vision School Inventory Enterprise</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ================= MODALS ================= -->
 
@@ -1380,6 +1737,34 @@
           </select>
         </div>
 
+        <!-- Granular Permissions Checkboxes -->
+        <div class="pt-2 border-t border-slate-100">
+          <label class="block font-bold text-slate-800 mb-2">កំណត់សិទ្ធិអនុញ្ញាត (Granular Permissions):</label>
+          <div class="space-y-2 bg-slate-50 p-3 rounded-2xl border border-slate-200">
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" id="userPermCreate" class="w-4 h-4 rounded text-indigo-600">
+              <div>
+                <span class="font-bold text-slate-800 text-xs">សិទ្ធិវាយបញ្ចូលទិន្នន័យ (Create / Add)</span>
+                <p class="text-[10px] text-slate-400">អនុញ្ញាតឱ្យបញ្ចូលសម្ភារៈថ្មី, នាំចូលស្តុក, និងបង្កើតទិន្នន័យ</p>
+              </div>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" id="userPermEdit" class="w-4 h-4 rounded text-amber-600">
+              <div>
+                <span class="font-bold text-slate-800 text-xs">សិទ្ធិកែប្រែទិន្នន័យ (Edit / Update)</span>
+                <p class="text-[10px] text-slate-400">អនុញ្ញាតឱ្យកែប្រែព័ត៌មានសម្ភារៈ, ចំនួនស្តុក, និងព័ត៌មានបុគ្គលិក</p>
+              </div>
+            </label>
+            <label class="flex items-center gap-2.5 cursor-pointer">
+              <input type="checkbox" id="userPermDelete" class="w-4 h-4 rounded text-rose-600">
+              <div>
+                <span class="font-bold text-slate-800 text-xs">សិទ្ធិលុបទិន្នន័យ (Delete / Remove)</span>
+                <p class="text-[10px] text-slate-400">អនុញ្ញាតឱ្យលុបសម្ភារៈ និងកំណត់ត្រាចេញពីប្រព័ន្ធ</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
         <div class="pt-2 flex items-center justify-end gap-2 border-t border-slate-100">
           <button type="button" onclick="closeModal('modalUserAccount')" class="px-4 py-2 rounded-xl text-slate-600 hover:bg-slate-100">បោះបង់</button>
           <button type="submit" class="bg-gradient-to-r from-purple-700 to-indigo-800 hover:from-purple-800 hover:to-indigo-900 text-white font-bold px-5 py-2 rounded-xl shadow transition">
@@ -1474,27 +1859,146 @@
     </div>
   </div>
 
+  
+
   <!-- ================= MODERN FOOTER ================= -->
-  <footer class="bg-white border-t border-slate-200 mt-auto py-3.5 text-center text-xs text-slate-500 no-print">
-    <div class="max-w-[1550px] mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <div class="flex items-center gap-2.5">
-        <div class="w-8 h-8 rounded-xl overflow-hidden shrink-0 bg-white shadow-xs border border-slate-200 p-0.5 flex items-center justify-center">
-          <img src="school_logo.png" onerror="this.onerror=null; this.src='assets/school_logo.png';" alt="New Vision School Logo" class="w-full h-full object-contain">
-        </div>
-        <p>&copy; 2026 សាលារៀន ញូវវីសិន (New Vision School) - រក្សាសិទ្ធិគ្រប់យ៉ាង</p>
+  
+
+  <!-- ================= MODAL: CATEGORY (ADD / EDIT) ================= -->
+  <div id="modalCategory" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full overflow-hidden border border-slate-100">
+      <div class="bg-gradient-to-r from-teal-800 to-emerald-900 px-5 py-3.5 text-white flex items-center justify-between">
+        <h3 id="modalCategoryTitle" class="text-sm sm:text-base font-bold flex items-center gap-2">
+          <i class="fa-solid fa-tags text-teal-300"></i>
+          <span>បន្ថែមប្រភេទសម្ភារៈថ្មី</span>
+        </h3>
+        <button onclick="closeModal('modalCategory')" class="text-white/70 hover:text-white text-xl leading-none">&times;</button>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="flex items-center gap-1.5 text-slate-600">
-          <img src="moeys_logo.svg" onerror="this.onerror=null; this.src='assets/moeys_logo.svg'; this.onerror=function(){this.style.display='none';};" alt="MoEYS" class="w-4 h-4 object-contain">
-          <span>ក្រសួងអប់រំ យុវជន និងកីឡា</span>
+      <form id="formCategory" onsubmit="handleSaveCategory(event)" class="p-5 space-y-3.5 text-xs">
+        <input type="hidden" id="editCategoryOldName" value="">
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">ឈ្មោះប្រភេទសម្ភារៈ (Category Name):</label>
+          <input type="text" id="categoryNameInput" placeholder="ឧ. ឧបករណ៍អេឡិចត្រូនិក & IT" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2 font-bold text-slate-800 focus:outline-none focus:border-teal-500" required>
         </div>
-        <span class="text-slate-300">|</span>
-        <span class="text-emerald-700 font-semibold flex items-center gap-1">
-          <i class="fa-solid fa-circle text-[8px] text-emerald-500 animate-pulse"></i> Enterprise Edition V2.0
-        </span>
-      </div>
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" onclick="closeModal('modalCategory')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-700 font-bold hover:bg-slate-200 transition">បោះបង់</button>
+          <button type="submit" class="px-4 py-2 rounded-xl bg-teal-600 hover:bg-teal-700 text-white font-bold transition shadow-xs">រក្សាទុក</button>
+        </div>
+      </form>
     </div>
-  </footer>
+  </div>
+
+  <!-- ================= MODAL: STAFF DETAIL & REQUEST HISTORY ================= -->
+  <div id="modalStaffDetail" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-slate-100">
+      
+      <!-- Modal Header -->
+      <div class="bg-gradient-to-r from-sky-900 via-slate-900 to-indigo-950 px-5 py-4 text-white flex items-center justify-between shrink-0">
+        <div class="flex items-center gap-3">
+          <div id="staffDetailAvatar" class="w-12 h-12 rounded-2xl bg-white/10 border border-white/20 text-white flex items-center justify-center text-lg font-black shadow-inner">
+            <i class="fa-solid fa-user-tie"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 id="staffDetailName" class="text-base sm:text-lg font-black text-white">...</h3>
+              <span id="staffDetailIdBadge" class="bg-white/20 text-sky-200 font-mono text-[10px] font-bold px-2 py-0.5 rounded-md">...</span>
+            </div>
+            <p id="staffDetailRoleDept" class="text-xs text-sky-200/90 mt-0.5 font-medium">...</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modalStaffDetail')" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center text-lg leading-none transition cursor-pointer">&times;</button>
+      </div>
+
+      <!-- Modal Scrollable Content -->
+      <div class="p-5 overflow-y-auto custom-scrollbar space-y-5 text-xs flex-1">
+        
+        <!-- KPI Stats Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          <!-- KPI 1: Requests -->
+          <div class="bg-slate-50 border border-slate-200/80 rounded-2xl p-3 text-center">
+            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">សំណើសុំសរុប</span>
+            <span id="statDetailTotalReq" class="text-xl font-black text-slate-800 font-mono">0</span>
+            <span class="text-[9.5px] text-slate-400 block mt-0.5">លើក</span>
+          </div>
+          <!-- KPI 2: Approved -->
+          <div class="bg-emerald-50 border border-emerald-200/80 rounded-2xl p-3 text-center">
+            <span class="text-[10px] font-bold text-emerald-700 uppercase tracking-wider block">បានអនុម័ត/ទទួល</span>
+            <span id="statDetailApproved" class="text-xl font-black text-emerald-700 font-mono">0</span>
+            <span class="text-[9.5px] text-emerald-600 block mt-0.5">លើក</span>
+          </div>
+          <!-- KPI 3: Rejected -->
+          <div class="bg-rose-50 border border-rose-200/80 rounded-2xl p-3 text-center">
+            <span class="text-[10px] font-bold text-rose-700 uppercase tracking-wider block">បានបដិសេធ</span>
+            <span id="statDetailRejected" class="text-xl font-black text-rose-700 font-mono">0</span>
+            <span class="text-[9.5px] text-rose-600 block mt-0.5">លើក</span>
+          </div>
+          <!-- KPI 4: Possessions -->
+          <div class="bg-sky-50 border border-sky-200/80 rounded-2xl p-3 text-center">
+            <span class="text-[10px] font-bold text-sky-700 uppercase tracking-wider block">កំពុងកាន់កាប់</span>
+            <span id="statDetailPossessed" class="text-xl font-black text-sky-700 font-mono">0</span>
+            <span class="text-[9.5px] text-sky-600 block mt-0.5">មុខសម្ភារៈ</span>
+          </div>
+        </div>
+
+        <!-- Section A: Currently Possessed Materials -->
+        <div class="space-y-2">
+          <h4 class="font-bold text-slate-800 text-xs flex items-center gap-2">
+            <i class="fa-solid fa-box-open text-sky-600"></i>
+            <span>សម្ភារៈកំពុងកាន់កាប់ជាក់ស្តែង (Currently Held Assets)</span>
+          </h4>
+          <div class="border border-slate-200 rounded-2xl overflow-hidden">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 text-slate-600 font-bold text-[10.5px] border-b border-slate-200">
+                <tr>
+                  <th class="py-2 px-3">ឈ្មោះសម្ភារៈ</th>
+                  <th class="py-2 px-3 text-center">ចំនួន</th>
+                  <th class="py-2 px-3">កាលបរិច្ឆេទទទួល</th>
+                  <th class="py-2 px-3">គោលបំណង / ទីតាំង</th>
+                </tr>
+              </thead>
+              <tbody id="staffDetailPossessedTbody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Section B: Request History Timeline -->
+        <div class="space-y-2">
+          <h4 class="font-bold text-slate-800 text-xs flex items-center gap-2">
+            <i class="fa-solid fa-clock-rotate-left text-indigo-600"></i>
+            <span>ប្រវត្តិនៃការស្នើសុំដកសម្ភារៈទាំងអស់ (Complete Request History)</span>
+          </h4>
+          <div class="border border-slate-200 rounded-2xl overflow-hidden">
+            <table class="w-full text-xs text-left">
+              <thead class="bg-slate-50 text-slate-600 font-bold text-[10.5px] border-b border-slate-200">
+                <tr>
+                  <th class="py-2 px-3">កាលបរិច្ឆេទ</th>
+                  <th class="py-2 px-3">សម្ភារៈ</th>
+                  <th class="py-2 px-3 text-center">ចំនួន</th>
+                  <th class="py-2 px-3">គោលបំណង</th>
+                  <th class="py-2 px-3 text-center">ស្ថានភាព</th>
+                  <th class="py-2 px-3">អ្នកអនុម័ត</th>
+                </tr>
+              </thead>
+              <tbody id="staffDetailHistoryTbody" class="divide-y divide-slate-100"></tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="bg-slate-50 px-5 py-3 border-t border-slate-100 flex items-center justify-between shrink-0">
+        <span class="text-[11px] text-slate-400">ប្រព័ន្ធគ្រប់គ្រងសារពើភ័ណ្ឌ សាលារៀន ញូវវីសិន</span>
+        <button onclick="closeModal('modalStaffDetail')" class="px-4 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold transition text-xs cursor-pointer">
+          បិទផ្ទាំង
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  
+
 
   <script>
     // =========================================================================
@@ -1558,7 +2062,8 @@
         username: 'director',
         password: 'director123',
         role: 'director',
-        roleKh: 'នាយកសាលា (Director)'
+        roleKh: 'នាយកសាលា (Director)',
+        permissions: { can_create: true, can_edit: true, can_delete: true }
       },
       {
         id: 'usr_stock',
@@ -1566,7 +2071,8 @@
         username: 'stock',
         password: 'stock123',
         role: 'stock_staff',
-        roleKh: 'អ្នកកាន់ស្តុក (Stock Staff)'
+        roleKh: 'អ្នកកាន់ស្តុក (Stock Staff)',
+        permissions: { can_create: true, can_edit: true, can_delete: false }
       },
       {
         id: 'usr_staff',
@@ -1574,7 +2080,8 @@
         username: 'staff',
         password: 'staff123',
         role: 'staff',
-        roleKh: 'បុគ្គលិកទូទៅ (Staff)'
+        roleKh: 'បុគ្គលិកទូទៅ (Staff)',
+        permissions: { can_create: false, can_edit: false, can_delete: false }
       }
     ];
 
@@ -1673,6 +2180,30 @@
     let masterData = JSON.parse(localStorage.getItem('nv_master_v2')) || DEFAULT_MASTER;
     let stockInData = JSON.parse(localStorage.getItem('nv_stock_in_v2')) || [];
     let stockOutData = JSON.parse(localStorage.getItem('nv_stock_out_v2')) || [];
+    let auditLogsData = JSON.parse(localStorage.getItem('nv_audit_logs_v2')) || [
+      {
+        id: 'LOG-INIT01',
+        timestamp: new Date(Date.now() - 86400000).toISOString(),
+        userId: 'director',
+        userName: 'លោក ហ៊ុយ ចាន់ពិសី',
+        userRole: 'នាយកសាលា (Director)',
+        action: 'CREATE',
+        targetType: 'សម្ភារៈ',
+        targetName: 'កុំព្យូទ័រយួរដៃ Dell Latitude 3420',
+        details: 'បង្កើតសម្ភារៈថ្មីក្នុងប្រព័ន្ធ ចំនួន 35 គ្រឿង'
+      },
+      {
+        id: 'LOG-INIT02',
+        timestamp: new Date(Date.now() - 43200000).toISOString(),
+        userId: 'director',
+        userName: 'លោក ហ៊ុយ ចាន់ពិសី',
+        userRole: 'នាយកសាលា (Director)',
+        action: 'UPDATE',
+        targetType: 'គណនីបុគ្គលិក',
+        targetName: 'លោក សុខ ចាន់រិទ្ធ',
+        details: 'កំណត់សិទ្ធិអនុញ្ញាត វាយបញ្ចូលទិន្នន័យ (Create) និងកែប្រែ (Edit)'
+      }
+    ];
 
     // Current Branch & Session
     let currentBranchId = localStorage.getItem('nv_active_branch_v2') || 'ALL';
@@ -1689,6 +2220,9 @@
     let telegramConfig = JSON.parse(localStorage.getItem('nv_telegram_config_v2')) || {
       enabled: false,
       token: '',
+      stockKeeperChatId: '',
+      directorChatId: '',
+      staffGroupChatId: '',
       chatId: ''
     };
 
@@ -2101,10 +2635,26 @@
         banner.classList.add('hidden');
       }
 
-      // Tab Badges
-      document.getElementById('badgeInventoryCount').textContent = items.length;
-      document.getElementById('badgeInCount').textContent = branchStockIn.length;
-      document.getElementById('badgeStaffCount').textContent = staffData.length;
+      // Tab Badges (Null-Safe)
+      const bInv = document.getElementById('badgeInventoryCount');
+      if (bInv) bInv.textContent = items.length;
+      const bIn = document.getElementById('badgeInCount');
+      if (bIn) bIn.textContent = branchStockIn.length;
+      const bStaff = document.getElementById('badgeStaffCount');
+      if (bStaff) bStaff.textContent = staffData.length;
+
+      // Sidebar badges
+      const sideInv = document.getElementById('sideBadgeInventory');
+      if (sideInv) sideInv.textContent = items.length;
+      const sidePending = document.getElementById('sideBadgePending');
+      if (sidePending) {
+        if (pendingReqs.length > 0) {
+          sidePending.classList.remove('hidden');
+          sidePending.textContent = pendingReqs.length + ' រង់ចាំ';
+        } else {
+          sidePending.classList.add('hidden');
+        }
+      }
 
       // Recent Stock In
       const recentIn = [...branchStockIn].reverse().slice(0, 5);
@@ -2284,6 +2834,11 @@
 
       const tbody = document.getElementById('inventoryTbody');
       tbody.innerHTML = '';
+
+      const countShow = document.getElementById('inventoryShowingCount');
+      const countTotal = document.getElementById('inventoryTotalCount');
+      if (countShow) countShow.textContent = filtered.length;
+      if (countTotal) countTotal.textContent = allProcessed.length;
 
       if (filtered.length === 0) {
         tbody.innerHTML = `
@@ -2523,6 +3078,14 @@
     // 9. ADD / EDIT MATERIAL
     // =========================================================================
     function openModalNewItem(itemId = '') {
+      if (itemId && !hasPermission('edit')) {
+        alert('⚠️ លោកអ្នកមិនមានសិទ្ធិកែប្រែទិន្នន័យសម្ភារៈទេ! សូមទាក់ទងលោកនាយកសាលាដើម្បីបើកសិទ្ធិ។');
+        return;
+      }
+      if (!itemId && !hasPermission('create')) {
+        alert('⚠️ លោកអ្នកមិនមានសិទ្ធិវាយបញ្ចូលសម្ភារៈថ្មីទេ! សូមទាក់ទងលោកនាយកសាលាដើម្បីបើកសិទ្ធិ។');
+        return;
+      }
       const modal = document.getElementById('modalNewItem');
       const title = document.getElementById('modalItemTitle');
       const editId = document.getElementById('itemEditId');
@@ -2649,6 +3212,11 @@
         supabaseSyncItem(newItem);
       }
 
+      if (editId) {
+        logAuditEvent('UPDATE', 'សម្ភារៈ', name, 'កែប្រែព័ត៌មានសម្ភារៈ កូដ: ' + editId + ' (' + branchObj.name + ')');
+      } else {
+        logAuditEvent('CREATE', 'សម្ភារៈ', name, 'បង្កើតសម្ភារៈថ្មី កូដ: ' + code + ' ចំនួន ' + initStock + ' ' + unit + ' (' + branchObj.name + ')');
+      }
       saveState();
       calculateAndRenderAll();
       closeModal('modalNewItem');
@@ -2656,20 +3224,20 @@
     }
 
     function deleteItem(itemId) {
-      if (currentAuthUser?.role !== 'director') {
-        alert('មានតែនាយកសាលាទេ ទើបមានសិទ្ធិលុបសម្ភារៈ!');
+      if (!hasPermission('delete')) {
+        alert('⚠️ លោកអ្នកមិនមានសិទ្ធិលុបទិន្នន័យសម្ភារៈទេ! មានតែគណនីដែលមានសិទ្ធិ Delete ប៉ុណ្ណោះដែលអាចលុបបាន។');
         return;
       }
       const it = masterData.find(x => x.id === itemId);
       if (!it) return;
-      if (!confirm(`តើលោកនាយកពិតជាចង់លុបសម្ភារៈ "${it.name}" (ID: ${it.id}) ចេញពីប្រព័ន្ធមែនទេ?`)) return;
+      if (!confirm('តើលោកអ្នកពិតជាចង់លុបសម្ភារៈ "' + it.name + '" (កូដ: ' + it.id + ') ចេញពីប្រព័ន្ធមែនទេ?')) return;
 
       masterData = masterData.filter(x => x.id !== itemId);
+      logAuditEvent('DELETE', 'សម្ភារៈ', it.name, 'បានលុបសម្ភារៈ កូដ: ' + it.id + ' ចេញពីប្រព័ន្ធ');
       saveState();
       calculateAndRenderAll();
       alert('បានលុបសម្ភារៈរួចរាល់!');
     }
-
     // =========================================================================
     // 10. STOCK IN (PURCHASE & RECEIVE)
     // =========================================================================
@@ -3123,50 +3691,9 @@
     // 12. STAFF DIRECTORY & USER ACCOUNTS
     // =========================================================================
     function renderStaffGrid() {
-      const container = document.getElementById('staffGridContainer');
-      if (!container) return;
-      container.innerHTML = '';
-
-      staffData.forEach(s => {
-        // Find materials currently assigned / requested by this staff
-        const staffRequests = stockOutData.filter(x => x.reqName === s.name && x.status === 'បានអនុម័ត');
-
-        const card = document.createElement('div');
-        card.className = 'bg-white p-4.5 rounded-3xl border border-slate-200/90 shadow-sm space-y-3';
-        card.innerHTML = `
-          <div class="flex items-center justify-between border-b border-slate-100 pb-2.5">
-            <div class="flex items-center gap-2.5">
-              <div class="w-10 h-10 rounded-2xl bg-indigo-50 text-indigo-700 flex items-center justify-center font-bold text-sm">
-                <i class="fa-solid fa-user-tie"></i>
-              </div>
-              <div>
-                <h4 class="font-bold text-slate-800 text-sm">${s.name}</h4>
-                <p class="text-[11px] text-indigo-700 font-medium">${s.dept}</p>
-              </div>
-            </div>
-            ${currentAuthUser?.role === 'director' ? `
-              <button onclick="deleteStaff('${s.id}')" class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center text-xs" title="លុប">
-                <i class="fa-solid fa-trash"></i>
-              </button>
-            ` : ''}
-          </div>
-          <div class="text-xs space-y-1 text-slate-600">
-            <p><strong>ID:</strong> <span class="font-mono">${s.id}</span></p>
-            <p><strong>តួនាទី:</strong> ${s.role || '-'}</p>
-            <p><strong>ទូរស័ព្ទ:</strong> <span class="font-mono">${s.phone || '-'}</span></p>
-          </div>
-          <div class="bg-slate-50 p-2.5 rounded-2xl border border-slate-100 text-xs">
-            <span class="font-bold text-slate-700 text-[11px]">សម្ភារៈកំពុងកាន់កាប់ (${staffRequests.length}):</span>
-            ${staffRequests.length ? `
-              <div class="flex flex-wrap gap-1 mt-1">
-                ${staffRequests.slice(0, 3).map(r => `<span class="bg-purple-100 text-purple-800 text-[10px] px-2 py-0.5 rounded-full font-medium">${r.itemName} (${r.qty})</span>`).join('')}
-                ${staffRequests.length > 3 ? `<span class="text-[10px] text-slate-400 font-bold">+${staffRequests.length - 3} ទៀត</span>` : ''}
-              </div>
-            ` : '<p class="text-[10px] text-slate-400 italic mt-0.5">មិនទាន់មានសម្ភារៈកាន់កាប់ទេ</p>'}
-          </div>
-        `;
-        container.appendChild(card);
-      });
+      if (typeof renderStaffTable === 'function') {
+        renderStaffTable();
+      }
     }
 
     function openModalStaff(staffId = '') {
@@ -3239,6 +3766,7 @@
     }
 
     // User Accounts Management
+    // User Accounts Management (Granular Permissions & Director Access)
     function renderUserAccountsTable() {
       const tbody = document.getElementById('userAccountsTbody');
       if (!tbody) return;
@@ -3246,36 +3774,83 @@
 
       appUsers.forEach(u => {
         const tr = document.createElement('tr');
-        tr.className = 'hover:bg-slate-50 border-b border-slate-100';
-        tr.innerHTML = `
-          <td class="py-2.5 px-3 font-bold text-slate-800">${u.name}</td>
-          <td class="py-2.5 px-3 font-mono font-bold text-purple-900 bg-purple-50/50">${u.username}</td>
-          <td class="py-2.5 px-3">
-            <span class="bg-slate-100 text-slate-800 px-2 py-0.5 rounded-full text-[10.5px] font-semibold">${u.roleKh || u.role}</span>
-          </td>
-          <td class="py-2.5 px-3 font-mono text-slate-600 font-bold">${u.password}</td>
-          <td class="py-2.5 px-3 text-center">
-            ${u.role !== 'director' ? `
-              <button onclick="deleteUserAccount('${u.id}')" class="w-7 h-7 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center justify-center mx-auto transition" title="លុបគណនី">
-                <i class="fa-solid fa-trash text-xs"></i>
-              </button>
-            ` : '<span class="text-[10px] text-amber-700 font-bold">Admin</span>'}
-          </td>
-        `;
+        tr.className = 'hover:bg-slate-50 border-b border-slate-100 transition';
+
+        let permsBadge = '';
+        if (u.role === 'director') {
+          permsBadge = '<span class="bg-purple-100 text-purple-900 px-2 py-0.5 rounded-full text-[10px] font-black border border-purple-200">គ្រប់សិទ្ធិ (Director All)</span>';
+        } else {
+          const p = u.permissions || {};
+          const pList = [];
+          if (p.can_create) pList.push('<span class="bg-emerald-50 text-emerald-700 border border-emerald-200 px-1.5 py-0.5 rounded text-[9.5px] font-bold">បញ្ចូល</span>');
+          if (p.can_edit) pList.push('<span class="bg-amber-50 text-amber-700 border border-amber-200 px-1.5 py-0.5 rounded text-[9.5px] font-bold">កែប្រែ</span>');
+          if (p.can_delete) pList.push('<span class="bg-rose-50 text-rose-700 border border-rose-200 px-1.5 py-0.5 rounded text-[9.5px] font-bold">លុប</span>');
+          permsBadge = pList.length > 0 ? ('<div class="flex flex-wrap gap-1">' + pList.join('') + '</div>') : '<span class="text-[10px] text-slate-400 italic">ត្រឹមតែមើល & ស្នើសុំ</span>';
+        }
+
+        tr.innerHTML = '<td class="py-2.5 px-3 font-bold text-slate-800">' + u.name + '</td>' +
+          '<td class="py-2.5 px-3 font-mono font-bold text-purple-900 bg-purple-50/50">' + u.username + '</td>' +
+          '<td class="py-2.5 px-3"><span class="bg-slate-100 text-slate-800 px-2 py-0.5 rounded-full text-[10.5px] font-semibold">' + (u.roleKh || u.role) + '</span></td>' +
+          '<td class="py-2.5 px-3">' + permsBadge + '</td>' +
+          '<td class="py-2.5 px-3 font-mono text-slate-600 font-bold">' + u.password + '</td>' +
+          '<td class="py-2.5 px-3 text-center"><div class="flex items-center justify-center gap-1.5">' +
+          '<button type="button" class="btn-edit-user w-7 h-7 rounded-lg bg-purple-50 text-purple-700 hover:bg-purple-100 flex items-center justify-center transition" title="កែប្រែសិទ្ធិ & ព័ត៌មាន"><i class="fa-solid fa-user-pen text-xs"></i></button>' +
+          (u.role !== 'director' ? '<button type="button" class="btn-del-user w-7 h-7 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center justify-center transition" title="លុបគណនី"><i class="fa-solid fa-trash text-xs"></i></button>' : '<span class="text-[10px] text-amber-700 font-bold">Admin</span>') +
+          '</div></td>';
+
+        tr.querySelector('.btn-edit-user').addEventListener('click', () => openModalEditUser(u.id));
+        const delBtn = tr.querySelector('.btn-del-user');
+        if (delBtn) delBtn.addEventListener('click', () => deleteUserAccount(u.id));
+
         tbody.appendChild(tr);
       });
     }
 
     function openModalAddUser() {
+      if (currentAuthUser?.role !== 'director') {
+        alert('មានតែលោកនាយកសាលាទេ ទើបអាចបង្កើតគណនីបុគ្គលិកបាន!');
+        return;
+      }
+      document.getElementById('modalUserTitle').innerHTML = '<i class="fa-solid fa-user-shield text-purple-300 mr-2"></i>បង្កើតគណនីបុគ្គលិកថ្មី';
       document.getElementById('userAccId').value = '';
       document.getElementById('userAccFullName').value = '';
       document.getElementById('userAccUsername').value = '';
+      document.getElementById('userAccUsername').disabled = false;
       document.getElementById('userAccPassword').value = '';
+      document.getElementById('userAccRole').value = 'staff';
+      document.getElementById('userPermCreate').checked = false;
+      document.getElementById('userPermEdit').checked = false;
+      document.getElementById('userPermDelete').checked = false;
+      openModal('modalUserAccount');
+    }
+
+    function openModalEditUser(userId) {
+      if (currentAuthUser?.role !== 'director') {
+        alert('មានតែលោកនាយកសាលាទេ ទើបអាចកែប្រែសិទ្ធិគណនីបុគ្គលិកបាន!');
+        return;
+      }
+      const u = appUsers.find(x => x.id === userId);
+      if (!u) return;
+
+      document.getElementById('modalUserTitle').innerHTML = '<i class="fa-solid fa-user-pen text-purple-300 mr-2"></i>កែប្រែគណនី & សិទ្ធិបុគ្គលិក';
+      document.getElementById('userAccId').value = u.id;
+      document.getElementById('userAccFullName').value = u.name;
+      document.getElementById('userAccUsername').value = u.username;
+      document.getElementById('userAccUsername').disabled = (u.role === 'director');
+      document.getElementById('userAccPassword').value = u.password;
+      document.getElementById('userAccRole').value = u.role;
+
+      const p = u.permissions || {};
+      document.getElementById('userPermCreate').checked = (u.role === 'director') || !!p.can_create;
+      document.getElementById('userPermEdit').checked = (u.role === 'director') || !!p.can_edit;
+      document.getElementById('userPermDelete').checked = (u.role === 'director') || !!p.can_delete;
+
       openModal('modalUserAccount');
     }
 
     function handleSaveUserAccount(e) {
       e.preventDefault();
+      const editId = document.getElementById('userAccId').value;
       const name = document.getElementById('userAccFullName').value.trim();
       const username = document.getElementById('userAccUsername').value.trim().toLowerCase();
       const password = document.getElementById('userAccPassword').value.trim();
@@ -3286,55 +3861,517 @@
         return;
       }
 
-      if (appUsers.some(x => x.username.toLowerCase() === username)) {
-        alert('ឈ្មោះគណនី (Username) នេះមានរួចហើយ!');
-        return;
-      }
-
       let roleKh = 'បុគ្គលិកទូទៅ (Staff)';
       if (role === 'director') roleKh = 'នាយកសាលា (Director)';
       if (role === 'stock_staff') roleKh = 'អ្នកកាន់ស្តុក (Stock Staff)';
 
-      const newUser = {
-        id: 'usr_' + Date.now(),
-        name,
-        username,
-        password,
-        role,
-        roleKh
+      const permissions = {
+        can_create: role === 'director' ? true : document.getElementById('userPermCreate').checked,
+        can_edit: role === 'director' ? true : document.getElementById('userPermEdit').checked,
+        can_delete: role === 'director' ? true : document.getElementById('userPermDelete').checked
       };
 
-      appUsers.push(newUser);
+      if (editId) {
+        // Edit existing
+        const idx = appUsers.findIndex(x => x.id === editId);
+        if (idx !== -1) {
+          appUsers[idx] = {
+            ...appUsers[idx],
+            name,
+            password,
+            role,
+            roleKh,
+            permissions
+          };
+          logAuditEvent('UPDATE', 'គណនីបុគ្គលិក', name, 'កែប្រែសិទ្ធិ: [Create: ' + (permissions.can_create ? 'បាទ' : 'ទេ') + ', Edit: ' + (permissions.can_edit ? 'បាទ' : 'ទេ') + ', Delete: ' + (permissions.can_delete ? 'បាទ' : 'ទេ') + ']');
+        }
+      } else {
+        // Add new
+        if (appUsers.some(x => x.username.toLowerCase() === username)) {
+          alert('ឈ្មោះគណនី (Username) នេះមានរួចហើយ! សូមជ្រើសរើស Username ផ្សេង។');
+          return;
+        }
+        const newUser = {
+          id: 'usr_' + Date.now(),
+          name,
+          username,
+          password,
+          role,
+          roleKh,
+          permissions
+        };
+        appUsers.push(newUser);
+        logAuditEvent('CREATE', 'គណនីបុគ្គលិក', name, 'បង្កើតគណនីថ្មី Username: ' + username + ' (' + roleKh + ')');
+      }
+
       saveState();
       renderUserAccountsTable();
       closeModal('modalUserAccount');
-      alert('🎉 បានបង្កើតគណនីបុគ្គលិកដោយជោគជ័យ!');
+      alert('🎉 បានរក្សាទុកគណនី និងសិទ្ធិបុគ្គលិកដោយជោគជ័យ!');
     }
 
     function deleteUserAccount(userId) {
       if (currentAuthUser?.role !== 'director') return;
       const u = appUsers.find(x => x.id === userId);
       if (!u || u.role === 'director') return;
-      if (!confirm(`តើលោកនាយកពិតជាចង់លុបគណនី "${u.username}" មែនទេ?`)) return;
+      if (!confirm('តើលោកនាយកពិតជាចង់លុបគណនី "' + u.username + '" (' + u.name + ') មែនទេ?')) return;
 
       appUsers = appUsers.filter(x => x.id !== userId);
+      logAuditEvent('DELETE', 'គណនីបុគ្គលិក', u.name, 'បានលុបគណនី Username: ' + u.username);
       saveState();
       renderUserAccountsTable();
       alert('បានលុបគណនីរួចរាល់!');
+    }
+    // =========================================================================
+    // PERMISSIONS & AUDIT TRAIL LOGGING SYSTEM (PRO V2.0)
+    // =========================================================================
+    function hasPermission(perm) {
+      if (!currentAuthUser) return false;
+      if (currentAuthUser.role === 'director') return true;
+      const p = currentAuthUser.permissions;
+      if (!p) {
+        if (perm === 'create' && currentAuthUser.role === 'stock_staff') return true;
+        if (perm === 'edit' && currentAuthUser.role === 'stock_staff') return true;
+        return false;
+      }
+      if (perm === 'create') return !!p.can_create;
+      if (perm === 'edit') return !!p.can_edit;
+      if (perm === 'delete') return !!p.can_delete;
+      return false;
+    }
+
+    function logAuditEvent(action, targetType, targetName, details = '') {
+      const now = new Date();
+      const newLog = {
+        id: 'LOG-' + Date.now().toString(36).toUpperCase(),
+        timestamp: now.toISOString(),
+        dateStr: now.toLocaleDateString('km-KH', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+        userId: currentAuthUser?.username || 'system',
+        userName: currentAuthUser?.name || 'ប្រព័ន្ធ',
+        userRole: currentAuthUser?.roleKh || currentAuthUser?.role || 'អ្នកប្រើប្រាស់',
+        action, // 'CREATE', 'UPDATE', 'DELETE', 'APPROVE', 'REJECT'
+        targetType, // 'សម្ភារៈ', 'ស្តុក', 'បុគ្គលិក', 'ប្រភេទសម្ភារៈ', 'គណនីបុគ្គលិក', 'សាខា'
+        targetName,
+        details
+      };
+      auditLogsData.unshift(newLog);
+      if (auditLogsData.length > 500) auditLogsData.pop();
+      localStorage.setItem('nv_audit_logs_v2', JSON.stringify(auditLogsData));
+      renderAuditLogsTable();
+    }
+
+    function renderAuditLogsTable() {
+      const tbody = document.getElementById('auditLogsTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const query = (document.getElementById('auditSearchInput')?.value || '').toLowerCase().trim();
+      const actionFilter = document.getElementById('auditActionFilter')?.value || '';
+
+      const filtered = auditLogsData.filter(log => {
+        const matchAction = !actionFilter || log.action === actionFilter;
+        const matchQuery = !query ||
+          (log.userName && log.userName.toLowerCase().includes(query)) ||
+          (log.userId && log.userId.toLowerCase().includes(query)) ||
+          (log.targetName && log.targetName.toLowerCase().includes(query)) ||
+          (log.details && log.details.toLowerCase().includes(query));
+        return matchAction && matchQuery;
+      });
+
+      const countBadge = document.getElementById('auditCountBadge');
+      if (countBadge) countBadge.textContent = filtered.length + ' កំណត់ត្រា';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="py-6 text-center text-slate-400">មិនមានប្រវត្តិនៃសកម្មភាពត្រូវនឹងការស្វែងរកទេ</td></tr>';
+        return;
+      }
+
+      const actionColors = {
+        CREATE: 'bg-emerald-50 text-emerald-700 border-emerald-200',
+        UPDATE: 'bg-amber-50 text-amber-700 border-amber-200',
+        DELETE: 'bg-rose-50 text-rose-700 border-rose-200',
+        APPROVE: 'bg-sky-50 text-sky-700 border-sky-200',
+        REJECT: 'bg-purple-50 text-purple-700 border-purple-200'
+      };
+
+      const actionIcons = {
+        CREATE: '<i class="fa-solid fa-plus-circle mr-1"></i>បង្កើត (CREATE)',
+        UPDATE: '<i class="fa-solid fa-pen-to-square mr-1"></i>កែប្រែ (UPDATE)',
+        DELETE: '<i class="fa-solid fa-trash mr-1"></i>លុប (DELETE)',
+        APPROVE: '<i class="fa-solid fa-check-circle mr-1"></i>អនុម័ត (APPROVE)',
+        REJECT: '<i class="fa-solid fa-times-circle mr-1"></i>បដិសេធ (REJECT)'
+      };
+
+      filtered.forEach(log => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 border-b border-slate-100 transition';
+        const dateFormatted = new Date(log.timestamp).toLocaleString('km-KH', { dateStyle: 'short', timeStyle: 'short' });
+        const badgeCls = actionColors[log.action] || 'bg-slate-100 text-slate-700 border-slate-200';
+        const actionLabel = actionIcons[log.action] || log.action;
+
+        tr.innerHTML = '<td class="py-2.5 px-3 font-mono text-[11px] text-slate-500">' + dateFormatted + '</td>' +
+          '<td class="py-2.5 px-3"><div class="font-bold text-slate-800">' + log.userName + '</div><div class="text-[10px] text-slate-400">' + log.userRole + ' (' + log.userId + ')</div></td>' +
+          '<td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold border ' + badgeCls + '">' + actionLabel + '</span></td>' +
+          '<td class="py-2.5 px-3 font-semibold text-slate-700"><span class="bg-slate-100 text-slate-600 px-2 py-0.5 rounded text-[10px]">' + log.targetType + '</span></td>' +
+          '<td class="py-2.5 px-3"><div class="font-bold text-slate-800">' + (log.targetName || '-') + '</div><div class="text-[11px] text-slate-500 mt-0.5">' + (log.details || '') + '</div></td>';
+        tbody.appendChild(tr);
+      });
+    }
+
+    function exportAuditLogsCSV() {
+      if (auditLogsData.length === 0) {
+        alert('មិនទាន់មានកំណត់ត្រាសម្រាប់ទាញយកទេ!');
+        return;
+      }
+      let csv = '﻿'; // UTF-8 BOM
+      csv += 'ID,កាលបរិច្ឆេទ,ឈ្មោះអ្នកអនុវត្ត,តួនាទី,គណនី,សកម្មភាព,ប្រភេទគោលដៅ,ឈ្មោះគោលដៅ,ព័ត៌មានលម្អិត' + String.fromCharCode(10);
+      auditLogsData.forEach(l => {
+        const dateStr = new Date(l.timestamp).toLocaleString();
+        const row = [
+          l.id,
+          '"' + dateStr.replace(/"/g, '""') + '"',
+          '"' + (l.userName || '').replace(/"/g, '""') + '"',
+          '"' + (l.userRole || '').replace(/"/g, '""') + '"',
+          '"' + (l.userId || '').replace(/"/g, '""') + '"',
+          l.action,
+          '"' + (l.targetType || '').replace(/"/g, '""') + '"',
+          '"' + (l.targetName || '').replace(/"/g, '""') + '"',
+          '"' + (l.details || '').replace(/"/g, '""') + '"'
+        ];
+        csv += row.join(',') + String.fromCharCode(10);
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'New_Vision_Audit_Trail_' + new Date().toISOString().slice(0, 10) + '.csv';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function clearAuditLogsConfirm() {
+      if (currentAuthUser?.role !== 'director') {
+        alert('មានតែនាយកសាលាទេ ទើបអាចសម្អាតកំណត់ត្រាប្រវត្តិបាន!');
+        return;
+      }
+      if (!confirm('តើលោកនាយកពិតជាចង់សម្អាតកំណត់ត្រាប្រវត្តិ Audit Trail ទាំងអស់មែនទេ? សកម្មភាពនេះមិនអាចត្រឡប់ក្រោយបានទេ។')) return;
+      auditLogsData = [];
+      saveState();
+      renderAuditLogsTable();
+      alert('បានសម្អាតកំណត់ត្រាប្រវត្តិរួចរាល់!');
+    }
+
+
+    // =========================================================================
+    // CATEGORY CRUD MANAGEMENT (ADD / EDIT / DELETE)
+    // =========================================================================
+    function renderCategoriesTable() {
+      const tbody = document.getElementById('categoriesTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const countBadge = document.getElementById('catTotalBadge');
+      if (countBadge) countBadge.textContent = categoriesData.length + ' ប្រភេទ';
+
+      if (categoriesData.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" class="py-6 text-center text-slate-400">មិនទាន់មានប្រភេទសម្ភារៈនៅឡើយទេ</td></tr>';
+        return;
+      }
+
+      categoriesData.forEach((cat, idx) => {
+        const itemCount = masterData.filter(x => x.category === cat).length;
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-50 border-b border-slate-100 transition';
+        tr.innerHTML = '<td class="py-2.5 px-3 text-center font-bold text-slate-400 font-mono">' + (idx + 1) + '</td>' +
+          '<td class="py-2.5 px-3"><div class="font-bold text-slate-800 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-teal-500"></span><span>' + cat + '</span></div></td>' +
+          '<td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold font-mono ' + (itemCount > 0 ? 'bg-indigo-50 text-indigo-700' : 'bg-slate-100 text-slate-500') + '">' + itemCount + ' មុខ</span></td>' +
+          '<td class="py-2.5 px-3 text-center"><div class="flex items-center justify-center gap-1.5">' +
+          '<button type="button" class="btn-edit-cat w-7 h-7 rounded-lg bg-teal-50 text-teal-700 hover:bg-teal-100 flex items-center justify-center transition" title="កែប្រែ"><i class="fa-solid fa-pen text-xs"></i></button>' +
+          '<button type="button" class="btn-del-cat w-7 h-7 rounded-lg bg-rose-50 text-rose-700 hover:bg-rose-100 flex items-center justify-center transition" title="លុប"><i class="fa-solid fa-trash text-xs"></i></button>' +
+          '</div></td>';
+
+        tr.querySelector('.btn-edit-cat').addEventListener('click', () => openModalCategory(cat));
+        tr.querySelector('.btn-del-cat').addEventListener('click', () => handleDeleteCategory(cat));
+        tbody.appendChild(tr);
+      });
+    }
+
+    function openModalCategory(catName = null) {
+      if (catName) {
+        if (!hasPermission('edit')) {
+          alert('⚠️ លោកអ្នកមិនមានសិទ្ធិកែប្រែប្រភេទសម្ភារៈទេ! សូមទាក់ទងលោកនាយកសាលា។');
+          return;
+        }
+        document.getElementById('modalCategoryTitle').innerHTML = '<i class="fa-solid fa-tags text-teal-300 mr-2"></i>កែប្រែប្រភេទសម្ភារៈ';
+        document.getElementById('editCategoryOldName').value = catName;
+        document.getElementById('categoryNameInput').value = catName;
+      } else {
+        if (!hasPermission('create')) {
+          alert('⚠️ លោកអ្នកមិនមានសិទ្ធិបង្កើតប្រភេទសម្ភារៈថ្មីទេ! សូមទាក់ទងលោកនាយកសាលា។');
+          return;
+        }
+        document.getElementById('modalCategoryTitle').innerHTML = '<i class="fa-solid fa-tags text-teal-300 mr-2"></i>បន្ថែមប្រភេទសម្ភារៈថ្មី';
+        document.getElementById('editCategoryOldName').value = '';
+        document.getElementById('categoryNameInput').value = '';
+      }
+      openModal('modalCategory');
+    }
+
+    function handleSaveCategory(e) {
+      e.preventDefault();
+      const oldName = document.getElementById('editCategoryOldName').value;
+      const newName = document.getElementById('categoryNameInput').value.trim();
+
+      if (!newName) {
+        alert('សូមបញ្ចូលឈ្មោះប្រភេទសម្ភារៈ!');
+        return;
+      }
+
+      if (oldName) {
+        // Edit existing
+        if (!hasPermission('edit')) {
+          alert('លោកអ្នកមិនមានសិទ្ធិកែប្រែទេ!');
+          return;
+        }
+        const idx = categoriesData.indexOf(oldName);
+        if (idx !== -1) {
+          categoriesData[idx] = newName;
+          // Update masterData items with old category
+          let updatedCount = 0;
+          masterData.forEach(it => {
+            if (it.category === oldName) {
+              it.category = newName;
+              updatedCount++;
+            }
+          });
+          logAuditEvent('UPDATE', 'ប្រភេទសម្ភារៈ', newName, 'កែប្រែពី "' + oldName + '" ទៅជា "' + newName + '" (ប៉ះពាល់សម្ភារៈ ' + updatedCount + ' មុខ)');
+        }
+      } else {
+        // Add new
+        if (!hasPermission('create')) {
+          alert('លោកអ្នកមិនមានសិទ្ធិបន្ថែមទេ!');
+          return;
+        }
+        if (categoriesData.includes(newName)) {
+          alert('ប្រភេទសម្ភារៈ "' + newName + '" នេះមានរួចហើយ!');
+          return;
+        }
+        categoriesData.push(newName);
+        logAuditEvent('CREATE', 'ប្រភេទសម្ភារៈ', newName, 'បានបន្ថែមប្រភេទសម្ភារៈថ្មីក្នុងប្រព័ន្ធ');
+      }
+
+      saveState();
+      updateCategoryAndLocationDropdowns();
+      renderCategoriesTable();
+      renderInventoryTable();
+      closeModal('modalCategory');
+      alert('🎉 បានរក្សាទុកប្រភេទសម្ភារៈដោយជោគជ័យ!');
+    }
+
+    function handleDeleteCategory(catName) {
+      if (!hasPermission('delete')) {
+        alert('⚠️ លោកអ្នកមិនមានសិទ្ធិលុបប្រភេទសម្ភារៈទេ! មានតែគណនីដែលមានសិទ្ធិ Delete ប៉ុណ្ណោះដែលអាចលុបបាន។');
+        return;
+      }
+
+      const count = masterData.filter(x => x.category === catName).length;
+      if (count > 0) {
+        alert('⚠️ មិនអាចលុបប្រភេទនេះបានទេ! មានសម្ភារៈចំនួន ' + count + ' មុខកំពុងប្រើប្រាស់ប្រភេទ "' + catName + '" នេះ។ សូមប្តូរប្រភេទសម្ភារៈទាំងនោះជាមុនសិន។');
+        return;
+      }
+
+      if (!confirm('តើលោកអ្នកពិតជាចង់លុបប្រភេទសម្ភារៈ "' + catName + '" នេះមែនទេ?')) return;
+
+      categoriesData = categoriesData.filter(c => c !== catName);
+      saveState();
+      updateCategoryAndLocationDropdowns();
+      renderCategoriesTable();
+      logAuditEvent('DELETE', 'ប្រភេទសម្ភារៈ', catName, 'បានលុបប្រភេទសម្ភារៈចេញពីប្រព័ន្ធ');
+      alert('🗑️ បានលុបប្រភេទសម្ភារៈរួចរាល់!');
+    }
+
+
+    // =========================================================================
+    // STAFF & CUSTODY DENSE TABLE & DETAILED HISTORY MODAL
+    // =========================================================================
+    function renderStaffTable() {
+      const tbody = document.getElementById('staffTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const search = (document.getElementById('searchStaffInput')?.value || '').toLowerCase().trim();
+      const deptFilter = document.getElementById('filterStaffDept')?.value || '';
+
+      // Update dept filter options dynamically
+      const deptSel = document.getElementById('filterStaffDept');
+      if (deptSel && deptSel.options.length <= 1) {
+        const depts = [...new Set(staffData.map(s => s.dept).filter(Boolean))].sort();
+        depts.forEach(d => {
+          const opt = document.createElement('option');
+          opt.value = d;
+          opt.textContent = d;
+          deptSel.appendChild(opt);
+        });
+      }
+
+      const filtered = staffData.filter(s => {
+        const matchDept = !deptFilter || s.dept === deptFilter;
+        const matchSearch = !search ||
+          (s.name && s.name.toLowerCase().includes(search)) ||
+          (s.id && s.id.toLowerCase().includes(search)) ||
+          (s.phone && s.phone.toLowerCase().includes(search)) ||
+          (s.role && s.role.toLowerCase().includes(search));
+        return matchDept && matchSearch;
+      });
+
+      const badge = document.getElementById('staffCountBadge');
+      if (badge) badge.textContent = filtered.length + ' នាក់';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="py-8 text-center text-slate-400">មិនមានបុគ្គលិកត្រូវនឹងការស្វែងរកទេ</td></tr>';
+        return;
+      }
+
+      filtered.forEach((s, idx) => {
+        // Compute statistics from stockOutData
+        const allReqs = stockOutData.filter(x => x.reqName === s.name || x.requestedBy === s.name);
+        const approvedReqs = allReqs.filter(x => x.status === 'បានអនុម័ត');
+        const rejectedReqs = allReqs.filter(x => x.status === 'បដិសេធ');
+        const possessedQty = approvedReqs.reduce((sum, r) => sum + Number(r.qty || 0), 0);
+
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-sky-50/50 border-b border-slate-100 transition cursor-pointer';
+
+        tr.innerHTML = '<td class="py-2.5 px-3 text-center font-mono font-bold text-slate-400">' + (idx + 1) + '</td>' +
+          '<td class="py-2.5 px-3 font-mono font-bold text-sky-700 bg-sky-50/40">' + s.id + '</td>' +
+          '<td class="py-2.5 px-3"><div class="font-bold text-slate-800">' + s.name + '</div><div class="text-[10px] text-slate-400">' + (s.role || 'បុគ្គលិក') + '</div></td>' +
+          '<td class="py-2.5 px-3 text-slate-600 font-medium">' + (s.dept || '-') + '</td>' +
+          '<td class="py-2.5 px-3 font-mono text-slate-600 font-semibold">' + (s.phone || '-') + '</td>' +
+          '<td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold font-mono ' + (approvedReqs.length > 0 ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-400') + '">' + approvedReqs.length + ' មុខ (' + possessedQty + ')</span></td>' +
+          '<td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold font-mono bg-slate-100 text-slate-700">' + allReqs.length + ' លើក</span></td>' +
+          '<td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold font-mono ' + (approvedReqs.length > 0 ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-100 text-slate-400') + '">' + approvedReqs.length + '</span></td>' +
+          '<td class="py-2.5 px-3 text-center"><span class="px-2 py-0.5 rounded-full text-xs font-bold font-mono ' + (rejectedReqs.length > 0 ? 'bg-rose-100 text-rose-700' : 'bg-slate-100 text-slate-400') + '">' + rejectedReqs.length + '</span></td>' +
+          '<td class="py-2.5 px-3 text-center"><div class="flex items-center justify-center gap-1.5">' +
+          '<button type="button" class="btn-detail-staff px-2.5 py-1 rounded-lg bg-sky-600 hover:bg-sky-700 text-white font-bold text-[10.5px] shadow-xs flex items-center gap-1 transition" title="មើលប្រវត្តិ & សម្ភារៈកាន់កាប់"><i class="fa-solid fa-eye text-[10px]"></i> មើលប្រវត្តិ</button>' +
+          (currentAuthUser?.role === 'director' ? '<button type="button" class="btn-del-staff w-7 h-7 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 flex items-center justify-center text-xs transition" title="លុប"><i class="fa-solid fa-trash"></i></button>' : '') +
+          '</div></td>';
+
+        // Clicking row opens detail modal
+        tr.addEventListener('click', (e) => {
+          if (e.target.closest('button')) return; // handled by button
+          openModalStaffDetail(s.id);
+        });
+
+        tr.querySelector('.btn-detail-staff').addEventListener('click', () => openModalStaffDetail(s.id));
+        const delBtn = tr.querySelector('.btn-del-staff');
+        if (delBtn) delBtn.addEventListener('click', () => deleteStaff(s.id));
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    function filterStaffTable() {
+      renderStaffTable();
+    }
+
+    // Alias for compatibility
+    // renderStaffGrid is defined above
+
+    function openModalStaffDetail(staffId) {
+      const s = staffData.find(x => x.id === staffId);
+      if (!s) return;
+
+      const allReqs = stockOutData.filter(x => x.reqName === s.name || x.requestedBy === s.name);
+      const approvedReqs = allReqs.filter(x => x.status === 'បានអនុម័ត');
+      const rejectedReqs = allReqs.filter(x => x.status === 'បដិសេធ');
+      const possessedQty = approvedReqs.reduce((sum, r) => sum + Number(r.qty || 0), 0);
+
+      // Header
+      document.getElementById('staffDetailName').textContent = s.name;
+      document.getElementById('staffDetailIdBadge').textContent = s.id;
+      document.getElementById('staffDetailRoleDept').textContent = (s.role || 'បុគ្គលិក') + ' • ' + (s.dept || 'សាលារៀន ញូវវីសិន') + (s.phone ? ' • ' + s.phone : '');
+
+      // KPI cards
+      document.getElementById('statDetailTotalReq').textContent = allReqs.length;
+      document.getElementById('statDetailApproved').textContent = approvedReqs.length;
+      document.getElementById('statDetailRejected').textContent = rejectedReqs.length;
+      document.getElementById('statDetailPossessed').textContent = approvedReqs.length;
+
+      // Table A: Currently Possessed
+      const possessedTbody = document.getElementById('staffDetailPossessedTbody');
+      possessedTbody.innerHTML = '';
+      if (approvedReqs.length === 0) {
+        possessedTbody.innerHTML = '<tr><td colspan="4" class="py-4 text-center text-slate-400 italic">មិនមានសម្ភារៈកំពុងកាន់កាប់ជាក់ស្តែងទេ</td></tr>';
+      } else {
+        approvedReqs.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50';
+          const dateStr = r.createdAt ? new Date(r.createdAt).toLocaleDateString('km-KH') : (r.date || '-');
+          tr.innerHTML = '<td class="py-2 px-3 font-bold text-slate-800">' + r.itemName + '</td>' +
+            '<td class="py-2 px-3 text-center font-bold text-sky-700 font-mono">' + r.qty + '</td>' +
+            '<td class="py-2 px-3 font-mono text-slate-500 text-[11px]">' + dateStr + '</td>' +
+            '<td class="py-2 px-3 text-slate-600">' + (r.purpose || r.branchName || '-') + '</td>';
+          possessedTbody.appendChild(tr);
+        });
+      }
+
+      // Table B: Full Request History
+      const historyTbody = document.getElementById('staffDetailHistoryTbody');
+      historyTbody.innerHTML = '';
+      if (allReqs.length === 0) {
+        historyTbody.innerHTML = '<tr><td colspan="6" class="py-4 text-center text-slate-400 italic">មិនទាន់មានប្រវត្តិស្នើសុំដកសម្ភារៈនៅឡើយទេ</td></tr>';
+      } else {
+        const sorted = [...allReqs].reverse();
+        sorted.forEach(r => {
+          const tr = document.createElement('tr');
+          tr.className = 'hover:bg-slate-50';
+          const dateStr = r.createdAt ? new Date(r.createdAt).toLocaleString('km-KH', { dateStyle: 'short', timeStyle: 'short' }) : (r.date || '-');
+
+          let statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800">រង់ចាំអនុម័ត</span>';
+          if (r.status === 'បានអនុម័ត') {
+            statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800">បានអនុម័ត</span>';
+          } else if (r.status === 'បដិសេធ') {
+            statusBadge = '<span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800">បដិសេធ</span>';
+          }
+
+          tr.innerHTML = '<td class="py-2 px-3 font-mono text-slate-500 text-[11px]">' + dateStr + '</td>' +
+            '<td class="py-2 px-3 font-bold text-slate-800">' + r.itemName + '</td>' +
+            '<td class="py-2 px-3 text-center font-bold font-mono">' + r.qty + '</td>' +
+            '<td class="py-2 px-3 text-slate-600">' + (r.purpose || '-') + '</td>' +
+            '<td class="py-2 px-3 text-center">' + statusBadge + '</td>' +
+            '<td class="py-2 px-3 text-slate-500 text-[11px]">' + (r.apprName || '-') + '</td>';
+          historyTbody.appendChild(tr);
+        });
+      }
+
+      openModal('modalStaffDetail');
     }
 
     // =========================================================================
     // 13. TELEGRAM BOT ALERTS & SUPABASE REAL-TIME CLOUD
     // =========================================================================
-    async function sendTelegramAlert(htmlMessage) {
-      if (!telegramConfig.enabled || !telegramConfig.token || !telegramConfig.chatId) return;
+    async function sendTelegramAlert(htmlMessage, targetRole = 'director') {
+      if (!telegramConfig.enabled || !telegramConfig.token) return;
+      
+      let targetChatId = telegramConfig.directorChatId || telegramConfig.chatId;
+      if (targetRole === 'stock') {
+        targetChatId = telegramConfig.stockKeeperChatId || telegramConfig.chatId;
+      } else if (targetRole === 'staff') {
+        targetChatId = telegramConfig.staffGroupChatId || telegramConfig.chatId;
+      }
+
+      if (!targetChatId) return;
+
       const url = 'https://api.telegram.org/bot' + telegramConfig.token + '/sendMessage';
       try {
         await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            chat_id: telegramConfig.chatId,
+            chat_id: targetChatId,
             text: htmlMessage,
             parse_mode: 'HTML'
           })
@@ -3347,23 +4384,50 @@
     function saveTelegramConfig() {
       const enabled = document.getElementById('settingsTgEnabled')?.checked || false;
       const token = (document.getElementById('settingsTgToken')?.value || '').trim();
-      const chatId = (document.getElementById('settingsTgChatId')?.value || '').trim();
+      const stockKeeperChatId = (document.getElementById('settingsTgStockChatId')?.value || '').trim();
+      const directorChatId = (document.getElementById('settingsTgDirectorChatId')?.value || '').trim();
+      const staffGroupChatId = (document.getElementById('settingsTgStaffChatId')?.value || '').trim();
 
-      telegramConfig = { enabled, token, chatId };
+      telegramConfig = {
+        enabled,
+        token,
+        stockKeeperChatId,
+        directorChatId,
+        staffGroupChatId,
+        chatId: directorChatId || stockKeeperChatId
+      };
       localStorage.setItem('nv_telegram_config_v2', JSON.stringify(telegramConfig));
-      alert('🎉 បានរក្សាទុកការកំណត់ Telegram រួចរាល់!');
+      alert('🎉 បានរក្សាទុកការកំណត់ Telegram (3-Tier Roles) រួចរាល់!');
     }
 
-    function testTelegramAlert() {
+    function testTelegramAlert(role = 'director') {
       saveTelegramConfig();
-      if (!telegramConfig.token || !telegramConfig.chatId) {
-        alert('សូមបំពេញ Bot Token និង Chat ID ជាមុនសិន!');
+      if (!telegramConfig.token) {
+        alert('សូមបញ្ចូល Bot Token ជាមុនសិន!');
         return;
       }
-      sendTelegramAlert('<b>🔔 សាកល្បង Telegram Alert</b>\nប្រព័ន្ធគ្រប់គ្រងស្តុក សាលារៀន ញូវវីសិន V2.0 បានភ្ជាប់ជោគជ័យ!');
-      alert('បានផ្ញើសារសាកល្បងទៅកាន់ Telegram!');
-    }
 
+      let roleLabel = 'នាយកសាលា (Director)';
+      let targetChat = telegramConfig.directorChatId || telegramConfig.chatId;
+      if (role === 'stock') {
+        roleLabel = 'អ្នកកាន់ស្តុក (Stock Keeper)';
+        targetChat = telegramConfig.stockKeeperChatId;
+      }
+
+      if (!targetChat) {
+        alert('សូមបញ្ចូល Chat ID សម្រាប់ ' + roleLabel + ' ជាមុនសិន!');
+        return;
+      }
+
+      const testMsg = '<b>🔔 សាកល្បង Telegram Alert (' + roleLabel + ')</b>' + String.fromCharCode(10) +
+        '🏫 សាលារៀន ញូវវីសិន (New Vision School)' + String.fromCharCode(10) +
+        '-----------------------------------------' + String.fromCharCode(10) +
+        'ប្រព័ន្ធសារពើភ័ណ្ឌបានតភ្ជាប់ជាមួយគណនី Telegram របស់អ្នកដោយជោគជ័យ!' + String.fromCharCode(10) +
+        '⏰ ម៉ោង: ' + new Date().toLocaleTimeString('km-KH');
+
+      sendTelegramAlert(testMsg, role);
+      alert('បានផ្ញើសារសាកល្បងទៅកាន់ ' + roleLabel + ' (Chat ID: ' + targetChat + ')!');
+    }
     function initSupabaseClient() {
       if (window.supabase && supabaseConfig.url && supabaseConfig.key) {
         try {
@@ -3598,22 +4662,62 @@
     // =========================================================================
     function toggleSidebar(open = null) {
       const sidebar = document.getElementById('appSidebar');
+      const container = document.getElementById('appContainer');
       const overlay = document.getElementById('sidebarOverlay');
       if (!sidebar) return;
+
       const isCurrentlyOpen = !sidebar.classList.contains('-translate-x-full');
       const target = (open !== null) ? open : !isCurrentlyOpen;
+      const isDesktop = window.innerWidth >= 1024;
+
       if (target) {
         sidebar.classList.remove('-translate-x-full');
-        if (overlay) overlay.classList.remove('hidden');
+        if (container) {
+          container.classList.add('lg:ml-64');
+        }
+        if (overlay) {
+          if (isDesktop) {
+            overlay.classList.add('hidden');
+          } else {
+            overlay.classList.remove('hidden');
+          }
+        }
+        localStorage.setItem('nv_sidebar_open', 'true');
       } else {
         sidebar.classList.add('-translate-x-full');
-        if (overlay) overlay.classList.add('hidden');
+        if (container) {
+          container.classList.remove('lg:ml-64');
+        }
+        if (overlay) {
+          overlay.classList.add('hidden');
+        }
+        localStorage.setItem('nv_sidebar_open', 'false');
       }
     }
 
     function switchTab(tabId) {
       activeTabId = tabId;
       const tabs = ['dashboard', 'inventory', 'stockIn', 'stockOut', 'staff', 'reports', 'settings'];
+
+      const tabTitles = {
+        dashboard: 'ផ្ទាំងគ្រប់គ្រង (Dashboard)',
+        inventory: 'បញ្ជីស្តុកសម្ភារៈ (Inventory)',
+        stockIn: 'នាំចូលស្តុក (Stock In)',
+        stockOut: 'ស្នើសុំ & ចេញស្តុក (Requests)',
+        staff: 'បុគ្គលិក & កាន់កាប់ (Staff & Custody)',
+        reports: 'របាយការណ៍ (Reports)',
+        settings: 'ការកំណត់ (Settings)'
+      };
+
+      const tabIcons = {
+        dashboard: 'fa-chart-pie',
+        inventory: 'fa-boxes-stacked',
+        stockIn: 'fa-dolly',
+        stockOut: 'fa-arrow-up-from-bracket',
+        staff: 'fa-users-rectangle',
+        reports: 'fa-file-invoice',
+        settings: 'fa-sliders'
+      };
 
       tabs.forEach(t => {
         const view = document.getElementById('view-' + t);
@@ -3630,32 +4734,52 @@
 
         if (btn) {
           if (t === tabId) {
-            btn.className = 'tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-md bg-gradient-to-r from-purple-800 to-indigo-900 text-white scale-102';
+            btn.className = 'tab-btn px-3 py-1.5 rounded-xl flex items-center gap-2 font-bold transition shadow-xs bg-indigo-50 text-indigo-700 border border-indigo-200/90 cursor-pointer';
           } else {
-            btn.className = 'tab-btn px-3.5 py-2 rounded-xl flex items-center gap-2 font-bold transition shadow-xs text-slate-700 bg-slate-100 hover:bg-slate-200 border border-slate-200/60';
+            btn.className = 'tab-btn px-3 py-1.5 rounded-xl flex items-center gap-2 font-semibold transition text-slate-600 hover:text-slate-900 hover:bg-slate-100 border border-transparent cursor-pointer';
           }
         }
 
         if (sideBtn) {
           if (t === tabId) {
-            sideBtn.className = 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl bg-purple-800/90 text-white font-bold transition shadow-sm border border-purple-500/50';
+            sideBtn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-lg bg-indigo-600 text-white font-bold transition shadow-xs cursor-pointer';
           } else {
-            sideBtn.className = 'w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition';
+            sideBtn.className = 'w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-slate-800 text-slate-300 hover:text-white transition cursor-pointer';
           }
         }
       });
 
-      if (tabId === 'reports') {
-        generateReportPreview();
+      // Update Breadcrumb in Header
+      const bc = document.getElementById('activeViewBreadcrumb');
+      if (bc) {
+        bc.innerHTML = '<i class="fa-solid ' + (tabIcons[tabId] || 'fa-folder') + ' text-amber-400 text-xs"></i> <span>' + (tabTitles[tabId] || tabId) + '</span>';
       }
 
+      if (tabId === 'dashboard') calculateAndRenderAll();
+      if (tabId === 'inventory') renderInventoryTable();
+      if (tabId === 'stockIn') renderStockInTable();
+      if (tabId === 'stockOut') renderStockOutTable();
+      if (tabId === 'staff') renderStaffTable();
+      if (tabId === 'reports') {
+        if (typeof generateReportPreview === 'function') generateReportPreview();
+      }
       if (tabId === 'settings') {
+        renderBranchesTable();
+        renderUserAccountsTable();
+        renderCategoriesTable();
+        renderAuditLogsTable();
+
         const tgToggle = document.getElementById('settingsTgEnabled');
         const tgToken = document.getElementById('settingsTgToken');
-        const tgChat = document.getElementById('settingsTgChatId');
+        const tgStock = document.getElementById('settingsTgStockChatId');
+        const tgDir = document.getElementById('settingsTgDirectorChatId');
+        const tgStaff = document.getElementById('settingsTgStaffChatId');
+
         if (tgToggle) tgToggle.checked = telegramConfig.enabled;
         if (tgToken) tgToken.value = telegramConfig.token || '';
-        if (tgChat) tgChat.value = telegramConfig.chatId || '';
+        if (tgStock) tgStock.value = telegramConfig.stockKeeperChatId || '';
+        if (tgDir) tgDir.value = telegramConfig.directorChatId || telegramConfig.chatId || '';
+        if (tgStaff) tgStaff.value = telegramConfig.staffGroupChatId || '';
 
         const sbUrl = document.getElementById('sbUrlInput');
         const sbKey = document.getElementById('sbKeyInput');
@@ -3664,9 +4788,7 @@
       }
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function generateReportPreview() {
+    }   function generateReportPreview() {
       const typeSel = document.getElementById('reportTypeSelect');
       const branchSel = document.getElementById('reportBranchSelect');
       const dateInput = document.getElementById('reportDateInput');
@@ -3889,6 +5011,139 @@
       window.print();
     }
 
+    
+    // --- TABLE DENSITY CONTROLS (COMPACT VS COMFORTABLE) ---
+    function setTableDensity(mode = 'comfortable') {
+      const invTable = document.getElementById('inventoryTable');
+      const inTable = document.getElementById('stockInTable');
+      const outTable = document.getElementById('stockOutTable');
+      const btnNorm = document.getElementById('btnDensityNormal');
+      const btnComp = document.getElementById('btnDensityCompact');
+
+      [invTable, inTable, outTable].forEach(tbl => {
+        if (!tbl) return;
+        if (mode === 'compact') {
+          tbl.classList.remove('comfortable-mode');
+          tbl.classList.add('compact-mode');
+        } else {
+          tbl.classList.remove('compact-mode');
+          tbl.classList.add('comfortable-mode');
+        }
+      });
+
+      if (btnNorm && btnComp) {
+        if (mode === 'compact') {
+          btnComp.className = 'px-2 py-0.5 rounded-md text-[10.5px] font-bold bg-white text-indigo-700 shadow-xs cursor-pointer';
+          btnNorm.className = 'px-2 py-0.5 rounded-md text-[10.5px] font-semibold text-slate-500 hover:text-slate-800 cursor-pointer';
+        } else {
+          btnNorm.className = 'px-2 py-0.5 rounded-md text-[10.5px] font-bold bg-white text-indigo-700 shadow-xs cursor-pointer';
+          btnComp.className = 'px-2 py-0.5 rounded-md text-[10.5px] font-semibold text-slate-500 hover:text-slate-800 cursor-pointer';
+        }
+      }
+
+      localStorage.setItem('nv_density_mode', mode);
+    }
+
+    // --- SPOTLIGHT & QUICK BARCODE SEARCH (CTRL + K) ---
+    function openSpotlightSearch() {
+      const m = document.getElementById('modalSpotlightSearch');
+      const inp = document.getElementById('spotlightInput');
+      if (m) m.classList.remove('hidden');
+      if (inp) {
+        inp.value = '';
+        setTimeout(() => inp.focus(), 60);
+      }
+      handleSpotlightSearch('');
+    }
+
+    function closeSpotlightSearch() {
+      const m = document.getElementById('modalSpotlightSearch');
+      if (m) m.classList.add('hidden');
+    }
+
+    function handleSpotlightSearch(query) {
+      const q = (query || '').toLowerCase().trim();
+      const resContainer = document.getElementById('spotlightResults');
+      const countBadge = document.getElementById('spotlightMatchCount');
+      if (!resContainer) return;
+
+      const allItems = getProcessedMaster();
+      let matches = allItems;
+      if (q) {
+        matches = allItems.filter(x => 
+          x.id.toLowerCase().includes(q) ||
+          x.name.toLowerCase().includes(q) ||
+          (x.category && x.category.toLowerCase().includes(q)) ||
+          (x.room && x.room.toLowerCase().includes(q)) ||
+          (x.building && x.building.toLowerCase().includes(q))
+        );
+      }
+
+      if (countBadge) countBadge.textContent = matches.length + ' លទ្ធផល';
+
+      if (matches.length === 0) {
+        resContainer.innerHTML = '<div class="p-8 text-center text-slate-400 font-semibold"><i class="fa-solid fa-box-open text-2xl mb-2 text-slate-300"></i><p>មិនមានសម្ភារៈស្របតាមពាក្យស្វែងរក "' + (q || '') + '" ឡើយ</p></div>';
+        return;
+      }
+
+      const displayItems = matches.slice(0, 15);
+      resContainer.innerHTML = displayItems.map(it => {
+        const loc = [it.building, it.floor, it.room].filter(Boolean).join(' • ') || 'មិនទាន់កំណត់ទីតាំង';
+        const isWarn = it.balance <= Number(it.minStock || 0);
+        const stBadge = it.balance <= 0
+          ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-50 text-rose-700 border border-rose-200"><span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>អស់ពីស្តុក</span>'
+          : (isWarn
+            ? '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-50 text-amber-700 border border-amber-200"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>ជិតអស់</span>'
+            : '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>គ្រប់គ្រាន់</span>');
+
+        return '<div class="p-2.5 hover:bg-slate-50 transition rounded-xl flex items-center justify-between gap-3 cursor-pointer" data-id="' + it.id + '" onclick="closeSpotlightSearch(); openModalItemDetail(this.dataset.id);">' +
+          '<div class="flex items-center gap-3 min-w-0">' +
+            '<div class="w-9 h-9 rounded-xl bg-indigo-50 border border-indigo-100 flex items-center justify-center font-mono font-bold text-indigo-700 text-xs shrink-0">' +
+              '<i class="fa-solid fa-box text-sm"></i>' +
+            '</div>' +
+            '<div class="min-w-0">' +
+              '<div class="flex items-center gap-2">' +
+                '<span class="font-bold text-slate-900 text-xs truncate">' + it.name + '</span>' +
+                '<span class="font-mono text-[10px] bg-slate-100 text-slate-700 px-1.5 py-0.5 rounded border border-slate-200 font-bold shrink-0">' + it.id + '</span>' +
+              '</div>' +
+              '<p class="text-[11px] text-slate-500 truncate mt-0.5">' +
+                '<i class="fa-solid fa-location-dot text-indigo-500 text-[10px] mr-1"></i>' + (it.branchName || '') + ' • ' + loc +
+              '</p>' +
+            '</div>' +
+          '</div>' +
+          '<div class="flex items-center gap-3 shrink-0">' +
+            '<div class="text-right">' +
+              '<div class="font-mono font-black text-xs text-slate-800">' + it.balance + ' ' + (it.unit || '') + '</div>' +
+              '<div class="mt-0.5">' + stBadge + '</div>' +
+            '</div>' +
+            '<button data-id="' + it.id + '" onclick="event.stopPropagation(); closeSpotlightSearch(); quickStockOutItem(this.dataset.id);" class="w-7 h-7 rounded-lg bg-amber-50 text-amber-700 hover:bg-amber-100 flex items-center justify-center text-xs transition cursor-pointer" title="ស្នើសុំដកសម្ភារៈ">' +
+              '<i class="fa-solid fa-arrow-up-from-bracket"></i>' +
+            '</button>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function quickStockOutItem(itemId) {
+      openModalStockOut();
+      const sel = document.getElementById('outItemId');
+      if (sel) {
+        sel.value = itemId;
+        onOutItemChange(itemId);
+      }
+    }
+
+    // Attach global keyboard shortcuts (Ctrl + K)
+    window.addEventListener('keydown', (e) => {
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'k' || e.key === 'K')) {
+        e.preventDefault();
+        openSpotlightSearch();
+      }
+      if (e.key === 'Escape') {
+        closeSpotlightSearch();
+      }
+    });
+
     function openModal(id) {
       const m = document.getElementById(id);
       if (m) m.classList.remove('hidden');
@@ -3908,6 +5163,8 @@
       updateAuthUI();
       calculateAndRenderAll();
       switchTab('dashboard');
+      const savedDensity = localStorage.getItem('nv_density_mode') || 'comfortable';
+      if (typeof setTableDensity === 'function') setTableDensity(savedDensity);
     });
 
   </script>
